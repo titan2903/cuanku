@@ -172,6 +172,11 @@ const messages = {
         description: 'You have sent too many requests in a given amount of time, please try again later.',
         status: 429,
     },
+    419: {
+        title: 'Page Expired',
+        description: 'The page has expired due to inactivity, please refresh and try again.',
+        status: 419,
+    },
 };
 
 export {
@@ -189,4 +194,5 @@ export {
     LIABILITYTYPEVARIANT,
     MONTHTYPE,
     MONTHTYPEVARIANTS,
+    messages,
 };
