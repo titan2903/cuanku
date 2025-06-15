@@ -21,11 +21,6 @@ export default function Create(props) {
         _method: props.page_settings.method,
     });
 
-    console.log('data', data);
-    console.log('errors', errors);
-    console.log('processing', processing);
-    console.log('method', props.page_settings.method);
-
     const onHandleChange = (e) => {
         setData(e.target.name, e.target.value);
     };

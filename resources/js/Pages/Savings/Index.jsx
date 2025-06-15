@@ -20,8 +20,6 @@ import { useState } from 'react';
 export default function Index(props) {
     const { data, meta, links } = props.goals;
     const [params, setParams] = useState(props.state);
-    console.log('props', props);
-    console.log('meta', meta);
 
     const onSortTable = (field) => {
         setParams({
