@@ -4,8 +4,8 @@ import {
     BreadcrumbItem,
     BreadcrumbLink,
     BreadcrumbList,
-    BreadcrumbSeparator,
     BreadcrumbPage,
+    BreadcrumbSeparator,
 } from '@/Components/ui/breadcrumb';
 import AppLayout from '@/Layouts/AppLayout';
 import { usePage } from '@inertiajs/react';

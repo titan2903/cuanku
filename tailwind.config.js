@@ -14,7 +14,7 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Pangolin', ...defaultTheme.fontFamily.sans],
+                sans: ['Open Sans', ...defaultTheme.fontFamily.sans],
             },
             borderRadius: {
                 lg: 'var(--radius)',
