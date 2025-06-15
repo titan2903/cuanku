@@ -1,13 +1,10 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
-import Checkbox from '@/Components/Checkbox';
 import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
 import { Alert, AlertDescription } from '@/Components/ui/alert';
+import { Button } from '@/Components/ui/button';
 import { Card, CardContent } from '@/Components/ui/card';
-import { Label } from '@/Components/ui/label';
 import { Input } from '@/Components/ui/input';
+import { Label } from '@/Components/ui/label';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Link, useForm } from '@inertiajs/react';
 
@@ -34,23 +31,19 @@ export default function Login({ status, canResetPassword }) {
                         <div className="flex flex-col gap-6">
                             <div className="flex flex-col items-center text-center">
                                 <ApplicationLogo />
-                                <h1 className="mt-6 text-2xl font-bold leading-relaxed">
-                                    Selamat Datang
-                                </h1>
+                                <h1 className="mt-6 text-2xl font-bold leading-relaxed">Selamat Datang</h1>
                                 <p className="text-sm text-muted-foreground">
                                     Masuk ke platform cuan untuk mengelola keuangan anda
                                 </p>
                                 {status && (
-                                    <Alert variant='success' className="my-2">
-                                        <AlertDescription>
-                                            {status}
-                                        </AlertDescription>
+                                    <Alert variant="success" className="my-2">
+                                        <AlertDescription>{status}</AlertDescription>
                                     </Alert>
                                 )}
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor='email'>Email</Label>
+                                <Label htmlFor="email">Email</Label>
                                 <Input
                                     id="email"
                                     type="email"
@@ -64,45 +57,43 @@ export default function Login({ status, canResetPassword }) {
                                 {errors.email && <InputError message={errors.email} />}
                             </div>
 
-                            <div className='grid gap-2'>
-                                <div className='flex items-center'>
-                                    <Label htmlFor='password'>Password</Label>
+                            <div className="grid gap-2">
+                                <div className="flex items-center">
+                                    <Label htmlFor="password">Password</Label>
                                     {canResetPassword && (
-                                        <Link href={route('password.request')} className='ml-auto text-sm underline-offset-2 hover:underline'>
+                                        <Link
+                                            href={route('password.request')}
+                                            className="ml-auto text-sm underline-offset-2 hover:underline"
+                                        >
                                             Lupa Password
                                         </Link>
                                     )}
-                                    <Input
-                                        id="password"
-                                        type="password"
-                                        name="password"
-                                        value={data.password}
-                                        placeholder="Masukkan password anda"
-                                        autoComplete="current-password"
-                                        onChange={(e) => setData('password', e.target.value)}
-                                    />
-                                    {errors.password && <InputError message={errors.password} />}
                                 </div>
+                                <Input
+                                    id="password"
+                                    type="password"
+                                    name="password"
+                                    value={data.password}
+                                    placeholder="Masukkan password anda"
+                                    autoComplete="current-password"
+                                    onChange={(e) => setData('password', e.target.value)}
+                                />
+                                {errors.password && <InputError message={errors.password} />}
+                            </div>
+                            <Button variant="emerald" type="submit" className="w-full" disabled={processing}>
+                                Login
+                            </Button>
+                            <div className="text-center text-sm">
+                                Tidak memiliki akun?
+                                <span className="ml-1.5">
+                                    <Link href={route('register')} className="underline underline-offset-4">
+                                        Register
+                                    </Link>
+                                </span>
                             </div>
                         </div>
 
-                        <div className="mt-4">
-                            <InputLabel htmlFor="password" value="Password" />
-
-                            <TextInput
-                                id="password"
-                                type="password"
-                                name="password"
-                                value={data.password}
-                                className="mt-1 block w-full"
-                                autoComplete="current-password"
-                                onChange={(e) => setData('password', e.target.value)}
-                            />
-
-                            <InputError message={errors.password} className="mt-2" />
-                        </div>
-
-                        <div className="mt-4 block">
+                        {/* <div className="mt-4 block">
                             <label className="flex items-center">
                                 <Checkbox
                                     name="remember"
@@ -111,27 +102,32 @@ export default function Login({ status, canResetPassword }) {
                                 />
                                 <span className="ms-2 text-sm text-gray-600">Remember me</span>
                             </label>
-                        </div>
-
-                        <div className="mt-4 flex items-center justify-end">
-                            {canResetPassword && (
-                                <Link
-                                    href={route('password.request')}
-                                    className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                                >
-                                    Forgot your password?
-                                </Link>
-                            )}
-
-                            <PrimaryButton className="ms-4" disabled={processing}>
-                                Log in
-                            </PrimaryButton>
-                        </div>
+                        </div> */}
                     </form>
+                    <div className="relative hidden bg-muted md:block">
+                        <img
+                            src="/images/bg.webp"
+                            alt="Image"
+                            className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+                        />
+                    </div>
                 </CardContent>
             </Card>
+            <div className="text-balance text-center text-sm text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary">
+                <p>
+                    Dengan masuk, Anda setuju dengan{' '}
+                    <Link href="#" className="underline">
+                        Syarat dan Ketentuan
+                    </Link>{' '}
+                    serta{' '}
+                    <Link href="#" className="underline">
+                        Kebijakan Privasi
+                    </Link>{' '}
+                    kami.
+                </p>
+            </div>
         </div>
     );
 }
 
-Login.layout = (page) => <GuestLayout title="Log in" children={page} />;
+Login.layout = (page) => <GuestLayout title="Masuk" children={page} />;

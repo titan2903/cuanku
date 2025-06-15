@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Inertia\Inertia;
@@ -29,5 +30,7 @@ class AppServiceProvider extends ServiceProvider
                 ];
             },
         ]);
+
+        JsonResource::withoutWrapping();
     }
 }

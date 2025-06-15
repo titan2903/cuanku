@@ -13,21 +13,21 @@ import {
     IconMoneybag,
     IconPigMoney,
 } from '@tabler/icons-react';
-export default function Sidebar({ url }) {
+export default function Sidebar({ auth, url }) {
     return (
         <nav className="flex flex-1 flex-col gap-y-6">
             <ApplicationLogo url="#" />
             <Card>
                 <CardContent className="flex items-center gap-x-3 p-3">
                     <Avatar>
-                        <AvatarImage src="#" />
-                        <AvatarFallback>X</AvatarFallback>
+                        <AvatarImage src={auth.avatar} />
+                        <AvatarFallback>{auth.name.substring(0, 1)}</AvatarFallback>
                     </Avatar>
                     <div className="flex flex-col">
                         <span className="line-clamp-1 text-sm font-medium leading-relaxed tracking-tighter">
-                            Monkey D. Luffy
+                            {auth.name}
                         </span>
-                        <span className="line-clamp-1 text-xs font-light">9834329jdskdjsjfiusfhuks093032</span>
+                        <span className="line-clamp-1 text-xs font-light">{auth.id}</span>
                     </div>
                 </CardContent>
             </Card>

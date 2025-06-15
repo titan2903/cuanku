@@ -9,6 +9,7 @@ import Sidebar from './Partials/Sidebar';
 
 export default function AppLayout({ title, children }) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const auth = usePage().props.auth.user;
     const { url } = usePage();
 
     return (
@@ -62,7 +63,7 @@ export default function AppLayout({ title, children }) {
                                     </Transition.Child>
                                     <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-2 dark:bg-background">
                                         {/*sidebar */}
-                                        <Sidebar url={url} />
+                                        <Sidebar auth={auth} url={url} />
                                     </div>
                                 </Dialog.Panel>
                             </Transition.Child>
@@ -73,7 +74,7 @@ export default function AppLayout({ title, children }) {
                 <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
                     <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-slate-50 px-4 dark:border-r dark:border-slate-700 dark:border-r-card dark:bg-background">
                         {/*sidebar */}
-                        <Sidebar url={url} />
+                        <Sidebar auth={auth} url={url} />
                     </div>
                 </div>
 
