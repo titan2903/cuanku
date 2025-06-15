@@ -1,4 +1,5 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
+import Checkbox from '@/Components/Checkbox';
 import InputError from '@/Components/InputError';
 import { Alert, AlertDescription } from '@/Components/ui/alert';
 import { Button } from '@/Components/ui/button';
@@ -7,6 +8,7 @@ import { Input } from '@/Components/ui/input';
 import { Label } from '@/Components/ui/label';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Link, useForm } from '@inertiajs/react';
+import { useState } from 'react';
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -22,6 +24,8 @@ export default function Login({ status, canResetPassword }) {
             onFinish: () => reset('password'),
         });
     };
+
+    const [showPassword, setShowPassword] = useState(false);
 
     return (
         <div className="flex flex-col gap-6">
@@ -69,16 +73,41 @@ export default function Login({ status, canResetPassword }) {
                                         </Link>
                                     )}
                                 </div>
-                                <Input
-                                    id="password"
-                                    type="password"
-                                    name="password"
-                                    value={data.password}
-                                    placeholder="Masukkan password anda"
-                                    autoComplete="current-password"
-                                    onChange={(e) => setData('password', e.target.value)}
-                                />
+                                <div className="relative">
+                                    <Input
+                                        id="password"
+                                        type={showPassword ? 'text' : 'password'}
+                                        name="password"
+                                        value={data.password}
+                                        placeholder="Masukkan password anda"
+                                        autoComplete="current-password"
+                                        onChange={(e) => setData('password', e.target.value)}
+                                        className="pr-10"
+                                    />
+                                    <button
+                                        type="button"
+                                        className="absolute inset-y-0 right-0 flex items-center pr-3"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                    >
+                                        {showPassword ? (
+                                            <span className="text-gray-400 hover:text-gray-600">🙈</span>
+                                        ) : (
+                                            <span className="text-gray-400 hover:text-gray-600">👁️</span>
+                                        )}
+                                    </button>
+                                </div>
                                 {errors.password && <InputError message={errors.password} />}
+
+                                <div className="mt-4 block">
+                                    <label className="flex items-center">
+                                        <Checkbox
+                                            name="remember"
+                                            checked={data.remember}
+                                            onChange={(e) => setData('remember', e.target.checked)}
+                                        />
+                                        <span className="ms-2 text-sm text-gray-600">Remember me</span>
+                                    </label>
+                                </div>
                             </div>
                             <Button variant="emerald" type="submit" className="w-full" disabled={processing}>
                                 Login
@@ -92,23 +121,12 @@ export default function Login({ status, canResetPassword }) {
                                 </span>
                             </div>
                         </div>
-
-                        {/* <div className="mt-4 block">
-                            <label className="flex items-center">
-                                <Checkbox
-                                    name="remember"
-                                    checked={data.remember}
-                                    onChange={(e) => setData('remember', e.target.checked)}
-                                />
-                                <span className="ms-2 text-sm text-gray-600">Remember me</span>
-                            </label>
-                        </div> */}
                     </form>
                     <div className="relative hidden bg-muted md:block">
                         <img
                             src="/images/bg.webp"
                             alt="Image"
-                            className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+                            className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.4] dark:grayscale"
                         />
                     </div>
                 </CardContent>

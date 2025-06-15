@@ -84,3 +84,5 @@ export default function ResetPassword({ token, email }) {
         </GuestLayout>
     );
 }
+
+ResetPassword.layout = (page) => <GuestLayout title="Reset Password" children={page} />;

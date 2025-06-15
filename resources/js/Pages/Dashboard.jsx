@@ -38,7 +38,7 @@ export default function Dashboard() {
                 </div>
                 <Avatar>
                     <AvatarImage src={auth.avatar} />
-                    <AvatarFallback>{auth.name.substring(0, 1)}</AvatarFallback>
+                    <AvatarFallback className="bg-black">{auth.name.substring(0, 1)}</AvatarFallback>
                 </Avatar>
             </div>
         </div>

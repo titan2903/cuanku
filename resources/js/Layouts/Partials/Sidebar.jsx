@@ -2,6 +2,7 @@ import ApplicationLogo from '@/Components/ApplicationLogo';
 import NavLink from '@/Components/NavLink';
 import { Avatar, AvatarFallback, AvatarImage } from '@/Components/ui/avatar';
 import { Card, CardContent } from '@/Components/ui/card';
+import { router } from '@inertiajs/react';
 import {
     IconCalendarEvent,
     IconChartArrowsVertical,
@@ -14,6 +15,19 @@ import {
     IconPigMoney,
 } from '@tabler/icons-react';
 export default function Sidebar({ auth, url }) {
+    const handleLogout = () => {
+        router.post(
+            '/logout',
+            {},
+            {
+                onSuccess: () => {
+                    // Session akan otomatis dihapus oleh Laravel di server
+                    console.log('Logged out successfully');
+                },
+            },
+        );
+    };
+
     return (
         <nav className="flex flex-1 flex-col gap-y-6">
             <ApplicationLogo url="#" />
@@ -41,7 +55,12 @@ export default function Sidebar({ auth, url }) {
                 />
 
                 <div className="px-3 py-2 text-sm font-medium text-muted-foreground">Rencana</div>
-                <NavLink url="#" active={url.startsWith('/goals')} title="Tujuan" icon={IconMoneybag} />
+                <NavLink
+                    url={route('goals.index')}
+                    active={url.startsWith('/goals')}
+                    title="Tujuan"
+                    icon={IconMoneybag}
+                />
 
                 <div className="px-3 py-2 text-sm font-medium text-muted-foreground">Pelacakan</div>
                 <NavLink url="#" active={url.startsWith('/budgets')} title="Anggaran" icon={IconChartArrowsVertical} />
@@ -70,11 +89,12 @@ export default function Sidebar({ auth, url }) {
 
                 <div className="px-3 py-2 text-sm font-medium text-muted-foreground">Lainnya</div>
                 <NavLink
-                    url="#"
+                    url="/login"
                     active={url.startsWith('/logout')}
                     title="Logout"
                     icon={IconLogout2}
                     className="w-full"
+                    onClick={handleLogout}
                 />
             </ul>
         </nav>
