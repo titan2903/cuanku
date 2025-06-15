@@ -5,8 +5,10 @@ import {
     BreadcrumbLink,
     BreadcrumbList,
     BreadcrumbSeparator,
+    BreadcrumbPage,
 } from '@/Components/ui/breadcrumb';
 import AppLayout from '@/Layouts/AppLayout';
+import { usePage } from '@inertiajs/react';
 
 export default function Dashboard() {
     const auth = usePage().props.auth.user;
@@ -43,4 +45,4 @@ export default function Dashboard() {
     );
 }
 
-Register.layout = (page) => <AppLayout title="Dashboard" children={page} />;
+Dashboard.layout = (page) => <AppLayout title="Dashboard" children={page} />;
