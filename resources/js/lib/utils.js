@@ -192,7 +192,7 @@ export {
     LIABILITYDESCRIPTION,
     LIABILITYTYPE,
     LIABILITYTYPEVARIANT,
+    messages,
     MONTHTYPE,
     MONTHTYPEVARIANTS,
-    messages,
 };
