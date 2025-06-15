@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\MessageType;
+use App\Http\Requests\GoalRequest;
 use App\Http\Resources\GoalResource;
 use App\Models\Goal;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Inertia\Response;
 use Illuminate\Support\Facades\Auth;
+use Throwable;
 
 class GoalController extends Controller implements HasMiddleware
 {
@@ -57,10 +61,51 @@ class GoalController extends Controller implements HasMiddleware
                 'load' => request()->load ?? 10,
             ],
             'items' => fn() => [
-                ['label' => 'Cuanku', 'href' => route('dashboard')],
+                ['label' => 'CuanKu💲', 'href' => route('dashboard')],
                 ['label' => 'Tabungan'],
             ],
-            'year'=> fn() => now()->year,
+            'year' => fn() => now()->year,
         ]);
+    }
+
+    public function create(): Response
+    {
+        return inertia('Savings/Create', [
+            'page_settings' => fn() => [
+                'title' => 'Buat Tujuan Menabung',
+                'subtitle' => 'Tetapkan tujuan menabung untuk masa depan yang lebih baik.',
+                'method' => 'POST',
+                'action' => route('goals.store'),
+                'banner' => [
+                    'title' => 'Buat Tujuan',
+                    'subtitle' => 'Mulailah perjalanan menabungmu hari ini.',
+                ]
+            ],
+            'items' => fn() => [
+                ['label' => 'CuanKu💲', 'href' => route('dashboard')],
+                ['label' => 'Tabungan', 'href' => route('goals.index')],
+                ['label' => 'Buat Tujuan Menabung'],
+            ],
+        ]);
+    }
+
+    public function store(GoalRequest $request): RedirectResponse
+    {
+        try{
+            Goal::create([
+                'user_id' => Auth::user()->id,
+                'name' => $request->name,
+                'nominal' => $request->nominal,
+                'monthly_saving' => $request->monthly_saving,
+                'deadline' => $request->deadline,
+                'beginning_balance' => $request->beginning_balance,
+            ]);
+
+            flashMessage(MessageType::CREATED->message('Tujuan'));
+            return to_route('goals.index');
+        }catch (Throwable $e){
+            flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
+            return to_route('goals.index');
+        }
     }
 }

@@ -14,11 +14,11 @@ class Goal extends Model
     protected $fillable = [
         'user_id',
         'name',
-        'percentage',
         'nominal',
         'monthly_saving',
         'deadline',
         'beginning_balance',
+        'percentage',
     ];
 
     public function user(): BelongsTo

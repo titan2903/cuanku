@@ -21,6 +21,7 @@ export default function Index(props) {
     const { data, meta, links } = props.goals;
     const [params, setParams] = useState(props.state);
     console.log('props', props);
+    console.log('meta', meta);
 
     const onSortTable = (field) => {
         setParams({
@@ -172,17 +173,43 @@ export default function Index(props) {
                             <TableBody>
                                 {data.map((goal, index) => (
                                     <TableRow key={index}>
-                                        <TableCell>{index + 1 + (meta.current - 1) * meta.per_page}</TableCell>
+                                        {/* Kolom 1: ID */}
+                                        <TableCell>
+                                            {index +
+                                                1 +
+                                                (Number(meta?.current ?? 1) - 1) * Number(meta?.per_page ?? 10)}
+                                        </TableCell>
+
+                                        {/* Kolom 2: Tujuan */}
+                                        <TableCell>{goal.name}</TableCell>
+
+                                        {/* Kolom 3: Persentase (hanya progress bar) */}
                                         <TableCell>
                                             <Progress value={goal.percentage} />
                                         </TableCell>
-                                        <TableCell>{goal.name}</TableCell>
-                                        <TableCell>{goal.percentage}</TableCell>
+
+                                        {/* KOLOM INI DIHAPUS KARENA DUPLIKAT
+              <TableCell>{goal.percentage}</TableCell> 
+            */}
+
+                                        {/* Kolom 4: Nominal */}
                                         <TableCell>{formatToRupiah(goal.nominal)}</TableCell>
+
+                                        {/* URUTAN DIPERBAIKI MULAI DARI SINI */}
+
+                                        {/* Kolom 5: Tabungan / Bulan */}
                                         <TableCell>{formatToRupiah(goal.monthly_saving)}</TableCell>
+
+                                        {/* Kolom 6: Tenggat Waktu */}
                                         <TableCell>{formatDateIndo(goal.deadline)}</TableCell>
+
+                                        {/* Kolom 7: Saldo Awal */}
                                         <TableCell>{formatToRupiah(goal.beginning_balance)}</TableCell>
+
+                                        {/* Kolom 8: Dibuat Pada */}
                                         <TableCell>{formatDateIndo(goal.created_at)}</TableCell>
+
+                                        {/* Kolom 9: Aksi */}
                                         <TableCell>
                                             <div className="flex items-center gap-x-1">
                                                 <Button variant="blue" size="sm" asChild>

@@ -23,7 +23,6 @@ class GoalRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'percentage' => 'required|numeric|min:0|max:100',
             'nominal' => 'required|numeric|min:0',
             'monthly_saving' => 'required|numeric|min:0',
             'deadline' => 'required|date|after_or_equal:today',
