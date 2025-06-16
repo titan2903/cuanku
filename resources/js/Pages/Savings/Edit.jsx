@@ -11,13 +11,13 @@ import { Link, useForm } from '@inertiajs/react';
 import { IconArrowBack, IconChecks, IconMoneybag } from '@tabler/icons-react';
 import { toast } from 'sonner';
 
-export default function Create(props) {
+export default function Edit(props) {
     const { data, setData, errors, post, processing, reset } = useForm({
-        name: '',
-        nominal: 0,
-        monthly_saving: 0,
-        deadline: '',
-        beginning_balance: 0,
+        name: props.goal.name ?? '',
+        nominal: props.goal.nominal ?? 0,
+        monthly_saving: props.goal.monthly_saving ?? 0,
+        deadline: props.goal.deadline ?? '',
+        beginning_balance: props.goal.beginning_balance ?? 0,
         _method: props.page_settings.method,
     });
 
@@ -50,7 +50,7 @@ export default function Create(props) {
                         />
 
                         <Button variant="emerald" size="xl" asChild>
-                            <Link href={route('goals.index')}>
+                            <Link href={route('goals.create')}>
                                 <IconArrowBack className="size-4" />
                                 Kembali
                             </Link>
@@ -166,4 +166,4 @@ export default function Create(props) {
     );
 }
 
-Create.layout = (page) => <AppLayout title={page.props.page_settings.title} children={page} />;
+Edit.layout = (page) => <AppLayout title={page.props.page_settings.title} children={page} />;

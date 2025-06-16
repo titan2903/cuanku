@@ -1,6 +1,7 @@
 import AlertAction from '@/Components/AlertAction';
 import Banner from '@/Components/Banner';
 import BreadcrumbHeader from '@/Components/BreadcrumbHeader';
+import CardStat from '@/Components/CardStat';
 import Filter from '@/Components/Datatable/Filter';
 import PaginationTable from '@/Components/Datatable/PaginationTable';
 import ShowFilter from '@/Components/Datatable/ShowFilter';
@@ -12,9 +13,18 @@ import { Progress } from '@/Components/ui/progress';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
 import { useFilter } from '@/Hooks/use-filter';
 import AppLayout from '@/Layouts/AppLayout';
-import { formatDateIndo, formatToRupiah } from '@/lib/utils';
+import { deleteAction, formatDateIndo, formatToRupiah } from '@/lib/utils';
 import { Link } from '@inertiajs/react';
-import { IconArrowDown, IconMoneybag, IconPencil, IconPlus, IconTrash } from '@tabler/icons-react';
+import {
+    IconArrowDown,
+    IconCash,
+    IconChecks,
+    IconMoneybag,
+    IconPencil,
+    IconPlus,
+    IconTrash,
+    IconX,
+} from '@tabler/icons-react';
 import { useState } from 'react';
 
 export default function Index(props) {
@@ -39,6 +49,48 @@ export default function Index(props) {
         <div className="flex w-full flex-col gap-y-6 pb-32">
             <BreadcrumbHeader items={props.items} />
             <Banner title={props.page_settings.banner.title} subtitle={props.page_settings.banner.subtitle} />
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-4">
+                <CardStat
+                    data={{
+                        title: 'Total Tujuan',
+                        background: 'text-white bg-gradient-to-r from-orange-400 via-orange-500 to-orange-500',
+                        icon: IconMoneybag,
+                        iconClassName: 'text-white',
+                    }}
+                >
+                    <div className="text-2xl font-bold">{props.count.countGoal}</div>
+                </CardStat>
+                <CardStat
+                    data={{
+                        title: 'Tujuan Tercapai',
+                        background: 'text-white bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-500',
+                        icon: IconChecks,
+                        iconClassName: 'text-white',
+                    }}
+                >
+                    <div className="text-2xl font-bold">{props.count.countGoalAchieved}</div>
+                </CardStat>
+                <CardStat
+                    data={{
+                        title: 'Tujuan Tidak Tercapai',
+                        background: 'text-white bg-gradient-to-r from-red-400 via-red-500 to-red-500',
+                        icon: IconX,
+                        iconClassName: 'text-white',
+                    }}
+                >
+                    <div className="text-2xl font-bold">{props.count.countGoalNotAchieved}</div>
+                </CardStat>
+                <CardStat
+                    data={{
+                        title: 'Total Tabungan',
+                        background: 'text-white bg-gradient-to-r from-blue-400 via-blue-500 to-blue-500',
+                        icon: IconCash,
+                        iconClassName: 'text-white',
+                    }}
+                >
+                    <div className="text-2xl font-bold">{formatToRupiah(props.count.countBalance)}</div>
+                </CardStat>
+            </div>
             <Card>
                 <CardHeader className="p-0">
                     <div className="flex flex-col items-start justify-between gap-y-4 p-4 lg:flex-row lg:items-center">
@@ -88,6 +140,18 @@ export default function Index(props) {
                                             onClick={() => onSortTable('name')}
                                         >
                                             Tujuan
+                                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                                <IconArrowDown className="size-4" />
+                                            </span>
+                                        </Button>
+                                    </TableHead>
+                                    <TableHead>
+                                        <Button
+                                            variant="ghost"
+                                            className="group inline-flex"
+                                            onClick={() => onSortTable('percentage')}
+                                        >
+                                            Progress
                                             <span className="ml-2 flex-none rounded text-muted-foreground">
                                                 <IconArrowDown className="size-4" />
                                             </span>
@@ -186,9 +250,7 @@ export default function Index(props) {
                                             <Progress value={goal.percentage} />
                                         </TableCell>
 
-                                        {/* KOLOM INI DIHAPUS KARENA DUPLIKAT
-              <TableCell>{goal.percentage}</TableCell> 
-            */}
+                                        <TableCell>{goal.percentage} %</TableCell>
 
                                         {/* Kolom 4: Nominal */}
                                         <TableCell>{formatToRupiah(goal.nominal)}</TableCell>
@@ -218,10 +280,10 @@ export default function Index(props) {
                                                 <AlertAction
                                                     trigger={
                                                         <Button variant="red" size="sm">
-                                                            <IconTrash />
+                                                            <IconTrash className="size-4" />
                                                         </Button>
                                                     }
-                                                    action={() => console.log('delete')}
+                                                    action={() => deleteAction(route('goals.destroy', [goal]))}
                                                 />
                                             </div>
                                         </TableCell>

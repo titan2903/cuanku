@@ -31,7 +31,7 @@ Route::controller(GoalController::class)->group(function () {
     Route::post('goals/create', 'store')->name('goals.store');
     Route::get('goals/{goal}/edit', 'edit')->name('goals.edit');
     Route::put('goals/{goal}/edit', 'update')->name('goals.update');
-    Route::delete('goals/{goal}/destroy', 'delete')->name('goals.delete');
+    Route::delete('goals/{goal}/destroy', 'destroy')->name('goals.destroy');
 });
 
 Route::middleware('auth')->group(function () {

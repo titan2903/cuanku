@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\MessageType;
 use App\Http\Requests\GoalRequest;
 use App\Http\Resources\GoalResource;
+use App\Models\Balance;
 use App\Models\Goal;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controllers\HasMiddleware;
@@ -19,6 +20,8 @@ class GoalController extends Controller implements HasMiddleware
     {
         return [
             new Middleware("auth"),
+            new Middleware("can:update,goal", only: ['edit', 'update']),
+            new Middleware("can:delete,goal", only: ['destroy']),
         ];
     }
 
@@ -65,6 +68,20 @@ class GoalController extends Controller implements HasMiddleware
                 ['label' => 'Tabungan'],
             ],
             'year' => fn() => now()->year,
+            'count' => fn() => [
+                'countGoal'=> fn() => Goal::query()->where('user_id', Auth::user()->id)->count(),
+                'countGoalAchieved' => fn() => Goal::query()
+                    ->where('user_id', Auth::user()->id)
+                    ->where('percentage', 100)
+                    ->count(),
+                'countGoalNotAchieved' => fn() => Goal::query()
+                    ->where('user_id', Auth::user()->id)
+                    ->where('percentage', '<',100)
+                    ->count(),
+                'countBalance' => fn() => Balance::query()->whereHas('goal', fn($query)=> $query->where('user_id', Auth::user()->id))->sum('amount') + Goal::query()
+                    ->where('user_id', Auth::user()->id)
+                    ->sum('beginning_balance'),
+            ],
         ]);
     }
 
@@ -91,7 +108,7 @@ class GoalController extends Controller implements HasMiddleware
 
     public function store(GoalRequest $request): RedirectResponse
     {
-        try{
+        try {
             Goal::create([
                 'user_id' => Auth::user()->id,
                 'name' => $request->name,
@@ -102,10 +119,72 @@ class GoalController extends Controller implements HasMiddleware
             ]);
 
             flashMessage(MessageType::CREATED->message('Tujuan'));
-            return to_route('goals.index');
-        }catch (Throwable $e){
+            return to_route('goals.index', [], 303);
+        } catch (Throwable $e) {
             flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
-            return to_route('goals.index');
+            return to_route('goals.index', [], 303);
+        }
+    }
+
+    public function edit(Goal $goal): Response
+    {
+        return inertia('Savings/Edit', [
+            'page_settings' => fn() => [
+                'title' => 'Buat Tujuan Menabung',
+                'subtitle' => 'Tetapkan tujuan menabung untuk masa depan yang lebih baik.',
+                'method' => 'PUT',
+                'action' => route('goals.update', $goal),
+                'banner' => [
+                    'title' => 'Buat Tujuan',
+                    'subtitle' => 'Mulailah perjalanan menabungmu hari ini.',
+                ]
+            ],
+            'goal' => fn() => $goal,
+            'items' => fn() => [
+                ['label' => 'CuanKu💲', 'href' => route('dashboard')],
+                ['label' => 'Tabungan', 'href' => route('goals.index')],
+                ['label' => 'Perbarui Tujuan Menabung'],
+            ],
+        ]);
+    }
+
+    public function update(Goal $goal, GoalRequest $request): RedirectResponse
+    {
+        try {
+            $goal->update([
+                'name' => $request->name,
+                'nominal' => $request->nominal,
+                'monthly_saving' => $request->monthly_saving,
+                'deadline' => $request->deadline,
+                'beginning_balance' => $request->beginning_balance,
+                'percentage' => $goal->calculatePercentage(
+                    $request->beginning_balance,
+                    $request->nominal,
+                    Auth::user()->id
+                ),
+            ]);
+
+            flashMessage(MessageType::UPDATED->message('Tujuan'));
+            return to_route('goals.index', [], 303);
+        } catch (Throwable $e) {
+            flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
+            return to_route('goals.index', [], 303);
+        }
+    }
+
+    public function destroy(Goal $goal): RedirectResponse
+    {
+        try {
+            if ($goal->user_id !== Auth::id()) {
+                return back()->with('error', 'Anda tidak diizinkan menghapus data ini');
+            }
+
+            $goal->delete();
+            flashMessage(MessageType::DELETED->message('Tujuan'));
+            return to_route('goals.index', [], 303);
+        } catch (Throwable $e) {
+            flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
+            return to_route('goals.index', [], 303);
         }
     }
 }
