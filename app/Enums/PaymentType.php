@@ -4,7 +4,7 @@ namespace App\Enums;
 
 enum PaymentType: string
 {
-    case CASH = 'kas';
+    case CASH = 'Kas';
     case DEBIT = 'Kartu Debit';
     case CREDIT = 'Kartu Kredit';
     case EWALLET = 'Dompet Elektronik';

@@ -3,6 +3,7 @@
 use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GoalController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,15 @@ Route::get(uri: 'testing', action: fn() => Inertia::render(component: 'Testing')
 // })->middleware(['auth', 'verified'])->name('dashboard');
 Route::controller(DashboardController::class)->group(function () {
     Route::get('dashboard', 'index')->name('dashboard');
+});
+
+Route::controller(PaymentController::class)->group(function () {
+    Route::get('payments', 'index')->name('payments.index');
+    Route::get('payments/create', 'create')->name('payments.create');
+    Route::post('payments/create', 'store')->name('payments.store');
+    Route::get('payments/{payment}/edit', 'edit')->name('payments.edit');
+    Route::put('payments/{payment}/edit', 'update')->name('payments.update');
+    Route::delete('payments/{payment}/destroy', 'destroy')->name('payments.destroy');
 });
 
 Route::controller(GoalController::class)->group(function () {

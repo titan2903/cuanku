@@ -132,8 +132,8 @@ class GoalController extends Controller implements HasMiddleware
     {
         return inertia('Savings/Edit', [
             'page_settings' => fn() => [
-                'title' => 'Buat Tujuan Menabung',
-                'subtitle' => 'Tetapkan tujuan menabung untuk masa depan yang lebih baik.',
+                'title' => 'Edit Tujuan Menabung',
+                'subtitle' => 'Edit tujuan menabung Anda.',
                 'method' => 'PUT',
                 'action' => route('goals.update', $goal),
                 'banner' => [

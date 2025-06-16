@@ -8,14 +8,6 @@ use Illuminate\Auth\Access\Response;
 
 class GoalPolicy
 {
-    /**
-     * Create a new policy instance.
-     */
-    public function __construct()
-    {
-        //
-    }
-
     public function view(User $user, Goal $goal): Response
     {
         return $user->id === $goal->user_id

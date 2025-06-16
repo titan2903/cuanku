@@ -8,14 +8,6 @@ use Illuminate\Auth\Access\Response;
 
 class BalancePolicy
 {
-    /**
-     * Create a new policy instance.
-     */
-    public function __construct()
-    {
-        //
-    }
-
     public function delete(User $user, Balance $balance): Response
     {
         // Allow deletion of balance if the user is authenticated
