@@ -28,7 +28,7 @@ import {
 import { useState } from 'react';
 
 export default function Index(props) {
-    const { data, meta, links } = props.goals;
+    const { data: goals, meta, links } = props.goals;
     const [params, setParams] = useState(props.state);
 
     const onSortTable = (field) => {
@@ -111,7 +111,7 @@ export default function Index(props) {
                     <ShowFilter params={params} />
                 </CardHeader>
                 <CardContent className="p-0 [&-td]:whitespace-nowrap [&-td]:px-6 [&-th]:px-6">
-                    {data.length === 0 ? (
+                    {goals.length === 0 ? (
                         <EmptyState
                             icon={IconMoneybag}
                             title="Belum ada tujuan"
@@ -233,7 +233,7 @@ export default function Index(props) {
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {data.map((goal, index) => (
+                                {goals.map((goal, index) => (
                                     <TableRow key={index}>
                                         {/* Kolom 1: ID */}
                                         <TableCell>
@@ -272,6 +272,11 @@ export default function Index(props) {
                                         {/* Kolom 9: Aksi */}
                                         <TableCell>
                                             <div className="flex items-center gap-x-1">
+                                                <Button variant="emerald" size="sm" asChild>
+                                                    <Link href={route('balances.index', [goal])}>
+                                                        <IconMoneybag className="size-4" />
+                                                    </Link>
+                                                </Button>
                                                 <Button variant="blue" size="sm" asChild>
                                                     <Link href={route('goals.edit', [goal])}>
                                                         <IconPencil className="size-4" />

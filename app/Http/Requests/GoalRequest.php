@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use \Illuminate\Support\Facades\Auth;
 
 class GoalRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class GoalRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return \Illuminate\Support\Facades\Auth::check();
+        return Auth::check();
     }
 
     /**

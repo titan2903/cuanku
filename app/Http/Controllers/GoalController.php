@@ -165,10 +165,10 @@ class GoalController extends Controller implements HasMiddleware
             ]);
 
             flashMessage(MessageType::UPDATED->message('Tujuan'));
-            return to_route('goals.index', [], 303);
+            return to_route('goals.index', 303);
         } catch (Throwable $e) {
             flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
-            return to_route('goals.index', [], 303);
+            return to_route('goals.index', 303);
         }
     }
 

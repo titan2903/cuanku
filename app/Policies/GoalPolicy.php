@@ -20,27 +20,27 @@ class GoalPolicy
     {
         return $user->id === $goal->user_id
             ? Response::allow()
-            : Response::deny('You do not own this goal.');
+            : Response::denyAsNotFound();
     }
 
     public function create(User $user, Goal $goal): Response
     {
         return $user->id === $goal->user_id
             ? Response::allow()
-            : Response::deny('You do not own this goal.');
+            : Response::denyAsNotFound();
     }
 
     public function update(User $user, Goal $goal): Response
     {
         return $user->id === $goal->user_id
             ? Response::allow()
-            : Response::deny('You do not own this goal.');
+            : Response::denyAsNotFound();
     }
 
     public function delete(User $user, Goal $goal): Response
     {
         return $user->id === $goal->user_id
             ? Response::allow()
-            : Response::deny('You do not own this goal.');
+            : Response::denyAsNotFound();
     }
 }
