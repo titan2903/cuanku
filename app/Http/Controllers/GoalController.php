@@ -10,6 +10,7 @@ use App\Models\Goal;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Carbon;
 use Inertia\Response;
 use Illuminate\Support\Facades\Auth;
 use Throwable;
@@ -69,19 +70,20 @@ class GoalController extends Controller implements HasMiddleware
             ],
             'year' => fn() => now()->year,
             'count' => fn() => [
-                'countGoal'=> fn() => Goal::query()->where('user_id', Auth::user()->id)->count(),
+                'countGoal' => fn() => Goal::query()->where('user_id', Auth::user()->id)->count(),
                 'countGoalAchieved' => fn() => Goal::query()
                     ->where('user_id', Auth::user()->id)
                     ->where('percentage', 100)
                     ->count(),
                 'countGoalNotAchieved' => fn() => Goal::query()
                     ->where('user_id', Auth::user()->id)
-                    ->where('percentage', '<',100)
+                    ->where('percentage', '<', 100)
                     ->count(),
-                'countBalance' => fn() => Balance::query()->whereHas('goal', fn($query)=> $query->where('user_id', Auth::user()->id))->sum('amount') + Goal::query()
+                'countBalance' => fn() => Balance::query()->whereHas('goal', fn($query) => $query->where('user_id', Auth::user()->id))->sum('amount') + Goal::query()
                     ->where('user_id', Auth::user()->id)
                     ->sum('beginning_balance'),
             ],
+            'productivity_count' => $this->getProductivityCount(),
         ]);
     }
 
@@ -186,5 +188,37 @@ class GoalController extends Controller implements HasMiddleware
             flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
             return to_route('goals.index', [], 303);
         }
+    }
+
+    public function getProductivityCount(): array
+    {
+        $startDate = Carbon::create(now()->year, 1, 1);
+        $endDate = Carbon::create(now()->year, 12, 31);
+        $balances = Balance::query()
+            ->where('user_id', Auth::user()->id)
+            ->selectRaw('DATE(created_at) as transaction_date, count(*) as count')
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->groupBy('transaction_date')
+            ->orderBy('transaction_date', 'asc')
+            ->get();
+
+        $currentDate = $startDate;
+
+        $dates = [];
+        while ($currentDate <= $endDate) {
+            $dates[] = $currentDate->format('Y-m-d');
+            $currentDate->addDay();
+        }
+
+        $result = [];
+        foreach ($dates as $date) {
+            $transaction = $balances->firstWhere('transaction_date', $date);
+            $result[] = [
+                'transaction_date' => $date,
+                'count' => $transaction ? $transaction->count : 0,
+            ];
+        }
+
+        return $result;
     }
 }

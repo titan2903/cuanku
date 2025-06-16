@@ -8,7 +8,7 @@ import ShowFilter from '@/Components/Datatable/ShowFilter';
 import EmptyState from '@/Components/EmptyState';
 import HeaderTitle from '@/Components/HeaderTitle';
 import { Button } from '@/Components/ui/button';
-import { Card, CardContent, CardFooter, CardHeader } from '@/Components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/Components/ui/card';
 import { Progress } from '@/Components/ui/progress';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
 import { useFilter } from '@/Hooks/use-filter';
@@ -26,6 +26,7 @@ import {
     IconX,
 } from '@tabler/icons-react';
 import { useState } from 'react';
+import Productivity from './Productivity';
 
 export default function Index(props) {
     const { data: goals, meta, links } = props.goals;
@@ -91,6 +92,32 @@ export default function Index(props) {
                     <div className="text-2xl font-bold">{formatToRupiah(props.count.countBalance)}</div>
                 </CardStat>
             </div>
+            <Card>
+                <CardHeader>
+                    <CardTitle>
+                        Kontribusi menabung pada periode 1 Januari {props.year} - 31 Desember {props.year}
+                    </CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <Productivity transactions={props.productivity_count} />
+                </CardContent>
+                <CardFooter>
+                    <div className="flex w-full flex-col items-center justify-between gap-2">
+                        <div className="text-sm text-muted-foreground">
+                            Tabungan Anda hari ini adalah kebebasan finansial Anda besok.
+                        </div>
+                        <div className="flex flex-row items-center gap-1.5">
+                            <span className="mr-2 text-xs text-muted-foreground">Lebih Sedikit</span>
+                            <Button className="h-5 w-5 rounded-full" variant="outline" size="sm"></Button>
+                            <Button className="h-5 w-5 rounded-full bg-emerald-700" size="sm"></Button>
+                            <Button className="h-5 w-5 rounded-full bg-emerald-600" size="sm"></Button>
+                            <Button className="h-5 w-5 rounded-full bg-emerald-500" size="sm"></Button>
+                            <Button className="h-5 w-5 rounded-full bg-emerald-400" size="sm"></Button>
+                            <span className="ml-2 text-xs text-muted-foreground">Lebih Banyak</span>
+                        </div>
+                    </div>
+                </CardFooter>
+            </Card>
             <Card>
                 <CardHeader className="p-0">
                     <div className="flex flex-col items-start justify-between gap-y-4 p-4 lg:flex-row lg:items-center">
