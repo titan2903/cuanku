@@ -262,41 +262,21 @@ export default function Index(props) {
                             <TableBody>
                                 {goals.map((goal, index) => (
                                     <TableRow key={index}>
-                                        {/* Kolom 1: ID */}
                                         <TableCell>
                                             {index +
                                                 1 +
                                                 (Number(meta?.current ?? 1) - 1) * Number(meta?.per_page ?? 10)}
                                         </TableCell>
-
-                                        {/* Kolom 2: Tujuan */}
                                         <TableCell>{goal.name}</TableCell>
-
-                                        {/* Kolom 3: Persentase (hanya progress bar) */}
                                         <TableCell>
                                             <Progress value={goal.percentage} />
                                         </TableCell>
-
                                         <TableCell>{goal.percentage} %</TableCell>
-
-                                        {/* Kolom 4: Nominal */}
                                         <TableCell>{formatToRupiah(goal.nominal)}</TableCell>
-
-                                        {/* URUTAN DIPERBAIKI MULAI DARI SINI */}
-
-                                        {/* Kolom 5: Tabungan / Bulan */}
                                         <TableCell>{formatToRupiah(goal.monthly_saving)}</TableCell>
-
-                                        {/* Kolom 6: Tenggat Waktu */}
                                         <TableCell>{formatDateIndo(goal.deadline)}</TableCell>
-
-                                        {/* Kolom 7: Saldo Awal */}
                                         <TableCell>{formatToRupiah(goal.beginning_balance)}</TableCell>
-
-                                        {/* Kolom 8: Dibuat Pada */}
                                         <TableCell>{formatDateIndo(goal.created_at)}</TableCell>
-
-                                        {/* Kolom 9: Aksi */}
                                         <TableCell>
                                             <div className="flex items-center gap-x-1">
                                                 <Button variant="emerald" size="sm" asChild>

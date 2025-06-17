@@ -4,8 +4,6 @@ namespace App\Enums;
 
 enum BudgetType: string
 {
-    // --- PERBAIKAN DI SINI ---
-    // Mengubah nilai agar cocok dengan data di database ("Penghasilan" dengan P besar)
     case INCOME = 'Penghasilan'; 
     case EXPENSE = 'expense';
     case SAVING = 'Tabungan dan Investasi';
@@ -13,10 +11,6 @@ enum BudgetType: string
     case DEBT = 'Cicilan Utang';
     case BILL = 'Tagihan';
 
-    /**
-     * Mengambil semua case sebagai array untuk opsi di form.
-     * Label dibuat lebih ramah pengguna.
-     */
     public static function options(array $exclude = []): array
     {
         return collect(self::cases())
