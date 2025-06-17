@@ -71,7 +71,7 @@ export default function Create(props) {
                                 value={data.name}
                                 onChange={onHandleChange}
                             />
-                            {errors.name && <InputError message={errors.name} className="mt-2" />}
+                            {errors.name && <InputError message={errors.name} />}
                         </div>
                         <div className="flex flex-col gap-y-2">
                             <Label htmlFor="type" className="text-sm font-semibold">
@@ -89,7 +89,7 @@ export default function Create(props) {
                                     ))}
                                 </SelectContent>
                             </Select>
-                            {errors.type && <InputError message={errors.type} className="mt-2" />}
+                            {errors.type && <InputError message={errors.type} />}
                         </div>
                         <div className="flex flex-col gap-y-2">
                             <Label htmlFor="account_number" className="text-sm font-semibold">
@@ -103,7 +103,7 @@ export default function Create(props) {
                                 value={data.account_number}
                                 onChange={onHandleChange}
                             />
-                            {errors.account_number && <InputError message={errors.account_number} className="mt-2" />}
+                            {errors.account_number && <InputError message={errors.account_number} />}
                         </div>
                         <div className="flex flex-col gap-y-2">
                             <Label htmlFor="account_owner" className="text-sm font-semibold">
@@ -117,7 +117,7 @@ export default function Create(props) {
                                 value={data.account_owner}
                                 onChange={onHandleChange}
                             />
-                            {errors.account_owner && <InputError message={errors.account_owner} className="mt-2" />}
+                            {errors.account_owner && <InputError message={errors.account_owner} />}
                         </div>
                         <div className="mt-8 flex flex-col gap-2 lg:flex-row lg:justify-end">
                             <Button type="button" variant="ghost" size="xl" onClick={() => reset()}>

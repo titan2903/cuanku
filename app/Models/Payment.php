@@ -26,7 +26,7 @@ class Payment extends Model
 
     public function casts(): array
     {
-       return [
+        return [
             'type' => PaymentType::class,
         ];
     }
@@ -39,9 +39,9 @@ class Payment extends Model
         );
     }
 
-     public function scopeFilter(Builder $query, array $filters): void
+    public function scopeFilter(Builder $query, array $filters): void
     {
-        $query->when($filters['search'] ?? null, function($query, $search) {
+        $query->when($filters['search'] ?? null, function ($query, $search) {
             $query->whereAny([
                 'name',
                 'type',

@@ -33,7 +33,7 @@ export default function Filter({ params, setParams, state, children }) {
                 </SelectTrigger>
                 <SelectContent>
                     {[10, 25, 50, 75, 100].map((number, index) => (
-                        <SelectItem key={index} value={number}>
+                        <SelectItem key={index} value={String(number)}>
                             {number}
                         </SelectItem>
                     ))}

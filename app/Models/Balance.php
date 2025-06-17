@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\BudgetType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
@@ -28,9 +29,30 @@ class Balance extends Model
 
     public function scopeFilter(Builder $query, array $filters): void
     {
-        $query->when($filters['search'] ?? null, function($query, $search) {
-            $query->where('name', 'REGEXP', $search);
-        });
+        $query->when($filters['search'] ?? null, 
+            function ($query, $search) {
+                $query->whereAny(['detail', 'month'], 'REGEXP', $search);
+            }
+        )->when($filters['month'] ?? null,
+            function ($query, $month) {
+                $query->where('month', $month);
+            }
+        )->when($filters['year'] ?? null,
+            function ($query, $year) {
+                $query->where('year', $year);
+            }
+        )->when($filters['type'] ?? null,
+            function ($query, $type) {
+                match ($type) {
+                    'Penghasilan' => $query->where('type', BudgetType::INCOME->value),
+                    'Tabungan dan Investasi' => $query->where('type', BudgetType::SAVING->value),
+                    'Belanja' => $query->where('type', BudgetType::SHOPPING->value),
+                    'Expense' => $query->where('type', BudgetType::EXPENSE->value),
+                    'Cicilan Utang' => $query->where('type', BudgetType::DEBT->value),
+                    'Tagihan' => $query->where('type', BudgetType::BILL->value),
+                };
+            }
+        );
     }
 
     public function scopeSorting(Builder $query, array $sorting): void

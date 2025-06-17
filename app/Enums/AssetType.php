@@ -4,7 +4,7 @@ namespace App\Enums;
 
 enum AssetType: string
 {
-    case CASH = 'kas';
+    case CASH = 'Kas';
     case PERSONAL = 'Personal';
     case SHORTTERM = 'Investasi Jangka Pendek';
     case MIDTERM = 'Investasi Jangka Menengah';

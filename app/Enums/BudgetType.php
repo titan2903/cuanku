@@ -4,7 +4,7 @@ namespace App\Enums;
 
 enum BudgetType: string
 {
-    case INCOME = 'penghasilan';
+    case INCOME = 'Penghasilan'; 
     case EXPENSE = 'expense';
     case SAVING = 'Tabungan dan Investasi';
     case SHOPPING = 'Belanja';
@@ -17,7 +17,14 @@ enum BudgetType: string
             ->filter(fn ($item) => ! in_array($item->name, $exclude))
             ->map(fn ($item) => [
                 'value' => $item->value,
-                'label' => $item->value,
+                'label' => match($item) {
+                    self::INCOME => 'Penghasilan',
+                    self::EXPENSE => 'Pengeluaran',
+                    self::SAVING => 'Tabungan dan Investasi',
+                    self::SHOPPING => 'Belanja',
+                    self::DEBT => 'Cicilan Utang',
+                    self::BILL => 'Tagihan',
+                },
             ])->values()->toArray();
     }
 }
