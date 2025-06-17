@@ -69,7 +69,7 @@ class PaymentController extends Controller implements HasMiddleware
         return inertia('Payments/Create', [
             'page_settings' => fn() => [
                 'title' => 'Tambah Metode Pembayaran',
-                'subtitle' => 'Buat metode pembayaran baru disini, klik simpan setelah selesai.',
+                'subtitle' => 'Buat metode pembayaran baru di sini, klik simpan setelah selesai.',
                 'method' => 'POST',
                 'action' => route('payments.store'),
             ],
@@ -106,7 +106,7 @@ class PaymentController extends Controller implements HasMiddleware
         return inertia('Payments/Edit', [
             'page_settings' => fn() => [
                 'title' => 'Edit Metode Pembayaran',
-                'subtitle' => 'Edit metode pembayaran disini. Klik simpan setelah selesai.',
+                'subtitle' => 'Edit metode pembayaran di sini. Klik simpan setelah selesai.',
                 'method' => 'PUT',
                 'action' => route('payments.update', $payment),
             ],

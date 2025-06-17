@@ -78,7 +78,7 @@ class IncomeController extends Controller implements HasMiddleware
         return inertia('Incomes/Create', [
             'page_settings' => fn() => [
                 'title' => 'Tambah Pemasukan',
-                'subtitle' => 'Buat pemasukan baru disini, klik simpan setelah selesai.',
+                'subtitle' => 'Buat pemasukan baru di sini, klik simpan setelah selesai.',
                 'method' => 'POST',
                 'action' => route('incomes.store'),
             ],
@@ -133,7 +133,7 @@ class IncomeController extends Controller implements HasMiddleware
         return inertia('Incomes/Edit', [
             'page_settings' => fn() => [
                 'title' => 'Edit Pemasukan',
-                'subtitle' => 'Edit pemasukan disini, klik simpan setelah selesai.',
+                'subtitle' => 'Edit pemasukan di sini, klik simpan setelah selesai.',
                 'method' => 'PUT',
                 'action' => route('incomes.update', $income),
             ],

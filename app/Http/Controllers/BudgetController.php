@@ -110,7 +110,7 @@ class BudgetController extends Controller implements HasMiddleware
         return inertia('Budgets/Create', [
             'page_settings' => fn() => [
                 'title' => 'Tambah Anggaran',
-                'subtitle' => 'Buat anggaran baru disini, klik simpan setelah selesai.',
+                'subtitle' => 'Buat anggaran baru di sini, klik simpan setelah selesai.',
                 'method' => 'POST',
                 'action' => route('budgets.store'),
             ],
@@ -150,7 +150,7 @@ class BudgetController extends Controller implements HasMiddleware
         return inertia('Budgets/Edit', [
             'page_settings' => fn() => [
                 'title' => 'Edit Anggaran',
-                'subtitle' => 'Edit anggaran disini, klik simpan setelah selesai.',
+                'subtitle' => 'Edit anggaran di sini, klik simpan setelah selesai.',
                 'method' => 'PUT',
                 'action' => route('budgets.update', $budget),
             ],
