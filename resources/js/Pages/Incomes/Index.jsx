@@ -49,7 +49,7 @@ export default function Index(props) {
                         <Button variant="emerald" size="xl" asChild>
                             <Link href={route('incomes.create')}>
                                 <IconPlus className="size-4" />
-                                Tambah Tujuan
+                                Tambah Pemasukan
                             </Link>
                         </Button>
                     </div>
