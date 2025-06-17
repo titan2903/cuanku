@@ -31,7 +31,7 @@ class Balance extends Model
     {
         $query->when($filters['search'] ?? null, 
             function ($query, $search) {
-                $query->whereAny(['detail', 'month', 'REGEXP'], $search);
+                $query->whereAny(['detail', 'month'], 'REGEXP', $search);
             }
         )->when($filters['month'] ?? null,
             function ($query, $month) {
