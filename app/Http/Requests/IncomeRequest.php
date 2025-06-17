@@ -2,13 +2,12 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\BudgetType;
 use App\Enums\MonthEnum;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules\Enum;
 use \Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules\Enum;
 
-class BudgetRequest extends FormRequest
+class IncomeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,22 +25,24 @@ class BudgetRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'detail' => ['required', 'string', 'min:3', 'max:255'],
+            'budget_id' => ['required', 'exists:budgets,id'],
+            'date' => ['required', 'date'],
             'nominal' => ['required', 'numeric', 'min:0'],
+            'notes' => ['nullable', 'string', 'max:255'],
             'month' => ['required', new Enum(MonthEnum::class)],
             'year' => ['required', 'numeric'],
-            'type' => ['required', new Enum(BudgetType::class)],
         ];
     }
 
-    public function attributes()
+    public function attributes(): array
     {
         return [
-            'detail' => 'Rincian Anggaran',
+            'budget_id' => 'Sumber',
+            'date' => 'Tanggal',
             'nominal' => 'Nominal',
+            'notes' => 'Catatan',
             'month' => 'Bulan',
             'year' => 'Tahun',
-            'type' => 'Tipe Anggaran',
         ];
     }
 }
