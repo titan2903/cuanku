@@ -79,7 +79,10 @@ export default function Edit(props) {
                             </Label>
                             <Select defaultValue={data.type} onValueChange={(value) => setData('type', value)}>
                                 <SelectTrigger>
-                                    <SelectValue placeholder="Pilih Tipe Pembayaran" />
+                                    <SelectValue>
+                                        {props.payment_types.find((type) => type.value == data.type)?.label ??
+                                            'Pilih Tipe Pembayaran'}
+                                    </SelectValue>
                                 </SelectTrigger>
                                 <SelectContent>
                                     {props.payment_types.map((type, index) => (

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BalanceController;
+use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GoalController;
 use App\Http\Controllers\PaymentController;
@@ -50,6 +51,15 @@ Route::controller(BalanceController::class)->group(function () {
     Route::get('goals/{goal}/balances/create', 'create')->name('balances.create');
     Route::post('goals/{goal}/balances/create', 'store')->name('balances.store');
     Route::delete('goals/{goal}/balances/{balance}/destroy', 'destroy')->name('balances.destroy');
+});
+
+Route::controller(BudgetController::class)->group(function () {
+    Route::get('budgets', 'index')->name('budgets.index');
+    Route::get('budgets/create', 'create')->name('budgets.create');
+    Route::post('budgets/create', 'store')->name('budgets.store');
+    Route::get('budgets/{budget}/edit', 'edit')->name('budgets.edit');
+    Route::put('budgets/{budget}/edit', 'update')->name('budgets.update');
+    Route::delete('budgets/{budget}/destroy', 'destroy')->name('budgets.destroy');
 });
 
 Route::middleware('auth')->group(function () {

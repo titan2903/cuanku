@@ -41,7 +41,7 @@ export default function Sidebar({ auth, url }) {
                         <span className="line-clamp-1 text-sm font-medium leading-relaxed tracking-tighter">
                             {auth.name}
                         </span>
-                        <span className="line-clamp-1 text-xs font-light">{auth.id}</span>
+                        <span className="line-clamp-1 text-xs font-light">{auth.email}</span>
                     </div>
                 </CardContent>
             </Card>
@@ -63,7 +63,12 @@ export default function Sidebar({ auth, url }) {
                 />
 
                 <div className="px-3 py-2 text-sm font-medium text-muted-foreground">Pelacakan</div>
-                <NavLink url="#" active={url.startsWith('/budgets')} title="Anggaran" icon={IconChartArrowsVertical} />
+                <NavLink
+                    url={route('budgets.index')}
+                    active={url.startsWith('/budgets')}
+                    title="Anggaran"
+                    icon={IconChartArrowsVertical}
+                />
 
                 <NavLink url="#" active={url.startsWith('/incomes')} title="Pemasukan" icon={IconDoorEnter} />
 
