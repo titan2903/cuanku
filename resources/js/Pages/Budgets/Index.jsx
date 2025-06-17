@@ -33,8 +33,6 @@ export default function Index(props) {
     const { data: budgets, meta, links } = props.budgets;
     const [params, setParams] = useState(props.state);
 
-    console.log('Budgets:', budgets);
-
     const onSortTable = (field) => {
         setParams({
             ...params,

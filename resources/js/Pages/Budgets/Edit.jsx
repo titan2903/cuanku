@@ -21,10 +21,7 @@ export default function Edit(props) {
         type: props.budget.type ?? null,
         _method: props.page_settings.method,
     });
-
-    console.log('data', data);
-    console.log('action', props.page_settings.action);
-
+    
     const onHandleChange = (e) => {
         setData(e.target.name, e.target.value);
     };
