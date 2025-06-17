@@ -27,7 +27,7 @@ export default function Filter({ params, setParams, state, children }) {
                 value={params?.search}
                 onChange={(e) => setParams((prev) => ({ ...prev, search: e.target.value }))}
             />
-            <Select value={params?.load} onValueChange={(e) => setParams({ ...params, page: 1, load: e })}>
+            <Select value={String(params?.load)} onValueChange={(e) => setParams({ ...params, page: 1, load: e })}>
                 <SelectTrigger className="w-full sm:w-24">
                     <SelectValue placeholder="Load" />
                 </SelectTrigger>

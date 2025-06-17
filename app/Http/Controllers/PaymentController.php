@@ -8,11 +8,9 @@ use App\Http\Requests\PaymentRequest;
 use App\Http\Resources\PaymentResource;
 use App\Models\Payment;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Crypt;
 use Inertia\Response;
 use Throwable;
 
@@ -71,7 +69,7 @@ class PaymentController extends Controller implements HasMiddleware
         return inertia('Payments/Create', [
             'page_settings' => fn() => [
                 'title' => 'Tambah Metode Pembayaran',
-                'subtitle' => 'Buat metode pembayaran baru disini, click simpan setelah selesai.',
+                'subtitle' => 'Buat metode pembayaran baru disini, klik simpan setelah selesai.',
                 'method' => 'POST',
                 'action' => route('payments.store'),
             ],

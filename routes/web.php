@@ -4,6 +4,7 @@ use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GoalController;
+use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -60,6 +61,15 @@ Route::controller(BudgetController::class)->group(function () {
     Route::get('budgets/{budget}/edit', 'edit')->name('budgets.edit');
     Route::put('budgets/{budget}/edit', 'update')->name('budgets.update');
     Route::delete('budgets/{budget}/destroy', 'destroy')->name('budgets.destroy');
+});
+
+Route::controller(IncomeController::class)->group(function () {
+    Route::get('incomes', 'index')->name('incomes.index');
+    Route::get('incomes/create', 'create')->name('incomes.create');
+    Route::post('incomes/create', 'store')->name('incomes.store');
+    Route::get('incomes/{income}/edit', 'edit')->name('incomes.edit');
+    Route::put('incomes/{income}/edit', 'update')->name('incomes.update');
+    Route::delete('incomes/{income}/destroy', 'destroy')->name('incomes.destroy');
 });
 
 Route::middleware('auth')->group(function () {

@@ -6,19 +6,21 @@ import { Card, CardContent, CardHeader } from '@/Components/ui/card';
 import { Input } from '@/Components/ui/input';
 import { Label } from '@/Components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
+import { Textarea } from '@/Components/ui/textarea';
 import AppLayout from '@/Layouts/AppLayout';
 import { flashMessage } from '@/lib/utils';
 import { Link, useForm } from '@inertiajs/react';
-import { IconArrowBack, IconChartArrowsVertical, IconChecks } from '@tabler/icons-react';
+import { IconArrowBack, IconChecks, IconDoorEnter } from '@tabler/icons-react';
 import { toast } from 'sonner';
 
-export default function Edit(props) {
+export default function Create(props) {
     const { data, setData, errors, post, processing, reset } = useForm({
-        detail: props.budget.detail ?? '',
-        nominal: props.budget.nominal ?? 0,
-        month: props.budget.month ?? null,
-        year: props.budget.year ?? null,
-        type: props.budget.type ?? null,
+        budget_id: null,
+        date: '',
+        nominal: '',
+        notes: '',
+        month: null,
+        year: null,
         _method: props.page_settings.method,
     });
 
@@ -47,11 +49,11 @@ export default function Edit(props) {
                         <HeaderTitle
                             title={props.page_settings.title}
                             subtitle={props.page_settings.subtitle}
-                            icon={IconChartArrowsVertical}
+                            icon={IconDoorEnter}
                         />
 
                         <Button variant="emerald" size="xl" asChild>
-                            <Link href={route('budgets.index')}>
+                            <Link href={route('incomes.index')}>
                                 <IconArrowBack className="size-4" />
                                 Kembali
                             </Link>
@@ -60,29 +62,50 @@ export default function Edit(props) {
                 </CardHeader>
                 <CardContent>
                     <form className="space-y-4" onSubmit={onHandleSubmit}>
-                        <div className="flex flex-col gap-2">
-                            <Label htmlFor="detail" className="text-sm font-semibold">
-                                Rincian
+                        <div className="flex flex-col gap-y-2">
+                            <Label htmlFor="budget_id" className="text-sm font-semibold">
+                                Sumber
+                            </Label>
+                            <Select
+                                defaultValue={data.budget_id}
+                                onValueChange={(value) => setData('budget_id', value)}
+                            >
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Pilih Sumber Pemasukan" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {props.sources.map((source, index) => (
+                                        <SelectItem key={index} value={source.value}>
+                                            {source.label}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                            {errors.budget_id && <InputError message={errors.budget_id} />}
+                        </div>
+                        <div className="flex flex-col gap-y-2">
+                            <Label htmlFor="date" className="text-sm font-semibold">
+                                Tanggal
                             </Label>
                             <Input
-                                type="text"
-                                name="detail"
-                                id="detail"
-                                placeholder="Masukkan Rincian Anggaran"
-                                value={data.detail}
+                                type="date"
+                                name="date"
+                                id="date"
+                                placeholder="Masukkan Tanggal Pemasukan"
+                                value={data.date}
                                 onChange={onHandleChange}
                             />
-                            {errors.detail && <InputError message={errors.detail} />}
+                            {errors.date && <InputError message={errors.date} />}
                         </div>
-                        <div className="flex flex-col gap-2">
-                            <Label htmlFor="account_owner" className="text-sm font-semibold">
+                        <div className="flex flex-col gap-y-2">
+                            <Label htmlFor="nominal" className="text-sm font-semibold">
                                 Nominal
                             </Label>
                             <Input
                                 type="number"
                                 name="nominal"
                                 id="nominal"
-                                placeholder="Masukkan Nominal Anggaran"
+                                placeholder="Masukkan Nominal Pemasukan"
                                 value={data.nominal}
                                 onChange={onHandleChange}
                                 min={0}
@@ -94,25 +117,18 @@ export default function Edit(props) {
                             />
                             {errors.nominal && <InputError message={errors.nominal} />}
                         </div>
-                        <div className="flex flex-col gap-2">
-                            <Label htmlFor="type" className="text-sm font-semibold">
-                                Tipe
+                        <div className="flex flex-col gap-y-2">
+                            <Label htmlFor="notes" className="text-sm font-semibold">
+                                Catatan
                             </Label>
-                            <Select defaultValue={data.type} onValueChange={(value) => setData('type', value)}>
-                                <SelectTrigger>
-                                    <SelectValue>
-                                        {props.types.find((type) => type.value == data.type)?.label ?? 'Pilih Tipe'}
-                                    </SelectValue>
-                                </SelectTrigger>
-                                <SelectContent>
-                                    {props.types.map((type, index) => (
-                                        <SelectItem key={index} value={type.value}>
-                                            {type.label}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                            {errors.type && <InputError message={errors.type} />}
+                            <Textarea
+                                name="notes"
+                                id="notes"
+                                placeholder="Masukkan Catatan Pemasukan"
+                                onChange={onHandleChange}
+                                value={data.notes}
+                            />
+                            {errors.notes && <InputError message={errors.notes} />}
                         </div>
                         <div className="flex flex-col gap-2">
                             <Label htmlFor="month" className="text-sm font-semibold">
@@ -171,4 +187,4 @@ export default function Edit(props) {
     );
 }
 
-Edit.layout = (page) => <AppLayout title={page.props.page_settings.title} children={page} />;
+Create.layout = (page) => <AppLayout title={page.props.page_settings.title} children={page} />;
