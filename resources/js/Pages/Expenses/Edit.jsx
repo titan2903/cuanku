@@ -99,7 +99,7 @@ export default function Edit(props) {
                                 type="date"
                                 name="date"
                                 id="date"
-                                placeholder="Masukkan Tanggal Pemasukan"
+                                placeholder="Masukkan Tanggal Pengeluaran"
                                 value={data.date}
                                 onChange={onHandleChange}
                             />
@@ -126,7 +126,7 @@ export default function Edit(props) {
                                 type="number"
                                 name="nominal"
                                 id="nominal"
-                                placeholder="Masukkan Nominal Pemasukan"
+                                placeholder="Masukkan Nominal Pengeluaran"
                                 value={data.nominal}
                                 onChange={onHandleChange}
                                 min={0}

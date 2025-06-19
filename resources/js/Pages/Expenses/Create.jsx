@@ -126,7 +126,7 @@ export default function Create(props) {
                                 type="number"
                                 name="nominal"
                                 id="nominal"
-                                placeholder="Masukkan Nominal Pemasukan"
+                                placeholder="Masukkan Nominal Pengeluaran"
                                 value={data.nominal}
                                 onChange={onHandleChange}
                                 min={0}
