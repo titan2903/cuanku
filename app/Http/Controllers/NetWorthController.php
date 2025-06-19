@@ -160,10 +160,6 @@ class NetWorthController extends Controller implements HasMiddleware
     public function destroy(NetWorth $netWorth): RedirectResponse
     {
         try {
-            if ($netWorth->user_id !== Auth::id()) {
-                return back()->with('error', 'Anda tidak diizinkan menghapus data ini');
-            }
-
             $netWorth->delete();
             flashMessage(MessageType::DELETED->message('Kekayaan Bersih.'));
             return to_route('net-worths.index', [], 303);

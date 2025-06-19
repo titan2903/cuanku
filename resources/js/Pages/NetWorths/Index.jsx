@@ -59,8 +59,8 @@ export default function Index(props) {
                     {netWorths.length === 0 ? (
                         <EmptyState
                             icon={IconPigMoney}
-                            title="Belum ada pembayaran"
-                            subtitle="Mulailah membuat metode pembayaran baru."
+                            title="Belum ada data kekayaan bersih"
+                            subtitle="Tambahkan data kekayaan bersih baru untuk memulai."
                         />
                     ) : (
                         <Table className="w-full">
