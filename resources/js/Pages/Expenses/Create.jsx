@@ -99,7 +99,7 @@ export default function Create(props) {
                                 type="date"
                                 name="date"
                                 id="date"
-                                placeholder="Masukkan Tanggal Pemasukan"
+                                placeholder="Masukkan Tanggal Pengeluaran"
                                 value={data.date}
                                 onChange={onHandleChange}
                             />
