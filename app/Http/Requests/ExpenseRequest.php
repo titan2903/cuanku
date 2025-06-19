@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Enums\BudgetType;
 use App\Enums\MonthEnum;
 use Illuminate\Foundation\Http\FormRequest;
-use \Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Enum;
 
 class ExpenseRequest extends FormRequest
@@ -72,13 +72,13 @@ class ExpenseRequest extends FormRequest
     public function attributes()
     {
         return [
-            'date'=> 'Tanggal',
-            'description'=> 'Deskripsi',
-            'nominal'=> 'Nominal',
-            'type'=> 'Tipe',
-            'notes'=> 'Catatan',
-            'month'=> 'Bulan',
-            'year'=> 'Tahun',
+            'date' => 'Tanggal',
+            'description' => 'Deskripsi',
+            'nominal' => 'Nominal',
+            'type' => 'Tipe',
+            'notes' => 'Catatan',
+            'month' => 'Bulan',
+            'year' => 'Tahun',
             'budget_id' => 'Detail Anggaran',
             'payment_id' => 'Metode Pembayaran',
         ];

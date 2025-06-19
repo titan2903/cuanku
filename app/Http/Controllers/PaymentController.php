@@ -19,9 +19,9 @@ class PaymentController extends Controller implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            new Middleware("auth"),
-            new Middleware("can:update,payment", only: ['edit', 'update']),
-            new Middleware("can:delete,payment", only: ['destroy']),
+            new Middleware('auth'),
+            new Middleware('can:update,payment', only: ['edit', 'update']),
+            new Middleware('can:delete,payment', only: ['destroy']),
         ];
     }
 
@@ -35,7 +35,7 @@ class PaymentController extends Controller implements HasMiddleware
                 'type',
                 'account_number',
                 'account_owner',
-                'created_at'
+                'created_at',
             ])
             ->where('user_id', Auth::user()->id)
             ->filter(request()->only(['search']))
@@ -43,21 +43,21 @@ class PaymentController extends Controller implements HasMiddleware
             ->paginate(request()->load ?? 10);
 
         return inertia('Payments/Index', [
-            'page_settings' => fn() => [
+            'page_settings' => fn () => [
                 'title' => 'Metode Pembayaran',
                 'subtitle' => 'Menampilkan semua metode pembayaran yang tersedia pada akun Anda.',
             ],
-            'payments' => fn() => PaymentResource::collection($payments)->additional([
+            'payments' => fn () => PaymentResource::collection($payments)->additional([
                 'meta' => [
                     'has_pages' => $payments->hasPages(),
                 ],
             ]),
-            'state' => fn() => [
+            'state' => fn () => [
                 'page' => request()->page ?? 1,
                 'search' => request()->search ?? '',
                 'load' => request()->load ?? 10,
             ],
-            'items' => fn() => [
+            'items' => fn () => [
                 ['label' => 'CuanKu💲', 'href' => route('dashboard')],
                 ['label' => 'Metode Pembayaran'],
             ],
@@ -67,18 +67,18 @@ class PaymentController extends Controller implements HasMiddleware
     public function create(): Response
     {
         return inertia('Payments/Create', [
-            'page_settings' => fn() => [
+            'page_settings' => fn () => [
                 'title' => 'Tambah Metode Pembayaran',
                 'subtitle' => 'Buat metode pembayaran baru di sini, klik simpan setelah selesai.',
                 'method' => 'POST',
                 'action' => route('payments.store'),
             ],
-            'items' => fn() => [
+            'items' => fn () => [
                 ['label' => 'CuanKu💲', 'href' => route('dashboard')],
                 ['label' => 'Metode Pembayaran', 'href' => route('payments.index')],
                 ['label' => 'Tambah Metode Pembayaran'],
             ],
-            'payment_types' => fn() => PaymentType::options(),
+            'payment_types' => fn () => PaymentType::options(),
         ]);
     }
 
@@ -94,9 +94,11 @@ class PaymentController extends Controller implements HasMiddleware
             ]);
 
             flashMessage(MessageType::CREATED->message('Metode Pembayaran.'));
+
             return to_route('payments.index');
         } catch (Throwable $e) {
             flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
+
             return to_route('payments.index');
         }
     }
@@ -104,19 +106,19 @@ class PaymentController extends Controller implements HasMiddleware
     public function edit(Payment $payment): Response
     {
         return inertia('Payments/Edit', [
-            'page_settings' => fn() => [
+            'page_settings' => fn () => [
                 'title' => 'Edit Metode Pembayaran',
                 'subtitle' => 'Edit metode pembayaran di sini. Klik simpan setelah selesai.',
                 'method' => 'PUT',
                 'action' => route('payments.update', $payment),
             ],
-            'payment' => fn() => $payment,
-            'items' => fn() => [
+            'payment' => fn () => $payment,
+            'items' => fn () => [
                 ['label' => 'CuanKu💲', 'href' => route('dashboard')],
                 ['label' => 'Metode Pembayaran', 'href' => route('payments.index')],
                 ['label' => 'Perbarui Metode Pembayaran'],
             ],
-            'payment_types' => fn() => PaymentType::options(),
+            'payment_types' => fn () => PaymentType::options(),
         ]);
     }
 
@@ -131,16 +133,18 @@ class PaymentController extends Controller implements HasMiddleware
 
             if ($request->type === PaymentType::CASH->value) {
                 $updateData['account_number'] = null;
-            } elseif (!empty($request->account_number)) {
+            } elseif (! empty($request->account_number)) {
                 $updateData['account_number'] = $request->account_number;
             }
 
             $payment->update($updateData);
 
             flashMessage(MessageType::UPDATED->message('Metode Pembayaran.'));
+
             return to_route('payments.index', 303);
         } catch (Throwable $e) {
             flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
+
             return to_route('payments.index', 303);
         }
     }
@@ -154,11 +158,12 @@ class PaymentController extends Controller implements HasMiddleware
 
             $payment->delete();
             flashMessage(MessageType::DELETED->message('Metode Pembayaran.'));
+
             return to_route('payments.index', [], 303);
         } catch (Throwable $e) {
             flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
+
             return to_route('payments.index', [], 303);
         }
     }
-
 }

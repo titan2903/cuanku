@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('expenses', function (Blueprint $table) {
             $table->uuid(column: 'id')->primary();
             $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignUuid('budget_id')->constrained(table:'budgets')->cascadeOnDelete();
-            $table->foreignUuid('payment_id')->constrained(table:'payments')->cascadeOnDelete();
+            $table->foreignUuid('budget_id')->constrained(table: 'budgets')->cascadeOnDelete();
+            $table->foreignUuid('payment_id')->constrained(table: 'payments')->cascadeOnDelete();
             $table->date('date');
             $table->string('description');
             $table->unsignedInteger(column: 'nominal')->default(0);

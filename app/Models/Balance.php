@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Balance extends Model
 {
     use HasUuids;
+
     protected $fillable = [
         'user_id',
         'goal_id',
@@ -29,7 +30,7 @@ class Balance extends Model
 
     public function scopeFilter(Builder $query, array $filters): void
     {
-        $query->when($filters['search'] ?? null, 
+        $query->when($filters['search'] ?? null,
             function ($query, $search) {
                 $query->whereAny(['detail', 'month'], 'REGEXP', $search);
             }

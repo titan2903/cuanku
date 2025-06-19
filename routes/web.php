@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssetController;
 use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\DashboardController;
@@ -22,7 +23,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get(uri: 'testing', action: fn() => Inertia::render(component: 'Testing'));
+Route::get(uri: 'testing', action: fn () => Inertia::render(component: 'Testing'));
 
 // Route::get('dashboard', function () {
 //     return Inertia::render('Dashboard');
@@ -93,10 +94,19 @@ Route::controller(NetWorthController::class)->group(function () {
     Route::delete('net-worths/{netWorth}/destroy', 'destroy')->name('net-worths.destroy');
 });
 
+Route::controller(AssetController::class)->group(function () {
+    Route::get('net-worths/{netWorth}/assets', 'index')->name('assets.index');
+    Route::get('net-worths/{netWorth}/assets/create', 'create')->name('assets.create');
+    Route::post('net-worths/{netWorth}/assets/create', 'store')->name('assets.store');
+    Route::get('net-worths/{netWorth}/assets/{asset}/edit', 'edit')->name('assets.edit');
+    Route::put('net-worths/{netWorth}/assets/{asset}/edit', 'update')->name('assets.update');
+    Route::delete('net-worths/{netWorth}/assets/{asset}/destroy', 'destroy')->name('assets.destroy');
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

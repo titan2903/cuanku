@@ -2,10 +2,12 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\AssetType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules\Enum;
 
-class BalanceRequest extends FormRequest
+class AssetRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,18 +25,18 @@ class BalanceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'amount' => [
-                'required',
-                'numeric',
-                'min:0',
-            ],
+            'detail' => ['required', 'string', 'min:3', 'max:255'],
+            'goal' => ['required', 'string', 'min:3', 'max:255'],
+            'type' => ['required', 'string', new Enum(AssetType::class)],
         ];
     }
 
-    public function attributes(): array
+    public function attributes()
     {
         return [
-            'amount' => 'Jumlah',
+            'detail' => 'Detail Aset',
+            'goal' => 'Tujuan Aset',
+            'type' => 'Tipe Aset',
         ];
     }
 }

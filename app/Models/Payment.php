@@ -5,13 +5,14 @@ namespace App\Models;
 use App\Enums\PaymentType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Crypt;
 
 class Payment extends Model
 {
     use HasUuids;
+
     protected $fillable = [
         'user_id',
         'name',
@@ -31,11 +32,10 @@ class Payment extends Model
         ];
     }
 
-
     protected function accountNumber(): Attribute
     {
         return Attribute::make(
-            set: fn(?string $value) => $value ? Crypt::encrypt($value) : null,
+            set: fn (?string $value) => $value ? Crypt::encrypt($value) : null,
         );
     }
 

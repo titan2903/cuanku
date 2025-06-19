@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class NetWorthLiability extends Model
 {
     use HasUuids;
+
     protected $fillable = [
         'liability_id',
         'transaction_date',

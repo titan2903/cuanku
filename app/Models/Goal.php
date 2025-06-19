@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Goal extends Model
 {
     use HasUuids;
+
     protected $fillable = [
         'user_id',
         'name',
@@ -37,8 +38,8 @@ class Goal extends Model
 
     public function scopeFilter(Builder $query, array $filters): void
     {
-        $query->when($filters['search'] ?? null, function($query, $search) {
-            $query->where('name','REGXP', $search);
+        $query->when($filters['search'] ?? null, function ($query, $search) {
+            $query->where('name', 'REGXP', $search);
         });
     }
 

@@ -16,10 +16,10 @@ return new class extends Migration
             $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
             $table->string(column: 'name', length: 255);
             $table->decimal(column: 'percentage', total: 5, places: 2)->default(0);
-            $table->unsignedInteger(column:'nominal');
-            $table->unsignedInteger(column:'monthly_saving')->default(0);
+            $table->unsignedInteger(column: 'nominal');
+            $table->unsignedInteger(column: 'monthly_saving')->default(0);
             $table->date(column: 'deadline');
-            $table->unsignedInteger(column:'beginning_balance')->default(0);
+            $table->unsignedInteger(column: 'beginning_balance')->default(0);
             $table->timestamps();
         });
     }

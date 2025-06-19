@@ -10,20 +10,20 @@ use App\Http\Resources\ExpenseResource;
 use App\Models\Budget;
 use App\Models\Expense;
 use App\Models\Payment;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
-use Inertia\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\RedirectResponse;
+use Inertia\Response;
 use Throwable;
 
-class ExpenseController extends Controller  implements HasMiddleware
+class ExpenseController extends Controller implements HasMiddleware
 {
     public static function middleware(): array
     {
         return [
-            new Middleware("auth"),
-            new Middleware("can:update,expense", only: ['edit', 'update']),
+            new Middleware('auth'),
+            new Middleware('can:update,expense', only: ['edit', 'update']),
             new Middleware('can:delete,expense', only: ['destroy']),
         ];
     }
@@ -52,27 +52,27 @@ class ExpenseController extends Controller  implements HasMiddleware
             ->paginate(request()->load ?? 10);
 
         return inertia('Expenses/Index', [
-            'page_settings' => fn() => [
+            'page_settings' => fn () => [
                 'title' => 'Pengeluaran',
                 'subtitle' => 'Menampilkan semua pengeluaran yang tersedia pada akun anda.',
             ],
-            'expenses' => fn() => ExpenseResource::collection($expenses)->additional([
+            'expenses' => fn () => ExpenseResource::collection($expenses)->additional([
                 'meta' => [
                     'has_pages' => $expenses->hasPages(),
                 ],
             ]),
-            'state' => fn() => [
+            'state' => fn () => [
                 'page' => request()->page ?? 1,
                 'search' => request()->search ?? '',
                 'load' => request()->load ?? 10,
                 'month' => request()->month ?? '',
                 'year' => request()->year ?? '',
             ],
-            'items' => fn() => [
+            'items' => fn () => [
                 ['label' => 'CuanKu💲', 'href' => route('dashboard')],
                 ['label' => 'Pengeluaran'],
             ],
-            'months' => fn() => MonthEnum::options(),
+            'months' => fn () => MonthEnum::options(),
             'years' => range(2020, now()->year),
         ]);
     }
@@ -80,42 +80,42 @@ class ExpenseController extends Controller  implements HasMiddleware
     public function create(): Response
     {
         return inertia('Expenses/Create', [
-            'page_settings' => fn() => [
+            'page_settings' => fn () => [
                 'title' => 'Tambah Pengeluaran',
                 'subtitle' => 'Buat pengeluaran baru di sini, klik simpan setelah selesai.',
                 'method' => 'POST',
                 'action' => route('expenses.store'),
             ],
-            'items' => fn() => [
+            'items' => fn () => [
                 ['label' => 'CuanKu💲', 'href' => route('dashboard')],
                 ['label' => 'Pengeluaran', 'href' => route('expenses.index')],
                 ['label' => 'Tambah Pengeluaran'],
             ],
-            'months' => fn() => MonthEnum::options(),
+            'months' => fn () => MonthEnum::options(),
             'years' => range(2020, now()->year),
-            'types' => fn() => BudgetType::options([
-                'INCOME'
+            'types' => fn () => BudgetType::options([
+                'INCOME',
             ]),
-            'payments' => fn() => Payment::query()
+            'payments' => fn () => Payment::query()
                 ->select(['id', 'name'])
                 ->where('user_id', Auth::user()->id)
                 ->get()
-                ->map(fn($item) => [
+                ->map(fn ($item) => [
                     'value' => $item->id,
                     'label' => $item->name,
                 ]),
-            'budgets' => fn() => request()->type ? Budget::query()
+            'budgets' => fn () => request()->type ? Budget::query()
                 ->select(['id', 'user_id', 'detail',  'year', 'month', 'type'])
                 ->where('user_id', Auth::user()->id)
                 ->where('type', request()->type)
                 ->get()
-                ->map(fn($item) => [
+                ->map(fn ($item) => [
                     'value' => $item->id,
                     'label' => $item->detail,
                     'month' => $item->month,
                     'year' => $item->year,
                 ]) : collect([]),
-            'state' => fn() => [
+            'state' => fn () => [
                 'type' => request()->type ?? '',
             ],
         ]);
@@ -138,9 +138,11 @@ class ExpenseController extends Controller  implements HasMiddleware
             ]);
 
             flashMessage(MessageType::CREATED->message('Pengeluaran.'));
+
             return to_route('expenses.index');
         } catch (Throwable $e) {
             flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
+
             return to_route('expenses.index');
         }
     }
@@ -148,43 +150,43 @@ class ExpenseController extends Controller  implements HasMiddleware
     public function edit(Expense $expense): Response
     {
         return inertia('Expenses/Edit', [
-            'page_settings' => fn() => [
+            'page_settings' => fn () => [
                 'title' => 'Edit Pengeluaran',
                 'subtitle' => 'Update pengeluaran di sini, klik simpan setelah selesai.',
                 'method' => 'PUT',
                 'action' => route('expenses.update', $expense),
             ],
-            'items' => fn() => [
+            'items' => fn () => [
                 ['label' => 'CuanKu💲', 'href' => route('dashboard')],
                 ['label' => 'Pengeluaran', 'href' => route('expenses.index')],
                 ['label' => 'Edit Pengeluaran'],
             ],
-            'expense' => fn() => $expense,
-            'months' => fn() => MonthEnum::options(),
+            'expense' => fn () => $expense,
+            'months' => fn () => MonthEnum::options(),
             'years' => range(2020, now()->year),
-            'types' => fn() => BudgetType::options([
+            'types' => fn () => BudgetType::options([
                 'INCOME',
             ]),
-            'payments' => fn() => Payment::query()
+            'payments' => fn () => Payment::query()
                 ->select(['id', 'name'])
                 ->where('user_id', Auth::user()->id)
                 ->get()
-                ->map(fn($item) => [
+                ->map(fn ($item) => [
                     'value' => $item->id,
                     'label' => $item->name,
                 ]),
-            'budgets' => fn() => request()->type ? Budget::query()
+            'budgets' => fn () => request()->type ? Budget::query()
                 ->select(['id', 'user_id', 'detail',  'year', 'month', 'type'])
                 ->where('user_id', Auth::user()->id)
                 ->where('type', request()->type)
                 ->get()
-                ->map(fn($item) => [
+                ->map(fn ($item) => [
                     'value' => $item->id,
                     'label' => $item->detail,
                     'month' => $item->month,
                     'year' => $item->year,
                 ]) : collect([]),
-            'state' => fn() => [
+            'state' => fn () => [
                 'type' => request()->type ?? $expense->type,
             ],
         ]);
@@ -206,9 +208,11 @@ class ExpenseController extends Controller  implements HasMiddleware
             ]);
 
             flashMessage(MessageType::UPDATED->message('Pengeluaran.'));
+
             return to_route('expenses.index');
         } catch (Throwable $e) {
             flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
+
             return to_route('expenses.index');
         }
     }
@@ -222,9 +226,11 @@ class ExpenseController extends Controller  implements HasMiddleware
 
             $expense->delete();
             flashMessage(MessageType::DELETED->message('Pengeluaran.'));
+
             return to_route('expenses.index', [], 303);
         } catch (Throwable $e) {
             flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
+
             return to_route('expenses.index', [], 303);
         }
     }
