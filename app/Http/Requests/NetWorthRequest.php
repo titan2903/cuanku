@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use \Illuminate\Support\Facades\Auth;
 
-class GoalRequest extends FormRequest
+class NetWorthRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,23 +23,16 @@ class GoalRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'nominal' => ['required', 'numeric', 'min:0'],
-            'monthly_saving' => ['required', 'numeric', 'min:0'],
-            'deadline' => ['required', 'date', 'after_or_equal:today'],
-            'beginning_balance' => ['nullable', 'numeric', 'min:0'],
+            'net_worth_goal' => ['required', 'numeric', 'min:0'],
+            'transaction_per_month' => ['required', 'numeric', 'min:0'],
         ];
     }
 
     public function attributes(): array
     {
         return [
-            'name' => 'Tujuan',
-            'percentage' => 'Persentase',
-            'nominal' => 'Nominal',
-            'monthly_saving' => 'Tabungan Bulanan',
-            'deadline' => 'Deadline',
-            'beginning_balance' => 'Saldo Awal',
+            'net_worth_goal' => 'Tujuan Kekayaan Bersih',
+            'transaction_per_month' => 'Transaksi per Bulan',
         ];
     }
 }

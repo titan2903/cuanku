@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\GoalController;
 use App\Http\Controllers\IncomeController;
+use App\Http\Controllers\NetWorthController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -80,6 +81,16 @@ Route::controller(ExpenseController::class)->group(function () {
     Route::get('expenses/{expense}/edit', 'edit')->name('expenses.edit');
     Route::put('expenses/{expense}/edit', 'update')->name('expenses.update');
     Route::delete('expenses/{expense}/destroy', 'destroy')->name('expenses.destroy');
+});
+
+Route::controller(NetWorthController::class)->group(function () {
+    Route::get('net-worths', 'index')->name('net-worths.index');
+    Route::get('net-worths/create', 'create')->name('net-worths.create');
+    Route::post('net-worths/create', 'store')->name('net-worths.store');
+    Route::get('net-worths/{netWorth}/detail', 'show')->name('net-worths.show');
+    Route::get('net-worths/{netWorth}/edit', 'edit')->name('net-worths.edit');
+    Route::put('net-worths/{netWorth}/edit', 'update')->name('net-worths.update');
+    Route::delete('net-worths/{netWorth}/destroy', 'destroy')->name('net-worths.destroy');
 });
 
 Route::middleware('auth')->group(function () {
