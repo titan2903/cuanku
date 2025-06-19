@@ -120,7 +120,6 @@ Route::controller(LiabilityController::class)->group(function () {
 
 Route::post('net-worths/{netWorth}/liabilities/{asset}/net-worth-liability', NetWorthLiabilityController::class)->name('net-worth-liability');
 
-
 Route::middleware('auth')->group(function () {
     Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('profile', [ProfileController::class, 'update'])->name('profile.update');

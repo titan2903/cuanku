@@ -39,7 +39,9 @@ export default function NetWorthLiability({ liability }) {
             <SheetContent>
                 <SheetHeader>
                     <SheetTitle>Kewajiban Kekayaan Bersih</SheetTitle>
-                    <SheetDescription>Tambah kewajiban kekayaan bersih berdasarkan tanggal dimasukkannya.</SheetDescription>
+                    <SheetDescription>
+                        Tambah kewajiban kekayaan bersih berdasarkan tanggal dimasukkannya.
+                    </SheetDescription>
                 </SheetHeader>
                 <form className="mt-4 space-y-4" onSubmit={onHandleSubmit}>
                     <div className="grid grid-cols-1 lg:grid-cols-2">
