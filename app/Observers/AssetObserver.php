@@ -18,6 +18,6 @@ class AssetObserver
             'amount_left' => $netWorth->net_worth_goal - $newNetWorth,
         ]);
 
-        $asset->newNetWorthAssets()->delete();
+        $asset->netWorthAssets()->delete();
     }
 }
