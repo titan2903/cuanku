@@ -28,8 +28,6 @@ export default function Index(props) {
         });
     };
 
-    console.log('Expenses:', expenses);
-
     useFilter({
         route: route('expenses.index'),
         values: params,
