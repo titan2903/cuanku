@@ -112,7 +112,7 @@ export default function Edit(props) {
                             <Textarea
                                 name="description"
                                 id="description"
-                                placeholder="Masukkan Deskripsi Pemasukan"
+                                placeholder="Masukkan Deskripsi Pengeluaran"
                                 onChange={onHandleChange}
                                 value={data.description}
                             />

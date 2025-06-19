@@ -52,7 +52,10 @@ class Expense extends Model
     public function scopeFilter(Builder $query, array $filters): void
     {
         $query->when($filters['search'] ?? null, function ($query, $search) {
-            $query->whereAny(['description', 'month'], 'REGEXP', $search);
+            $query->where(function ($query) use ($search) {
+                $query->where('description', 'REGEXP', $search)
+                      ->orWhere('month', 'REGEXP', $search);
+            });
         })->when($filters['month'] ?? null, function ($query, $month) {
             $query->where('month', $month);
         })->when($filters['year'] ?? null, function ($query, $year) {

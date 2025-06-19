@@ -76,7 +76,7 @@ class ExpenseRequest extends FormRequest
             'description'=> 'Deskripsi',
             'nominal'=> 'Nominal',
             'type'=> 'Tipe',
-            'note'=> 'Catatan',
+            'notes'=> 'Catatan',
             'month'=> 'Bulan',
             'year'=> 'Tahun',
             'budget_id' => 'Detail Anggaran',

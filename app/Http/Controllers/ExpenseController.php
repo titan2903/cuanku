@@ -107,7 +107,7 @@ class ExpenseController extends Controller  implements HasMiddleware
             'budgets' => fn() => request()->type ? Budget::query()
                 ->select(['id', 'user_id', 'detail',  'year', 'month', 'type'])
                 ->where('user_id', Auth::user()->id)
-                ->where('type', request()->type) // <-- Kunci masalah ada di sini
+                ->where('type', request()->type)
                 ->get()
                 ->map(fn($item) => [
                     'value' => $item->id,
