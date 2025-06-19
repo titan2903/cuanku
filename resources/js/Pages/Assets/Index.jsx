@@ -14,6 +14,7 @@ import { deleteAction, formatDateIndo } from '@/lib/utils';
 import { Link } from '@inertiajs/react';
 import { IconArrowDown, IconDiamond, IconPencil, IconPlus, IconTrash } from '@tabler/icons-react';
 import { useState } from 'react';
+import NetWorthAsset from './NetWorthAssset';
 
 export default function Index(props) {
     const { data: assets, meta, links } = props.assets;
@@ -143,6 +144,7 @@ export default function Index(props) {
                                         <TableCell>{formatDateIndo(asset.created_at)}</TableCell>
                                         <TableCell>
                                             <div className="flex items-center gap-x-1">
+                                                <NetWorthAsset asset={asset} />
                                                 <Button variant="blue" size="sm" asChild>
                                                     <Link href={route('assets.edit', [props.netWorth, asset])}>
                                                         <IconPencil className="size-4" />

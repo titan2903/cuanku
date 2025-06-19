@@ -3,11 +3,15 @@
 namespace App\Models;
 
 use App\Enums\AssetType;
+use App\Observers\AssetObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+
+#[ObservedBy(AssetObserver::class)]
 
 class Asset extends Model
 {
