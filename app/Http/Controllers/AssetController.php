@@ -66,6 +66,7 @@ class AssetController extends Controller implements HasMiddleware
                 ['label' => 'CuanKu💲', 'href' => route('dashboard')],
                 ['label' => 'Kekayaan Bersih', 'href' => route('net-worths.index')],
                 ['label' => $netWorth->id, 'href' => route('net-worths.show', $netWorth)],
+                ['label' => 'Aset', 'href' => route('assets.index', $netWorth)],
                 ['label' => 'Tambah Aset'],
             ],
             'netWorth' => fn () => $netWorth,

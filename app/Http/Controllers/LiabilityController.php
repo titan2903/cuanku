@@ -85,7 +85,6 @@ class LiabilityController extends Controller implements HasMiddleware
             'items' => fn () => [
                 ['label' => 'CuanKu💲', 'href' => route('dashboard')],
                 ['label' => 'Kekayaan Bersih', 'href' => route('net-worths.index')],
-                ['label' => 'Kekayaan Bersih', 'href' => route('net-worths.index')],
                 ['label' => $netWorth->id, 'href' => route('net-worths.show', $netWorth)],
                 ['label' => 'Kewajiban', 'href' => route('liabilities.index', $netWorth)],
                 ['label' => 'Tambah Kewajiban'],
@@ -126,7 +125,6 @@ class LiabilityController extends Controller implements HasMiddleware
             ],
             'items' => fn () => [
                 ['label' => 'CuanKu💲', 'href' => route('dashboard')],
-                ['label' => 'Kekayaan Bersih', 'href' => route('net-worths.index')],
                 ['label' => 'Kekayaan Bersih', 'href' => route('net-worths.index')],
                 ['label' => $netWorth->id, 'href' => route('net-worths.show', $netWorth)],
                 ['label' => 'Kewajiban', 'href' => route('liabilities.index', $netWorth)],

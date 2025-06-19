@@ -114,11 +114,10 @@ Route::controller(LiabilityController::class)->group(function () {
     Route::post('net-worths/{netWorth}/liabilities/create', 'store')->name('liabilities.store');
     Route::get('net-worths/{netWorth}/liabilities/{liability}/edit', 'edit')->name('liabilities.edit');
     Route::put('net-worths/{netWorth}/liabilities/{liability}/edit', 'update')->name('liabilities.update');
-    // Route::delete('net-worths/{netWorth}/liabilities/{liability}/destroy', 'destroy')->name('liabilities.destroy');
-    Route::delete('net-worths/{netWorth}/liabilities/{liability}', 'destroy')->name('liabilities.destroy');
+    Route::delete('net-worths/{netWorth}/liabilities/{liability}/destroy', 'destroy')->name('liabilities.destroy');
 });
 
-Route::post('net-worths/{netWorth}/liabilities/{asset}/net-worth-liability', NetWorthLiabilityController::class)->name('net-worth-liability');
+Route::post('net-worths/{netWorth}/liabilities/{liability}/net-worth-liability', NetWorthLiabilityController::class)->name('net-worth-liability');
 
 Route::middleware('auth')->group(function () {
     Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');

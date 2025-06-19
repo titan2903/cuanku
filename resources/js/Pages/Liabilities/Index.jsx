@@ -60,8 +60,8 @@ export default function Index(props) {
                     {liabilities.length === 0 ? (
                         <EmptyState
                             icon={IconLoadBalancer}
-                            title="Belum ada data aset"
-                            subtitle="Tambahkan data aset baru untuk memulai."
+                            title="Belum ada data kewajiban"
+                            subtitle="Tambahkan data kewajiban baru untuk memulai."
                         />
                     ) : (
                         <Table className="w-full">
