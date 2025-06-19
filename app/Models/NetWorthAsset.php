@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class NetWorthAsset extends Model
 {
     use HasUuids;
+
     protected $fillable = [
         'asset_id',
         'transaction_date',

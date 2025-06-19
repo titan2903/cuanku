@@ -4,9 +4,8 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Crypt;
 
-class PaymentResource extends JsonResource
+class AssetResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,10 +16,10 @@ class PaymentResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            'net_worth_id' => $this->net_worth_id,
+            'detail' => $this->detail,
+            'goal' => $this->goal,
             'type' => $this->type,
-            'account_number' => $this->account_number ? '**** ****'.substr(Crypt::decrypt($this->account_number), -4) : null,
-            'account_owner' => $this->account_owner,
             'created_at' => $this->created_at,
         ];
     }

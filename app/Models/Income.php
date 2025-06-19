@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Income extends Model
 {
     use HasUuids;
+
     protected $fillable = [
         'user_id',
         'budget_id',
@@ -18,7 +19,7 @@ class Income extends Model
         'nominal',
         'notes',
         'month',
-        'year'
+        'year',
     ];
 
     public function casts(): array
@@ -43,7 +44,7 @@ class Income extends Model
         $query->when($filters['search'] ?? null, function ($query, $search) {
             $query->whereAny([
                 'detail',
-                'month'
+                'month',
             ], 'REGEXP', $search);
         })->when($filters['month'] ?? null, function ($query, $month) {
             $query->where('month', $month);

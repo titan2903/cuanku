@@ -3,27 +3,27 @@
 namespace App\Models;
 
 use App\Enums\BudgetType;
+use App\Enums\MonthEnum;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
-use App\Enums\MonthEnum;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Builder;
 
 class Expense extends Model
 {
     use HasUuids;
 
     protected $fillable = [
-        "user_id",
-        "budget_id",
-        "payment_id",
-        "date",
-        "description",
-        "nominal",
-        "type",
-        "notes",
-        "month",
-        "year",
+        'user_id',
+        'budget_id',
+        'payment_id',
+        'date',
+        'description',
+        'nominal',
+        'type',
+        'notes',
+        'month',
+        'year',
     ];
 
     public function casts(): array
@@ -54,7 +54,7 @@ class Expense extends Model
         $query->when($filters['search'] ?? null, function ($query, $search) {
             $query->where(function ($query) use ($search) {
                 $query->where('description', 'REGEXP', $search)
-                      ->orWhere('month', 'REGEXP', $search);
+                    ->orWhere('month', 'REGEXP', $search);
             });
         })->when($filters['month'] ?? null, function ($query, $month) {
             $query->where('month', $month);
@@ -62,7 +62,7 @@ class Expense extends Model
             $query->where('year', $year);
         });
     }
- 
+
     public function scopeSorting(Builder $query, array $sorts): void
     {
         $query->when(

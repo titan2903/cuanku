@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
-use App\Enums\MonthEnum;
 use App\Enums\BudgetType;
+use App\Enums\MonthEnum;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
 
 class Budget extends Model
 {
@@ -20,7 +19,7 @@ class Budget extends Model
         'nominal',
         'month',
         'year',
-        'type'
+        'type',
     ];
 
     public function casts(): array
@@ -40,7 +39,7 @@ class Budget extends Model
     {
         $query->when($filters['search'] ?? null, function ($query, $search) {
             $query->whereAny([
-                'detail', 'month'
+                'detail', 'month',
             ], 'REGEXP', $search);
         })->when($filters['month'] ?? null, function ($query, $month) {
             $query->where('month', $month);

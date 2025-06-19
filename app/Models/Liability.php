@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Liability extends Model
 {
     use HasUuids;
+
     protected $fillable = [
         'user_id',
         'net_worth_id',

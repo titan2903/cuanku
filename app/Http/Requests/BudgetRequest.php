@@ -5,8 +5,8 @@ namespace App\Http\Requests;
 use App\Enums\BudgetType;
 use App\Enums\MonthEnum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Enum;
-use \Illuminate\Support\Facades\Auth;
 
 class BudgetRequest extends FormRequest
 {

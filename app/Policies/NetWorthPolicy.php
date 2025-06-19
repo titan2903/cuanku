@@ -8,7 +8,6 @@ use Illuminate\Auth\Access\Response;
 
 class NetWorthPolicy
 {
-
     public function create(User $user, NetWorth $netWorth): Response
     {
         return $user->id === $netWorth->user_id
@@ -22,6 +21,7 @@ class NetWorthPolicy
             ? Response::allow()
             : Response::denyAsNotFound();
     }
+
     public function viewAny(User $user, NetWorth $netWorth): Response
     {
         return $user->id === $netWorth->user_id
@@ -35,7 +35,6 @@ class NetWorthPolicy
             ? Response::allow()
             : Response::denyAsNotFound();
     }
-
 
     public function delete(User $user, NetWorth $netWorth): Response
     {

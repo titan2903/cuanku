@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid(column: 'id')->primary();
             $table->foreignUuid('asset_id')->constrained()->cascadeOnDelete();
             $table->date(column: 'transaction_date');
-            $table->unsignedInteger(column:'nominal');
+            $table->unsignedInteger(column: 'nominal');
             $table->timestamps();
         });
     }

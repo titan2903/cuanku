@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
             $table->foreignUuid('net_worth_id')->constrained()->cascadeOnDelete();
             $table->string(column: 'detail');
-            $table->string(column:'goal');
-            $table->string(column:'type');
+            $table->string(column: 'goal');
+            $table->string(column: 'type');
             $table->timestamps();
         });
     }

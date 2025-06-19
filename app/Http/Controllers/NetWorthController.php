@@ -7,7 +7,6 @@ use App\Http\Requests\NetWorthRequest;
 use App\Http\Resources\NetWorthResource;
 use App\Models\NetWorth;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
@@ -19,10 +18,10 @@ class NetWorthController extends Controller implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            new Middleware("auth"),
+            new Middleware('auth'),
             new Middleware('password.confirm'),
-            new Middleware("can:view,netWorth", only: ['show']),
-            new Middleware("can:update,netWorth", only: ['edit', 'update']),
+            new Middleware('can:view,netWorth', only: ['show']),
+            new Middleware('can:update,netWorth', only: ['edit', 'update']),
             new Middleware('can:delete,netWorth', only: ['destroy']),
         ];
     }
@@ -38,7 +37,7 @@ class NetWorthController extends Controller implements HasMiddleware
                 'amount_left',
                 'transaction_per_month',
                 'year',
-                'created_at'
+                'created_at',
             ])
             ->where('user_id', Auth::user()->id)
             ->filter(request()->only(['search']))
@@ -46,21 +45,21 @@ class NetWorthController extends Controller implements HasMiddleware
             ->paginate(request()->load ?? 10);
 
         return inertia('NetWorths/Index', [
-            'page_settings' => fn() => [
+            'page_settings' => fn () => [
                 'title' => 'Kekayaan Bersih',
                 'subtitle' => 'Menampilkan semua data kekayaan bersih yang tersedia pada akun Anda.',
             ],
-            'netWorths' => fn() => NetWorthResource::collection($netWorths)->additional([
+            'netWorths' => fn () => NetWorthResource::collection($netWorths)->additional([
                 'meta' => [
                     'has_pages' => $netWorths->hasPages(),
                 ],
             ]),
-            'state' => fn() => [
+            'state' => fn () => [
                 'page' => request()->page ?? 1,
                 'search' => request()->search ?? '',
                 'load' => request()->load ?? 10,
             ],
-            'items' => fn() => [
+            'items' => fn () => [
                 ['label' => 'CuanKu💲', 'href' => route('dashboard')],
                 ['label' => 'Kekayaan Bersih'],
             ],
@@ -70,13 +69,13 @@ class NetWorthController extends Controller implements HasMiddleware
     public function create(): Response
     {
         return inertia('NetWorths/Create', [
-            'page_settings' => fn() => [
+            'page_settings' => fn () => [
                 'title' => 'Tambah Kekayaan Bersih',
                 'subtitle' => 'Tambahkan data kekayaan bersih Anda untuk memantau perkembangan finansial Anda.',
                 'method' => 'POST',
                 'action' => route('net-worths.store'),
             ],
-            'items' => fn() => [
+            'items' => fn () => [
                 ['label' => 'CuanKu💲', 'href' => route('dashboard')],
                 ['label' => 'Kekayaan Bersih', 'href' => route('net-worths.index')],
                 ['label' => 'Tambah Kekayaan Bersih'],
@@ -98,9 +97,11 @@ class NetWorthController extends Controller implements HasMiddleware
             ]);
 
             flashMessage(MessageType::CREATED->message('Kekayaan Bersih.'));
+
             return to_route('net-worths.index');
         } catch (Throwable $e) {
             flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
+
             return to_route('net-worths.index');
         }
     }
@@ -108,39 +109,39 @@ class NetWorthController extends Controller implements HasMiddleware
     public function show(NetWorth $netWorth): Response
     {
         return inertia('NetWorths/Show', [
-            'page_settings' => fn() => [
+            'page_settings' => fn () => [
                 'title' => 'Detail Kekayaan Bersih',
                 'subtitle' => 'Menampilkan detail kekayaan bersih Anda.',
             ],
-            'items' => fn() => [
+            'items' => fn () => [
                 ['label' => 'CuanKu💲', 'href' => route('dashboard')],
                 ['label' => 'Kekayaan Bersih', 'href' => route('net-worths.index')],
                 ['label' => $netWorth->id],
             ],
-            'netWorth' => fn() => $netWorth,
+            'netWorth' => fn () => $netWorth,
         ]);
     }
 
     public function edit(NetWorth $netWorth): Response
     {
         return inertia('NetWorths/Edit', [
-            'page_settings' => fn() => [
+            'page_settings' => fn () => [
                 'title' => 'Edit Kekayaan Bersih',
                 'subtitle' => 'Edit kekayaan bersih anda di sini.',
                 'method' => 'PUT',
                 'action' => route('net-worths.update', $netWorth),
             ],
-            'items' => fn() => [
+            'items' => fn () => [
                 ['label' => 'CuanKu💲', 'href' => route('dashboard')],
                 ['label' => 'Kekayaan Bersih', 'href' => route('net-worths.index')],
                 ['label' => 'Edit Kekayaan Bersih'],
             ],
-            'netWorth' => fn() => $netWorth,
+            'netWorth' => fn () => $netWorth,
             'years' => range(2020, now()->year),
         ]);
     }
 
-    public function update(NetWorth $netWorth ,NetWorthRequest $request): RedirectResponse
+    public function update(NetWorth $netWorth, NetWorthRequest $request): RedirectResponse
     {
         try {
             $netWorth->update([
@@ -150,9 +151,11 @@ class NetWorthController extends Controller implements HasMiddleware
             ]);
 
             flashMessage(MessageType::UPDATED->message('Kekayaan Bersih.'));
+
             return to_route('net-worths.index');
         } catch (Throwable $e) {
             flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
+
             return to_route('net-worths.index');
         }
     }
@@ -162,9 +165,11 @@ class NetWorthController extends Controller implements HasMiddleware
         try {
             $netWorth->delete();
             flashMessage(MessageType::DELETED->message('Kekayaan Bersih.'));
+
             return to_route('net-worths.index', [], 303);
         } catch (Throwable $e) {
             flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
+
             return to_route('net-worths.index', [], 303);
         }
     }

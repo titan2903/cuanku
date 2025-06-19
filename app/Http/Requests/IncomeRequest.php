@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Enums\MonthEnum;
 use Illuminate\Foundation\Http\FormRequest;
-use \Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Enum;
 
 class IncomeRequest extends FormRequest

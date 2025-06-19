@@ -60,6 +60,6 @@ class PaymentRequest extends FormRequest
             'type' => 'Tipe',
             'account_number' => 'Nomor Rekening',
             'account_owner' => 'Nama Pemilik Rekening',
-        ];   
+        ];
     }
 }
