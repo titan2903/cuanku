@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('description');
             $table->unsignedInteger(column: 'nominal')->default(0);
             $table->string('type');
-            $table->string('note')->nullable();
+            $table->string('notes')->nullable();
             $table->string(column: 'month');
             $table->unsignedSmallInteger(column: 'year');
             $table->timestamps();

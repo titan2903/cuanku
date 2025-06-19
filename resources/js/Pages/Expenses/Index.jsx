@@ -13,11 +13,11 @@ import { useFilter } from '@/Hooks/use-filter';
 import AppLayout from '@/Layouts/AppLayout';
 import { deleteAction, formatDateIndo, formatToRupiah, MONTHTYPEVARIANTS } from '@/lib/utils';
 import { Link } from '@inertiajs/react';
-import { IconArrowDown, IconDoorEnter, IconPencil, IconPlus, IconTrash } from '@tabler/icons-react';
+import { IconArrowDown, IconDoorExit, IconPencil, IconPlus, IconTrash } from '@tabler/icons-react';
 import { useState } from 'react';
 
 export default function Index(props) {
-    const { data: incomes, meta, links } = props.incomes;
+    const { data: expenses, meta, links } = props.expenses;
     const [params, setParams] = useState(props.state);
 
     const onSortTable = (field) => {
@@ -28,10 +28,12 @@ export default function Index(props) {
         });
     };
 
+    console.log('Expenses:', expenses);
+
     useFilter({
-        route: route('incomes.index'),
+        route: route('expenses.index'),
         values: params,
-        only: ['incomes'],
+        only: ['expenses'],
     });
 
     return (
@@ -43,13 +45,13 @@ export default function Index(props) {
                         <HeaderTitle
                             title={props.page_settings.title}
                             subtitle={props.page_settings.subtitle}
-                            icon={IconDoorEnter}
+                            icon={IconDoorExit}
                         />
 
                         <Button variant="emerald" size="xl" asChild>
-                            <Link href={route('incomes.create')}>
+                            <Link href={route('expenses.create')}>
                                 <IconPlus className="size-4" />
-                                Tambah Pemasukan
+                                Tambah Pengeluaran
                             </Link>
                         </Button>
                     </div>
@@ -57,11 +59,11 @@ export default function Index(props) {
                     <ShowFilter params={params} />
                 </CardHeader>
                 <CardContent className="p-0 [&-td]:whitespace-nowrap [&-td]:px-6 [&-th]:px-6">
-                    {incomes.length === 0 ? (
+                    {expenses.length === 0 ? (
                         <EmptyState
-                            icon={IconDoorEnter}
-                            title="Belum ada pemasukan"
-                            subtitle="Mulailah membuat pemasukan baru."
+                            icon={IconDoorExit}
+                            title="Belum ada pengeluaran"
+                            subtitle="Mulailah membuat pengeluaran baru."
                         />
                     ) : (
                         <Table className="w-full">
@@ -95,9 +97,9 @@ export default function Index(props) {
                                         <Button
                                             variant="ghost"
                                             className="group inline-flex"
-                                            onClick={() => onSortTable('budget_id')}
+                                            onClick={() => onSortTable('description')}
                                         >
-                                            Sumber
+                                            Deskripsi
                                             <span className="ml-2 flex-none rounded text-muted-foreground">
                                                 <IconArrowDown className="size-4" />
                                             </span>
@@ -110,6 +112,54 @@ export default function Index(props) {
                                             onClick={() => onSortTable('nominal')}
                                         >
                                             Nominal
+                                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                                <IconArrowDown className="size-4" />
+                                            </span>
+                                        </Button>
+                                    </TableHead>
+                                    <TableHead>
+                                        <Button
+                                            variant="ghost"
+                                            className="group inline-flex"
+                                            onClick={() => onSortTable('type')}
+                                        >
+                                            Tipe
+                                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                                <IconArrowDown className="size-4" />
+                                            </span>
+                                        </Button>
+                                    </TableHead>
+                                    <TableHead>
+                                        <Button
+                                            variant="ghost"
+                                            className="group inline-flex"
+                                            onClick={() => onSortTable('budget_id')}
+                                        >
+                                            Detail
+                                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                                <IconArrowDown className="size-4" />
+                                            </span>
+                                        </Button>
+                                    </TableHead>
+                                    <TableHead>
+                                        <Button
+                                            variant="ghost"
+                                            className="group inline-flex"
+                                            onClick={() => onSortTable('payment_id')}
+                                        >
+                                            Metode Pembayaran
+                                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                                <IconArrowDown className="size-4" />
+                                            </span>
+                                        </Button>
+                                    </TableHead>
+                                    <TableHead>
+                                        <Button
+                                            variant="ghost"
+                                            className="group inline-flex"
+                                            onClick={() => onSortTable('notes')}
+                                        >
+                                            Catatan
                                             <span className="ml-2 flex-none rounded text-muted-foreground">
                                                 <IconArrowDown className="size-4" />
                                             </span>
@@ -143,18 +193,6 @@ export default function Index(props) {
                                         <Button
                                             variant="ghost"
                                             className="group inline-flex"
-                                            onClick={() => onSortTable('notes')}
-                                        >
-                                            Catatan
-                                            <span className="ml-2 flex-none rounded text-muted-foreground">
-                                                <IconArrowDown className="size-4" />
-                                            </span>
-                                        </Button>
-                                    </TableHead>
-                                    <TableHead>
-                                        <Button
-                                            variant="ghost"
-                                            className="group inline-flex"
                                             onClick={() => onSortTable('created_at')}
                                         >
                                             Dibuat Pada
@@ -167,30 +205,31 @@ export default function Index(props) {
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {incomes.map((income, index) => (
+                                {expenses.map((expense, index) => (
                                     <TableRow key={index}>
                                         <TableCell>
                                             {index +
                                                 1 +
                                                 (Number(meta?.current ?? 1) - 1) * Number(meta?.per_page ?? 10)}
                                         </TableCell>
-                                        <TableCell>{formatDateIndo(income.date)}</TableCell>
+                                        <TableCell>{formatDateIndo(expense.date)}</TableCell>
+                                        <TableCell>{expense.description}</TableCell>
+                                        <TableCell>{formatToRupiah(expense.nominal)}</TableCell>
+                                        <TableCell>{expense.type}</TableCell>
+                                        <TableCell>{expense.typeDetail.detail}</TableCell>
+                                        <TableCell>{expense.payment.name}</TableCell>
+                                        <TableCell>{expense.notes}</TableCell>
                                         <TableCell>
-                                            {income.budget.detail} - {income.budget.type}
-                                        </TableCell>
-                                        <TableCell>{formatToRupiah(income.nominal)}</TableCell>
-                                        <TableCell>
-                                            <Badge variant={MONTHTYPEVARIANTS[income.month] ?? 'default'}>
-                                                {income.month}
+                                            <Badge variant={MONTHTYPEVARIANTS[expense.month] ?? 'default'}>
+                                                {expense.month}
                                             </Badge>
                                         </TableCell>
-                                        <TableCell>{income.year}</TableCell>
-                                        <TableCell>{income.notes}</TableCell>
-                                        <TableCell>{formatDateIndo(income.created_at)}</TableCell>
+                                        <TableCell>{expense.year}</TableCell>
+                                        <TableCell>{formatDateIndo(expense.created_at)}</TableCell>
                                         <TableCell>
                                             <div className="flex items-center gap-x-1">
                                                 <Button variant="blue" size="sm" asChild>
-                                                    <Link href={route('incomes.edit', [income])}>
+                                                    <Link href={route('expenses.edit', [expense])}>
                                                         <IconPencil className="size-4" />
                                                     </Link>
                                                 </Button>
@@ -200,7 +239,7 @@ export default function Index(props) {
                                                             <IconTrash className="size-4" />
                                                         </Button>
                                                     }
-                                                    action={() => deleteAction(route('incomes.destroy', [income]))}
+                                                    action={() => deleteAction(route('expenses.destroy', [expense]))}
                                                 />
                                             </div>
                                         </TableCell>
@@ -213,7 +252,7 @@ export default function Index(props) {
                 <CardFooter className="flex w-full flex-col items-center justify-between gap-y-2 border-t py-3 lg:flex-row">
                     <p className="text-sm text-muted-foreground">
                         Menampilkan <span className="font-medium text-emerald-600">{meta.from ?? 0}</span> dari{' '}
-                        {meta.total} pemasukan
+                        {meta.total} pengeluaran
                     </p>
                     <div className="overflow-x-auto">
                         {meta.has_pages && <PaginationTable meta={meta} links={links} />}
