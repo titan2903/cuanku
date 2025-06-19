@@ -7,8 +7,10 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\GoalController;
 use App\Http\Controllers\IncomeController;
+use App\Http\Controllers\LiabilityController;
 use App\Http\Controllers\NetWorthAssetController;
 use App\Http\Controllers\NetWorthController;
+use App\Http\Controllers\NetWorthLiabilityController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -105,6 +107,19 @@ Route::controller(AssetController::class)->group(function () {
 });
 
 Route::post('net-worths/{netWorth}/assets/{asset}/net-worth-assets', NetWorthAssetController::class)->name('net-worth-asset');
+
+Route::controller(LiabilityController::class)->group(function () {
+    Route::get('net-worths/{netWorth}/liabilities', 'index')->name('liabilities.index');
+    Route::get('net-worths/{netWorth}/liabilities/create', 'create')->name('liabilities.create');
+    Route::post('net-worths/{netWorth}/liabilities/create', 'store')->name('liabilities.store');
+    Route::get('net-worths/{netWorth}/liabilities/{liability}/edit', 'edit')->name('liabilities.edit');
+    Route::put('net-worths/{netWorth}/liabilities/{liability}/edit', 'update')->name('liabilities.update');
+    // Route::delete('net-worths/{netWorth}/liabilities/{liability}/destroy', 'destroy')->name('liabilities.destroy');
+    Route::delete('net-worths/{netWorth}/liabilities/{liability}', 'destroy')->name('liabilities.destroy');
+});
+
+Route::post('net-worths/{netWorth}/liabilities/{asset}/net-worth-liability', NetWorthLiabilityController::class)->name('net-worth-liability');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');
