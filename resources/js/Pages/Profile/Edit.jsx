@@ -3,6 +3,7 @@ import { Head } from '@inertiajs/react';
 import DeleteUserForm from './Partials/DeleteUserForm';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm';
+import AppLayout from '@/Layouts/AppLayout';
 
 export default function Edit({ mustVerifyEmail, status }) {
     return (
@@ -31,3 +32,5 @@ export default function Edit({ mustVerifyEmail, status }) {
         </AuthenticatedLayout>
     );
 }
+
+Edit.layout = (page) => <AppLayout title="Edit Profile" children={page} />;

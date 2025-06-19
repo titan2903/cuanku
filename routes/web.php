@@ -3,6 +3,7 @@
 use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\GoalController;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\PaymentController;
@@ -70,6 +71,15 @@ Route::controller(IncomeController::class)->group(function () {
     Route::get('incomes/{income}/edit', 'edit')->name('incomes.edit');
     Route::put('incomes/{income}/edit', 'update')->name('incomes.update');
     Route::delete('incomes/{income}/destroy', 'destroy')->name('incomes.destroy');
+});
+
+Route::controller(ExpenseController::class)->group(function () {
+    Route::get('expenses', 'index')->name('expenses.index');
+    Route::get('expenses/create', 'create')->name('expenses.create');
+    Route::post('expenses/create', 'store')->name('expenses.store');
+    Route::get('expenses/{expense}/edit', 'edit')->name('expenses.edit');
+    Route::put('expenses/{expense}/edit', 'update')->name('expenses.update');
+    Route::delete('expenses/{expense}/destroy', 'destroy')->name('expenses.destroy');
 });
 
 Route::middleware('auth')->group(function () {
