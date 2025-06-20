@@ -10,8 +10,8 @@ const alertVariants = cva(
             variant: {
                 default: 'bg-background text-foreground',
                 destructive: 'border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive',
-                success: 'text-white bg-gradient-to-br from-green-400 via-green-500 to-green-500 [&>svg]:text-white',
-                info: 'text-white bg-gradient-to-br from-sky-400 via-sky-500 to-sky-500 [&>svg]:text-white',
+                success: 'text-white bg-gradient-to-r from-green-400 via-green-500 to-green-500 [&>svg]:text-white',
+                info: 'text-white bg-gradient-to-r from-sky-400 via-sky-500 to-sky-500 [&>svg]:text-white',
             },
         },
         defaultVariants: {
@@ -26,7 +26,7 @@ const Alert = React.forwardRef(({ className, variant, ...props }, ref) => (
 Alert.displayName = 'Alert';
 
 const AlertTitle = React.forwardRef(({ className, ...props }, ref) => (
-    <h5 ref={ref} className={cn('mb-1 font-medium leading-none tracking-tight', className)} {...props} />
+    <h5 ref={ref} className={cn('mb-1 text-xl font-medium leading-none tracking-tight', className)} {...props} />
 ));
 AlertTitle.displayName = 'AlertTitle';
 
