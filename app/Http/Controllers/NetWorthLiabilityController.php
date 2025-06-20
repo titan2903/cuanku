@@ -39,7 +39,7 @@ class NetWorthLiabilityController extends Controller implements HasMiddleware
                 'nominal' => $request->nominal,
             ]);
 
-            flashMessage(MessageType::CREATED->message('Kewajibankekayaan bersih.'));
+            flashMessage(MessageType::CREATED->message('Kewajiban Kekayaan Bersih.'));
 
             return to_route('net-worths.show', $netWorth);
         } catch (Throwable $e) {
