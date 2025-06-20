@@ -116,7 +116,7 @@ const ASSETDESCRIPTION = {
     [ASSETTYPE.PERSONAL]:
         'Pengelolaan keuangan pribadi termasuk tabungan dan anggaran untuk mencapai tujuan keuangan jangka pendek dan jangka panjang',
     [ASSETTYPE.SHORTTERM]: 'Investasi yang bertujuan untuk memperoleh keuntungan dalam waktu singkat',
-    [ASSETTYPE.MIDTERM]: 'Investasi dengam periode pengembalian antara 1 hingga 5 tahun',
+    [ASSETTYPE.MIDTERM]: 'Investasi dengan periode pengembalian antara 1 hingga 5 tahun',
     [ASSETTYPE.LONGTERM]:
         'Investasi dengan periode pengembalian lebih dari 5 tahun, bertujuan untuk pertumbuhan modal jangka panjang',
 };
