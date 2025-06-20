@@ -103,7 +103,7 @@ Route::controller(AssetController::class)->group(function () {
     Route::post('net-worths/{netWorth}/assets/create', 'store')->name('assets.store');
     Route::get('net-worths/{netWorth}/assets/{asset}/edit', 'edit')->name('assets.edit');
     Route::put('net-worths/{netWorth}/assets/{asset}/edit', 'update')->name('assets.update');
-    Route::delete('net-worths/{netWorth}/assets/{asset}/destroy', 'destroy')->name('assets.destroy');
+    Route::delete('net-worths/{netWorth}/assets/{asset}', 'destroy')->name('assets.destroy');
 });
 
 Route::post('net-worths/{netWorth}/assets/{asset}/net-worth-assets', NetWorthAssetController::class)->name('net-worth-asset');
@@ -114,7 +114,7 @@ Route::controller(LiabilityController::class)->group(function () {
     Route::post('net-worths/{netWorth}/liabilities/create', 'store')->name('liabilities.store');
     Route::get('net-worths/{netWorth}/liabilities/{liability}/edit', 'edit')->name('liabilities.edit');
     Route::put('net-worths/{netWorth}/liabilities/{liability}/edit', 'update')->name('liabilities.update');
-    Route::delete('net-worths/{netWorth}/liabilities/{liability}/destroy', 'destroy')->name('liabilities.destroy');
+    Route::delete('net-worths/{netWorth}/liabilities/{liability}', 'destroy')->name('liabilities.destroy');
 });
 
 Route::post('net-worths/{netWorth}/liabilities/{liability}/net-worth-liability', NetWorthLiabilityController::class)->name('net-worth-liability');

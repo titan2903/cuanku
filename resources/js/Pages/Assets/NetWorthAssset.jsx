@@ -31,7 +31,7 @@ export default function NetWorthAsset({ asset }) {
 
     return (
         <Sheet>
-            <SheetTrigger>
+            <SheetTrigger asChild>
                 <Button variant="yellow" size="sm">
                     Aset Kekayaan Bersih
                 </Button>

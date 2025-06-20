@@ -31,7 +31,7 @@ export default function NetWorthLiability({ liability }) {
 
     return (
         <Sheet>
-            <SheetTrigger>
+            <SheetTrigger asChild>
                 <Button variant="yellow" size="sm">
                     Kewajiban Kekayaan Bersih
                 </Button>
