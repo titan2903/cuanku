@@ -111,6 +111,15 @@ const ASSETTYPEVARIANTS = {
     [ASSETTYPE.MIDTERM]: 'sky',
     [ASSETTYPE.LONGTERM]: 'purple',
 };
+const ASSETDESCRIPTION = {
+    [ASSETTYPE.CASH]: 'Uang tunai yang tersedia untuk kebutuhan sehari-hari',
+    [ASSETTYPE.PERSONAL]:
+        'Pengelolaan keuangan pribadi termasuk tabungan dan anggaran untuk mencapai tujuan keuangan jangka pendek dan jangka panjang',
+    [ASSETTYPE.SHORTTERM]: 'Investasi yang bertujuan untuk memperoleh keuntungan dalam waktu singkat',
+    [ASSETTYPE.MIDTERM]: 'Investasi dengan periode pengembalian antara 1 hingga 5 tahun',
+    [ASSETTYPE.LONGTERM]:
+        'Investasi dengan periode pengembalian lebih dari 5 tahun, bertujuan untuk pertumbuhan modal jangka panjang',
+};
 
 const LIABILITYTYPE = {
     SHORTTERMDEBT: 'Hutang Jangka Pendek',
@@ -125,9 +134,9 @@ const LIABILITYTYPEVARIANT = {
 };
 
 const LIABILITYDESCRIPTION = {
-    [LIABILITYTYPE.SHORTTERMDEBT]: 'Tenor 1-5 Tahun',
-    [LIABILITYTYPE.MIDTERMDEBT]: 'Tenor 5-10 Tahun',
-    [LIABILITYTYPE.LONGTERMDEBT]: 'Tenor 10+ Tahun',
+    [LIABILITYTYPE.SHORTTERMDEBT]: 'Tenor dalam jangka waktu kurang dari 1 tahun sampai 5 tahun',
+    [LIABILITYTYPE.MIDTERMDEBT]: 'Tenor dalam jangka waktu 5 tahun sampai 10 tahun',
+    [LIABILITYTYPE.LONGTERMDEBT]: 'Tenor dalam jangka waktu lebih dari 10 tahun',
 };
 
 const messages = {
@@ -180,6 +189,7 @@ const messages = {
 };
 
 export {
+    ASSETDESCRIPTION,
     ASSETTYPE,
     ASSETTYPEVARIANTS,
     BUDGETTYPE,
