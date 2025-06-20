@@ -7,7 +7,7 @@ import { useForm } from '@inertiajs/react';
 import { IconCheck } from '@tabler/icons-react';
 import { toast } from 'sonner';
 
-export default function NetWorthAsset({ asset }) {
+export default function NetWorthLiability({ liability }) {
     const { data, setData, reset, errors, post, processing } = useForm({
         transaction_date: '',
         nominal: 0,
@@ -19,7 +19,7 @@ export default function NetWorthAsset({ asset }) {
 
     const onHandleSubmit = (e) => {
         e.preventDefault();
-        post(route('net-worth-asset', [asset.net_worth_id, asset.id]), {
+        post(route('net-worth-liability', [liability.net_worth_id, liability.id]), {
             preserveScroll: true,
             preserveState: true,
             onSuccess: (success) => {
@@ -33,13 +33,15 @@ export default function NetWorthAsset({ asset }) {
         <Sheet>
             <SheetTrigger asChild>
                 <Button variant="yellow" size="sm">
-                    Aset Kekayaan Bersih
+                    Kewajiban Kekayaan Bersih
                 </Button>
             </SheetTrigger>
             <SheetContent>
                 <SheetHeader>
-                    <SheetTitle>Aset Kekayaan Bersih</SheetTitle>
-                    <SheetDescription>Tambah aset kekayaan bersih berdasarkan tanggal dimasukkannya.</SheetDescription>
+                    <SheetTitle>Kewajiban Kekayaan Bersih</SheetTitle>
+                    <SheetDescription>
+                        Tambah kewajiban kekayaan bersih berdasarkan tanggal dimasukkannya.
+                    </SheetDescription>
                 </SheetHeader>
                 <form className="mt-4 space-y-4" onSubmit={onHandleSubmit}>
                     <div className="grid grid-cols-1 lg:grid-cols-2">
@@ -66,7 +68,7 @@ export default function NetWorthAsset({ asset }) {
                                 id="nominal"
                                 value={data.nominal}
                                 onChange={onHandleChange}
-                                placeholder="Masukkan Nominal Aset"
+                                placeholder="Masukkan Nominal Kewajiban"
                                 min={0}
                                 onInput={(e) => {
                                     if (e.target.value < 0) {

@@ -4,9 +4,9 @@ namespace App\Enums;
 
 enum LiabilityType: string
 {
-    case SHORTTERMDEBT = 'Utang Jangka Pendek';
-    case MIDTERMDEBT = 'Utang Jangka Menengah';
-    case LONGTERMDEBT = 'Utang Jangka Panjang';
+    case SHORTTERMDEBT = 'Hutang Jangka Pendek';
+    case MIDTERMDEBT = 'Hutang Jangka Menengah';
+    case LONGTERMDEBT = 'Hutang Jangka Panjang';
 
     public static function options(array $exclude = []): array
     {

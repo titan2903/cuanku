@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\AssetType;
+use App\Enums\LiabilityType;
 use App\Enums\MessageType;
-use App\Http\Requests\AssetRequest;
-use App\Http\Resources\AssetResource;
-use App\Models\Asset;
+use App\Http\Requests\LiabilityRequest;
+use App\Http\Resources\LiabilityResource;
+use App\Models\Liability;
 use App\Models\NetWorth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controllers\HasMiddleware;
@@ -15,13 +15,13 @@ use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
 use Throwable;
 
-class AssetController extends Controller implements HasMiddleware
+class LiabilityController extends Controller implements HasMiddleware
 {
     public static function middleware(): array
     {
         return [
-            new Middleware(middleware: 'auth'),
-            new Middleware('can:viewAny,netWorth', only: ['index']),
+            new Middleware('auth'),
+            new Middleware('can:view,netWorth', only: ['index']),
             new Middleware('can:create,netWorth', only: ['create', 'store']),
             new Middleware('can:update,netWorth', only: ['edit', 'update']),
             new Middleware('can:delete,netWorth', only: ['destroy']),
@@ -30,7 +30,7 @@ class AssetController extends Controller implements HasMiddleware
 
     public function index(NetWorth $netWorth): Response
     {
-        $assets = Asset::query()
+        $liabilities = Liability::query()
             ->select([
                 'id',
                 'net_worth_id',
@@ -46,14 +46,14 @@ class AssetController extends Controller implements HasMiddleware
             ->sorting(request()->only(['field', 'direction']))
             ->paginate(request()->load ?? 10);
 
-        return inertia('Assets/Index', [
+        return inertia('Liabilities/Index', [
             'page_settings' => fn () => [
-                'title' => 'Aset',
-                'subtitle' => 'Menampilkan semua data aset yang tersedia pada akun Anda.',
+                'title' => 'Kewajiban',
+                'subtitle' => 'Menampilkan semua data kewajiban yang tersedia pada akun Anda.',
             ],
-            'assets' => fn () => AssetResource::collection($assets)->additional([
+            'liabilities' => fn () => LiabilityResource::collection($liabilities)->additional([
                 'meta' => [
-                    'has_pages' => $assets->hasPages(),
+                    'has_pages' => $liabilities->hasPages(),
                 ],
             ]),
             'state' => fn () => [
@@ -66,8 +66,8 @@ class AssetController extends Controller implements HasMiddleware
                 ['label' => 'CuanKu💲', 'href' => route('dashboard')],
                 ['label' => 'Kekayaan Bersih', 'href' => route('net-worths.index')],
                 ['label' => $netWorth->id, 'href' => route('net-worths.show', $netWorth)],
-                ['label' => 'Aset', 'href' => route('assets.index', $netWorth)],
-                ['label' => 'Tambah Aset'],
+                ['label' => 'Kewajiban', 'href' => route('liabilities.index', $netWorth)],
+                ['label' => 'Kewajiban'],
             ],
             'netWorth' => fn () => $netWorth,
         ]);
@@ -75,98 +75,98 @@ class AssetController extends Controller implements HasMiddleware
 
     public function create(NetWorth $netWorth): Response
     {
-        return inertia('Assets/Create', [
+        return inertia('Liabilities/Create', [
             'page_settings' => fn () => [
-                'title' => 'Tambah Aset',
-                'subtitle' => 'Tambahkan data aset Anda untuk memantau perkembangan finansial Anda.',
+                'title' => 'Tambah Kewajiban',
+                'subtitle' => 'Tambahkan data kewajiban Anda untuk memantau perkembangan finansial Anda.',
                 'method' => 'POST',
-                'action' => route('assets.store', $netWorth),
+                'action' => route('liabilities.store', $netWorth),
             ],
             'items' => fn () => [
                 ['label' => 'CuanKu💲', 'href' => route('dashboard')],
                 ['label' => 'Kekayaan Bersih', 'href' => route('net-worths.index')],
                 ['label' => $netWorth->id, 'href' => route('net-worths.show', $netWorth)],
-                ['label' => 'Aset', 'href' => route('assets.index', $netWorth)],
-                ['label' => 'Tambah Aset'],
+                ['label' => 'Kewajiban', 'href' => route('liabilities.index', $netWorth)],
+                ['label' => 'Tambah Kewajiban'],
             ],
             'netWorth' => fn () => $netWorth,
-            'assetTypes' => fn () => AssetType::options(),
+            'liabilityTypes' => fn () => LiabilityType::options(),
         ]);
     }
 
-    public function store(NetWorth $netWorth, AssetRequest $request): RedirectResponse
+    public function store(NetWorth $netWorth, LiabilityRequest $request): RedirectResponse
     {
         try {
-            $netWorth->assets()->create([
+            $netWorth->liabilities()->create([
                 'user_id' => Auth::user()->id,
                 'detail' => $request->detail,
                 'goal' => $request->goal,
                 'type' => $request->type,
             ]);
 
-            flashMessage(MessageType::CREATED->message('Aset.'));
+            flashMessage(MessageType::CREATED->message('Kewajiban.'));
 
-            return to_route('assets.index', $netWorth);
+            return to_route('liabilities.index', $netWorth);
         } catch (Throwable $e) {
             flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
 
-            return to_route('assets.index', $netWorth);
+            return to_route('liabilities.index', $netWorth);
         }
     }
 
-    public function edit(NetWorth $netWorth, Asset $asset): Response
+    public function edit(NetWorth $netWorth, Liability $liability): Response
     {
-        return inertia('Assets/Edit', [
+        return inertia('Liabilities/Edit', [
             'page_settings' => fn () => [
-                'title' => 'Edit Aset',
-                'subtitle' => 'Edit data aset Anda di sini.',
+                'title' => 'Edit Kewajiban',
+                'subtitle' => 'Edit data kewajiban Anda di sini.',
                 'method' => 'PUT',
-                'action' => route('assets.update', [$netWorth, $asset]),
+                'action' => route('liabilities.update', [$netWorth, $liability]),
             ],
             'items' => fn () => [
                 ['label' => 'CuanKu💲', 'href' => route('dashboard')],
                 ['label' => 'Kekayaan Bersih', 'href' => route('net-worths.index')],
                 ['label' => $netWorth->id, 'href' => route('net-worths.show', $netWorth)],
-                ['label' => 'Aset', 'href' => route('assets.index', $netWorth)],
-                ['label' => 'Edit Aset'],
+                ['label' => 'Kewajiban', 'href' => route('liabilities.index', $netWorth)],
+                ['label' => 'Edit Kewajiban'],
             ],
             'netWorth' => fn () => $netWorth,
-            'asset' => fn () => $asset,
-            'assetTypes' => fn () => AssetType::options(),
+            'liabilityTypes' => fn () => LiabilityType::options(),
+            'liability' => fn () => $liability,
         ]);
     }
 
-    public function update(NetWorth $netWorth, Asset $asset, AssetRequest $request): RedirectResponse
+    public function update(NetWorth $netWorth, Liability $liability, LiabilityRequest $request): RedirectResponse
     {
         try {
-            $asset->update([
+            $liability->update([
                 'detail' => $request->detail,
                 'goal' => $request->goal,
                 'type' => $request->type,
             ]);
 
-            flashMessage(MessageType::UPDATED->message('Aset.'));
+            flashMessage(MessageType::UPDATED->message('Kewajiban.'));
 
-            return to_route('assets.index', $netWorth);
+            return to_route('liabilities.index', $netWorth);
         } catch (Throwable $e) {
             flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
 
-            return to_route('assets.index', $netWorth);
+            return to_route('liabilities.index', $netWorth);
         }
     }
 
-    public function destroy(NetWorth $netWorth, Asset $asset): RedirectResponse
+    public function destroy(NetWorth $netWorth, Liability $liability): RedirectResponse
     {
         try {
-            $asset->delete();
+            $liability->delete();
 
-            flashMessage(MessageType::DELETED->message('Aset.'));
+            flashMessage(MessageType::DELETED->message('Kewajiban.'));
 
-            return to_route('assets.index', $netWorth);
+            return to_route('liabilities.index', $netWorth);
         } catch (Throwable $e) {
             flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
 
-            return to_route('assets.index', $netWorth);
+            return to_route('liabilities.index', $netWorth);
         }
     }
 }

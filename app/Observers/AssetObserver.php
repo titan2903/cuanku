@@ -6,7 +6,7 @@ use App\Models\Asset;
 
 class AssetObserver
 {
-    public function deleted(Asset $asset)
+    public function deleting(Asset $asset)
     {
         $netWorth = $asset->netWorth;
         $totalAsset = $asset->netWorthAssets()->sum('nominal');

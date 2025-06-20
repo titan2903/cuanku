@@ -10,22 +10,14 @@ import { Card, CardContent, CardFooter, CardHeader } from '@/Components/ui/card'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
 import { useFilter } from '@/Hooks/use-filter';
 import AppLayout from '@/Layouts/AppLayout';
-import { deleteAction, formatDateIndo, formatToRupiah } from '@/lib/utils';
+import { deleteAction, formatDateIndo } from '@/lib/utils';
 import { Link } from '@inertiajs/react';
-import {
-    IconArrowDown,
-    IconDiamond,
-    IconEye,
-    IconLoadBalancer,
-    IconPencil,
-    IconPigMoney,
-    IconPlus,
-    IconTrash,
-} from '@tabler/icons-react';
+import { IconArrowDown, IconLoadBalancer, IconPencil, IconPlus, IconTrash } from '@tabler/icons-react';
 import { useState } from 'react';
+import NetWorthLiability from './NetWorthLiability';
 
 export default function Index(props) {
-    const { data: netWorths, meta, links } = props.netWorths;
+    const { data: liabilities, meta, links } = props.liabilities;
     const [params, setParams] = useState(props.state);
 
     const onSortTable = (field) => {
@@ -37,9 +29,9 @@ export default function Index(props) {
     };
 
     useFilter({
-        route: route('net-worths.index'),
+        route: route('liabilities.index', [props.netWorth]),
         values: params,
-        only: ['netWorths'],
+        only: ['liabilities'],
     });
 
     return (
@@ -51,13 +43,13 @@ export default function Index(props) {
                         <HeaderTitle
                             title={props.page_settings.title}
                             subtitle={props.page_settings.subtitle}
-                            icon={IconPigMoney}
+                            icon={IconLoadBalancer}
                         />
 
                         <Button variant="emerald" size="xl" asChild>
-                            <Link href={route('net-worths.create')}>
+                            <Link href={route('liabilities.create', [props.netWorth])}>
                                 <IconPlus className="size-4" />
-                                Tambah Kekayaan Bersih
+                                Tambah Kewajiban
                             </Link>
                         </Button>
                     </div>
@@ -65,11 +57,11 @@ export default function Index(props) {
                     <ShowFilter params={params} />
                 </CardHeader>
                 <CardContent className="p-0 [&-td]:whitespace-nowrap [&-td]:px-6 [&-th]:px-6">
-                    {netWorths.length === 0 ? (
+                    {liabilities.length === 0 ? (
                         <EmptyState
-                            icon={IconPigMoney}
-                            title="Belum ada data kekayaan bersih"
-                            subtitle="Tambahkan data kekayaan bersih baru untuk memulai."
+                            icon={IconLoadBalancer}
+                            title="Belum ada data kewajiban"
+                            subtitle="Tambahkan data kewajiban baru untuk memulai."
                         />
                     ) : (
                         <Table className="w-full">
@@ -91,9 +83,9 @@ export default function Index(props) {
                                         <Button
                                             variant="ghost"
                                             className="group inline-flex"
-                                            onClick={() => onSortTable('net_worth_goal')}
+                                            onClick={() => onSortTable('detail')}
                                         >
-                                            Tujuan Kekayaan Bersih
+                                            Detail
                                             <span className="ml-2 flex-none rounded text-muted-foreground">
                                                 <IconArrowDown className="size-4" />
                                             </span>
@@ -103,9 +95,9 @@ export default function Index(props) {
                                         <Button
                                             variant="ghost"
                                             className="group inline-flex"
-                                            onClick={() => onSortTable('current_net_worth')}
+                                            onClick={() => onSortTable('goal')}
                                         >
-                                            Kekayaan Bersih Saat Ini
+                                            Tujuan
                                             <span className="ml-2 flex-none rounded text-muted-foreground">
                                                 <IconArrowDown className="size-4" />
                                             </span>
@@ -115,33 +107,9 @@ export default function Index(props) {
                                         <Button
                                             variant="ghost"
                                             className="group inline-flex"
-                                            onClick={() => onSortTable('amount_left')}
+                                            onClick={() => onSortTable('type')}
                                         >
-                                            Jumlah Yang Tersisa
-                                            <span className="ml-2 flex-none rounded text-muted-foreground">
-                                                <IconArrowDown className="size-4" />
-                                            </span>
-                                        </Button>
-                                    </TableHead>
-                                    <TableHead>
-                                        <Button
-                                            variant="ghost"
-                                            className="group inline-flex"
-                                            onClick={() => onSortTable('transaction_per_month')}
-                                        >
-                                            Transaksi Per Bulan
-                                            <span className="ml-2 flex-none rounded text-muted-foreground">
-                                                <IconArrowDown className="size-4" />
-                                            </span>
-                                        </Button>
-                                    </TableHead>
-                                    <TableHead>
-                                        <Button
-                                            variant="ghost"
-                                            className="group inline-flex"
-                                            onClick={() => onSortTable('year')}
-                                        >
-                                            Tahun
+                                            Tipe
                                             <span className="ml-2 flex-none rounded text-muted-foreground">
                                                 <IconArrowDown className="size-4" />
                                             </span>
@@ -163,38 +131,22 @@ export default function Index(props) {
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {netWorths.map((netWorth, index) => (
+                                {liabilities.map((liability, index) => (
                                     <TableRow key={index}>
                                         <TableCell>
                                             {index +
                                                 1 +
                                                 (Number(meta?.current ?? 1) - 1) * Number(meta?.per_page ?? 10)}
                                         </TableCell>
-                                        <TableCell>{formatToRupiah(netWorth.net_worth_goal)}</TableCell>
-                                        <TableCell>{formatToRupiah(netWorth.current_net_worth)}</TableCell>
-                                        <TableCell>{formatToRupiah(netWorth.amount_left)}</TableCell>
-                                        <TableCell>{netWorth.transaction_per_month}</TableCell>
-                                        <TableCell>{netWorth.year}</TableCell>
-                                        <TableCell>{formatDateIndo(netWorth.created_at)}</TableCell>
+                                        <TableCell>{liability.detail}</TableCell>
+                                        <TableCell>{liability.goal}</TableCell>
+                                        <TableCell>{liability.type}</TableCell>
+                                        <TableCell>{formatDateIndo(liability.created_at)}</TableCell>
                                         <TableCell>
                                             <div className="flex items-center gap-x-1">
-                                                <Button variant="emerald" size="sm" asChild>
-                                                    <Link href={route('assets.index', [netWorth])}>
-                                                        <IconDiamond className="size-4" />
-                                                    </Link>
-                                                </Button>
-                                                <Button variant="purple" size="sm" asChild>
-                                                    <Link href={route('liabilities.index', [netWorth])}>
-                                                        <IconLoadBalancer className="size-4" />
-                                                    </Link>
-                                                </Button>
-                                                <Button variant="yellow" size="sm" asChild>
-                                                    <Link href={route('net-worths.show', [netWorth])}>
-                                                        <IconEye className="size-4" />
-                                                    </Link>
-                                                </Button>
+                                                <NetWorthLiability liability={liability} />
                                                 <Button variant="blue" size="sm" asChild>
-                                                    <Link href={route('net-worths.edit', [netWorth])}>
+                                                    <Link href={route('liabilities.edit', [props.netWorth, liability])}>
                                                         <IconPencil className="size-4" />
                                                     </Link>
                                                 </Button>
@@ -204,7 +156,11 @@ export default function Index(props) {
                                                             <IconTrash className="size-4" />
                                                         </Button>
                                                     }
-                                                    action={() => deleteAction(route('net-worths.destroy', [netWorth]))}
+                                                    action={() =>
+                                                        deleteAction(
+                                                            route('liabilities.destroy', [props.netWorth, liability]),
+                                                        )
+                                                    }
                                                 />
                                             </div>
                                         </TableCell>
@@ -217,7 +173,7 @@ export default function Index(props) {
                 <CardFooter className="flex w-full flex-col items-center justify-between gap-y-2 border-t py-3 lg:flex-row">
                     <p className="text-sm text-muted-foreground">
                         Menampilkan <span className="font-medium text-emerald-600">{meta.from ?? 0}</span> dari{' '}
-                        {meta.total} kekayaan bersih
+                        {meta.total} kewajiban
                     </p>
                     <div className="overflow-x-auto">
                         {meta.has_pages && <PaginationTable meta={meta} links={links} />}
