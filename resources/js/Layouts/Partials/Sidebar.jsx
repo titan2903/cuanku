@@ -7,11 +7,12 @@ import {
     IconCalendarEvent,
     IconChartArrowsVertical,
     IconCreditCardPay,
-    IconDoorEnter,
-    IconDoorExit,
+    IconLayoutDashboardFilled,
     IconLogout2,
     IconLogs,
     IconMoneybag,
+    IconMoneybagMove,
+    IconMoneybagMoveBack,
     IconPigMoney,
 } from '@tabler/icons-react';
 export default function Sidebar({ auth, url }) {
@@ -46,6 +47,14 @@ export default function Sidebar({ auth, url }) {
                 </CardContent>
             </Card>
             <ul role="list" className="flex flex-1 flex-col gap-y-2">
+                <div className="px-3 py-2 text-sm font-medium text-muted-foreground">Dashboard</div>
+                <NavLink
+                    url={route('dashboard')}
+                    active={url.startsWith('/dashboard')}
+                    title="Dashboard"
+                    icon={IconLayoutDashboardFilled}
+                />
+
                 <div className="px-3 py-2 text-sm font-medium text-muted-foreground">Master</div>
                 <NavLink
                     url={route('payments.index')}
@@ -74,14 +83,14 @@ export default function Sidebar({ auth, url }) {
                     url={route('incomes.index')}
                     active={url.startsWith('/incomes')}
                     title="Pemasukan"
-                    icon={IconDoorEnter}
+                    icon={IconMoneybagMoveBack}
                 />
 
                 <NavLink
                     url={route('expenses.index')}
                     active={url.startsWith('/expenses')}
                     title="Pengeluaran"
-                    icon={IconDoorExit}
+                    icon={IconMoneybagMove}
                 />
 
                 <div className="px-3 py-2 text-sm font-medium text-muted-foreground">Aset dan Kewajiban</div>

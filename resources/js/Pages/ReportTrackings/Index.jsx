@@ -11,11 +11,11 @@ import AppLayout from '@/Layouts/AppLayout';
 import { BUDGETTYPEVARIANTS, formatDateIndo, formatToRupiah } from '@/lib/utils';
 import {
     IconCash,
-    IconDoorEnter,
-    IconDoorExit,
     IconInvoice,
     IconLogs,
     IconMoneybagMinus,
+    IconMoneybagMove,
+    IconMoneybagMoveBack,
     IconPigMoney,
     IconShoppingBag,
 } from '@tabler/icons-react';
@@ -227,7 +227,7 @@ export default function Index(props) {
                             {budgetIncomes.length === 0 ? (
                                 <EmptyState
                                     icon={IconCash}
-                                    title="Tidak ada data penghasilan"
+                                    title="Belum ada data penghasilan"
                                     subtitle="Silakan tambahkan penghasilan terlebih dahulu."
                                 />
                             ) : (
@@ -287,7 +287,7 @@ export default function Index(props) {
                             {budgetDebts.length === 0 ? (
                                 <EmptyState
                                     icon={IconMoneybagMinus}
-                                    title="Tidak ada data cicilan hutang"
+                                    title="Belum ada data cicilan hutang"
                                     subtitle="Silakan tambahkan cicilan hutang terlebih dahulu."
                                 />
                             ) : (
@@ -347,8 +347,8 @@ export default function Index(props) {
                             {budgetSavings.length === 0 ? (
                                 <EmptyState
                                     icon={IconPigMoney}
-                                    title="Tidak ada data cicilan hutang"
-                                    subtitle="Silakan tambahkan cicilan hutang terlebih dahulu."
+                                    title="Belum ada data tabungan"
+                                    subtitle="Silakan tambahkan data tabungan atau investasi terlebih dahulu."
                                 />
                             ) : (
                                 <Table className="w-full">
@@ -406,8 +406,8 @@ export default function Index(props) {
                         <CardContent className="p-0 [&-td]:whitespace-nowrap [&-td]:px-6 [&-th]:px-6">
                             {budgetBills.length === 0 ? (
                                 <EmptyState
-                                    icon={IconMoneybagMinus}
-                                    title="Tidak ada data tagihan"
+                                    icon={IconInvoice}
+                                    title="Belum ada data tagihan"
                                     subtitle="Silakan tambahkan tagihan terlebih dahulu."
                                 />
                             ) : (
@@ -467,7 +467,7 @@ export default function Index(props) {
                             {budgetShoppings.length === 0 ? (
                                 <EmptyState
                                     icon={IconShoppingBag}
-                                    title="Tidak ada data belanja"
+                                    title="Belum ada data belanja"
                                     subtitle="Silakan tambahkan belanja terlebih dahulu."
                                 />
                             ) : (
@@ -527,8 +527,8 @@ export default function Index(props) {
                 <CardContent className="p-0 [&-td]:whitespace-nowrap [&-td]:px-6 [&-th]:px-6">
                     {incomeTrackers.length === 0 ? (
                         <EmptyState
-                            icon={IconDoorEnter}
-                            title="Tidak ada data pemasukan"
+                            icon={IconMoneybagMoveBack}
+                            title="Belum ada data pemasukan"
                             subtitle="Silakan tambahkan pemasukan terlebih dahulu."
                         />
                     ) : (
@@ -569,9 +569,9 @@ export default function Index(props) {
                 <CardContent className="p-0 [&-td]:whitespace-nowrap [&-td]:px-6 [&-th]:px-6">
                     {expenseTrackers.length === 0 ? (
                         <EmptyState
-                            icon={IconDoorExit}
-                            title="Tidak ada data pegeluaran"
-                            subtitle="Silakan tambahkan pegeluaran terlebih dahulu."
+                            icon={IconMoneybagMove}
+                            title="Belum ada data pengeluaran"
+                            subtitle="Silakan tambahkan pengeluaran terlebih dahulu."
                         />
                     ) : (
                         <Table className="w-full">

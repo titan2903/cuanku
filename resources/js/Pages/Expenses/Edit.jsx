@@ -12,7 +12,7 @@ import { useFilter } from '@/Hooks/use-filter';
 import AppLayout from '@/Layouts/AppLayout';
 import { flashMessage } from '@/lib/utils';
 import { Link, useForm } from '@inertiajs/react';
-import { IconArrowBack, IconChecks, IconDoorExit } from '@tabler/icons-react';
+import { IconArrowBack, IconChecks, IconMoneybagMove } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
@@ -79,7 +79,7 @@ export default function Edit(props) {
                         <HeaderTitle
                             title={props.page_settings.title}
                             subtitle={props.page_settings.subtitle}
-                            icon={IconDoorExit}
+                            icon={IconMoneybagMove}
                         />
                         <Button variant="emerald" size="xl" asChild>
                             <Link href={route('expenses.index')}>
