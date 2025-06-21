@@ -194,7 +194,7 @@ export default function Index(props) {
                 <div className="col-span-1">
                     <Card>
                         <CardHeader>
-                            <CardTitle>Cicilan Hitang</CardTitle>
+                            <CardTitle>Cicilan Hutang</CardTitle>
                             <CardDescription>
                                 Memberikan laporan terkait pembayaran cicilan hutang tahunan, meliputi jumlah yang telah
                                 dibayar dan sisa cicilan.

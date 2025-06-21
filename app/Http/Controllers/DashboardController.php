@@ -50,7 +50,7 @@ class DashboardController extends Controller implements HasMiddleware
             ->where([
                 ['user_id', Auth::user()->id],
                 ['year', now()->year],
-            ])->pluck('amount_left');
+            ])->sum('amount_left');
 
         $goals = Goal::query()
             ->select([

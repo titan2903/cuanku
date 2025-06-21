@@ -347,8 +347,8 @@ export default function Index(props) {
                             {budgetSavings.length === 0 ? (
                                 <EmptyState
                                     icon={IconPigMoney}
-                                    title="Belum ada data cicilan hutang"
-                                    subtitle="Silakan tambahkan cicilan hutang terlebih dahulu."
+                                    title="Belum ada data tabungan"
+                                    subtitle="Silakan tambahkan data tabungan atau investasi terlebih dahulu."
                                 />
                             ) : (
                                 <Table className="w-full">
@@ -570,8 +570,8 @@ export default function Index(props) {
                     {expenseTrackers.length === 0 ? (
                         <EmptyState
                             icon={IconMoneybagMove}
-                            title="Belum ada data pegeluaran"
-                            subtitle="Silakan tambahkan pegeluaran terlebih dahulu."
+                            title="Belum ada data pengeluaran"
+                            subtitle="Silakan tambahkan pengeluaran terlebih dahulu."
                         />
                     ) : (
                         <Table className="w-full">
