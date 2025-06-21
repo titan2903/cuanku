@@ -210,9 +210,9 @@ class DashboardController extends Controller implements HasMiddleware
             $month = $monthEnum->value;
             $year = date('Y');
 
-            $incomes = $incomeData->where('month', $month)->where('year', $year)->first()->pemasukan ?? 0;
+            $incomes = $incomeData->where('month', $month)->where('year', $year)->first()?->pemasukan ?? 0;
 
-            $expenses = $expenseData->where('month', $month)->where('year', $year)->first()->pengeluaran ?? 0;
+            $expenses = $expenseData->where('month', $month)->where('year', $year)->first()?->pengeluaran ?? 0;
 
             $chartData[] = [
                 'month' => $month,
