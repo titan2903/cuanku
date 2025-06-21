@@ -49,7 +49,7 @@ class Balance extends Model
                     'Tabungan dan Investasi' => $query->where('type', BudgetType::SAVING->value),
                     'Belanja' => $query->where('type', BudgetType::SHOPPING->value),
                     'Expense' => $query->where('type', BudgetType::EXPENSE->value),
-                    'Cicilan Utang' => $query->where('type', BudgetType::DEBT->value),
+                    'Cicilan Hutang' => $query->where('type', BudgetType::DEBT->value),
                     'Tagihan' => $query->where('type', BudgetType::BILL->value),
                 };
             }

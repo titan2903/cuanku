@@ -5,10 +5,10 @@ namespace App\Enums;
 enum BudgetType: string
 {
     case INCOME = 'Penghasilan';
-    case EXPENSE = 'expense';
+    case EXPENSE = 'Pengeluaran';
     case SAVING = 'Tabungan dan Investasi';
     case SHOPPING = 'Belanja';
-    case DEBT = 'Cicilan Utang';
+    case DEBT = 'Cicilan Hutang';
     case BILL = 'Tagihan';
 
     public static function options(array $exclude = []): array
@@ -22,7 +22,7 @@ enum BudgetType: string
                     self::EXPENSE => 'Pengeluaran',
                     self::SAVING => 'Tabungan dan Investasi',
                     self::SHOPPING => 'Belanja',
-                    self::DEBT => 'Cicilan Utang',
+                    self::DEBT => 'Cicilan Hutang',
                     self::BILL => 'Tagihan',
                 },
             ])->values()->toArray();

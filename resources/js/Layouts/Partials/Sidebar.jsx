@@ -94,14 +94,14 @@ export default function Sidebar({ auth, url }) {
 
                 <div className="px-3 py-2 text-sm font-medium text-muted-foreground">Laporan</div>
                 <NavLink
-                    url="#"
+                    url={route('report-trackings')}
                     active={url.startsWith('/report-tranckings')}
                     title="Laporan Pelacakan"
                     icon={IconLogs}
                 />
 
                 <NavLink
-                    url="#"
+                    url={route('annual-reports')}
                     active={url.startsWith('/annual-reports')}
                     title="Laporan Tahunan"
                     icon={IconCalendarEvent}
