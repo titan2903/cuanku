@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AnnualReporController;
+use App\Http\Controllers\AnnualReportController;
 use App\Http\Controllers\AssetController;
 use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\BudgetController;
@@ -124,7 +124,7 @@ Route::post('net-worths/{netWorth}/liabilities/{liability}/net-worth-liability',
 
 Route::get('report-trackings', ReportTrackingController::class)->name('report-trackings');
 
-Route::get('annual-reports', [AnnualReporController::class, 'index'])->name('annual-reports');
+Route::get('annual-reports', [AnnualReportController::class, 'index'])->name('annual-reports');
 
 Route::middleware('auth')->group(function () {
     Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');

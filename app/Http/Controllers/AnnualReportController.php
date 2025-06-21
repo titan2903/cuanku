@@ -14,7 +14,7 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Inertia\Response;
 
-class AnnualReporController extends Controller implements HasMiddleware
+class AnnualReportController extends Controller implements HasMiddleware
 {
     use BudgetTrait, FormatReportTrait;
 
