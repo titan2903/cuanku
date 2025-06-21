@@ -44,7 +44,7 @@ export default function Productivity({ transactions }) {
                     </TooltipTrigger>
                     <TooltipContent>
                         <p className="text-sm">
-                            {transaction.count > 0 ? `${transaction.count} kontribusi` : 'Tidak ada kontribusi'} pada{' '}
+                            {transaction.count > 0 ? `${transaction.count} kontribusi` : 'Belum ada kontribusi'} pada{' '}
                             {formatDateIndo(transaction.transaction_date)}
                         </p>
                     </TooltipContent>

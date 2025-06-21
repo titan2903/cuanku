@@ -82,7 +82,7 @@ export default function Index(props) {
                             {annualIncomes.length === 0 ? (
                                 <EmptyState
                                     icon={IconCashBanknote}
-                                    title="Tidak ada data penghasilan"
+                                    title="Belum ada data penghasilan"
                                     subtitle="Silakan tambahkan penghasilan terlebih dahulu."
                                 />
                             ) : (
@@ -142,7 +142,7 @@ export default function Index(props) {
                             {annualSavings.length === 0 ? (
                                 <EmptyState
                                     icon={IconCashBanknotePlus}
-                                    title="Tidak ada data tabungan dan investasi"
+                                    title="Belum ada data tabungan dan investasi"
                                     subtitle="Silakan tambahkan tabungan dan investasi terlebih dahulu."
                                 />
                             ) : (
@@ -204,7 +204,7 @@ export default function Index(props) {
                             {annualDebts.length === 0 ? (
                                 <EmptyState
                                     icon={IconCashBanknoteMinus}
-                                    title="Tidak ada data cicilan hutang"
+                                    title="Belum ada data cicilan hutang"
                                     subtitle="Silakan tambahkan cicilan hutang terlebih dahulu."
                                 />
                             ) : (
@@ -263,7 +263,7 @@ export default function Index(props) {
                             {annualBills.length === 0 ? (
                                 <EmptyState
                                     icon={IconInvoice}
-                                    title="Tidak ada data tagihan"
+                                    title="Belum ada data tagihan"
                                     subtitle="Silakan tambahkan tagihan terlebih dahulu."
                                 />
                             ) : (
@@ -323,7 +323,7 @@ export default function Index(props) {
                             {annualShoppings.length === 0 ? (
                                 <EmptyState
                                     icon={IconShoppingBag}
-                                    title="Tidak ada data belanja"
+                                    title="Belum ada data belanja"
                                     subtitle="Silakan tambahkan belanja terlebih dahulu."
                                 />
                             ) : (

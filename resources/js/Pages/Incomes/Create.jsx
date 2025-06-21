@@ -10,7 +10,7 @@ import { Textarea } from '@/Components/ui/textarea';
 import AppLayout from '@/Layouts/AppLayout';
 import { flashMessage } from '@/lib/utils';
 import { Link, useForm } from '@inertiajs/react';
-import { IconArrowBack, IconChecks, IconDoorEnter } from '@tabler/icons-react';
+import { IconArrowBack, IconChecks, IconMoneybagMoveBack } from '@tabler/icons-react';
 import { toast } from 'sonner';
 
 export default function Create(props) {
@@ -49,7 +49,7 @@ export default function Create(props) {
                         <HeaderTitle
                             title={props.page_settings.title}
                             subtitle={props.page_settings.subtitle}
-                            icon={IconDoorEnter}
+                            icon={IconMoneybagMoveBack}
                         />
 
                         <Button variant="emerald" size="xl" asChild>

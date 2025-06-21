@@ -13,7 +13,7 @@ import { useFilter } from '@/Hooks/use-filter';
 import AppLayout from '@/Layouts/AppLayout';
 import { deleteAction, formatDateIndo, formatToRupiah, MONTHTYPEVARIANTS } from '@/lib/utils';
 import { Link } from '@inertiajs/react';
-import { IconArrowDown, IconDoorEnter, IconPencil, IconPlus, IconTrash } from '@tabler/icons-react';
+import { IconArrowDown, IconMoneybagMoveBack, IconPencil, IconPlus, IconTrash } from '@tabler/icons-react';
 import { useState } from 'react';
 
 export default function Index(props) {
@@ -43,7 +43,7 @@ export default function Index(props) {
                         <HeaderTitle
                             title={props.page_settings.title}
                             subtitle={props.page_settings.subtitle}
-                            icon={IconDoorEnter}
+                            icon={IconMoneybagMoveBack}
                         />
 
                         <Button variant="emerald" size="xl" asChild>
@@ -59,7 +59,7 @@ export default function Index(props) {
                 <CardContent className="p-0 [&-td]:whitespace-nowrap [&-td]:px-6 [&-th]:px-6">
                     {incomes.length === 0 ? (
                         <EmptyState
-                            icon={IconDoorEnter}
+                            icon={IconMoneybagMoveBack}
                             title="Belum ada pemasukan"
                             subtitle="Mulailah membuat pemasukan baru."
                         />
