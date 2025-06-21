@@ -28,9 +28,9 @@ trait BudgetTrait
             ->get();
     }
 
-    private function prepareBudgetData(Request $reqeust, string $type, string $model, string $groupByField, ?string $expenseType = null): Collection
+    private function prepareBudgetData(Request $request, string $type, string $model, string $groupByField, ?string $expenseType = null): Collection
     {
-        $budgetPlanData = $this->filterBudgetData($reqeust, $type);
+        $budgetPlanData = $this->filterBudgetData($request, $type);
 
         $actualData = $model::query()
             ->where('user_id', Auth::user()->id)

@@ -95,7 +95,7 @@ export default function Sidebar({ auth, url }) {
                 <div className="px-3 py-2 text-sm font-medium text-muted-foreground">Laporan</div>
                 <NavLink
                     url={route('report-trackings')}
-                    active={url.startsWith('/report-tranckings')}
+                    active={url.startsWith('/report-trackings')}
                     title="Laporan Pelacakan"
                     icon={IconLogs}
                 />
