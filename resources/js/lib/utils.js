@@ -56,7 +56,7 @@ const formatToRupiah = (amount) => {
 const BUDGETTYPE = {
     INCOME: 'Penghasilan',
     SAVING: 'Tabungan dan Investasi',
-    DEBT: 'Cicilan Utang',
+    DEBT: 'Cicilan Hutang',
     BILL: 'Tagihan',
     SHOPPING: 'Belanja',
 };

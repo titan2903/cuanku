@@ -29,7 +29,7 @@ import {
 
 export default function Show(props) {
     const { netWorth } = props;
-    
+
     const netWorthAssets = props.netWorthAssets;
     const netWorthLiabilities = props.netWorthLiabilities;
 

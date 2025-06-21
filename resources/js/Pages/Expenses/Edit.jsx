@@ -252,7 +252,7 @@ export default function Edit(props) {
                                 </SelectTrigger>
                                 <SelectContent>
                                     {props.years.map((year, index) => (
-                                        <SelectItem key={index} value={String(year)}>
+                                        <SelectItem key={index} value={year.toString()}>
                                             {year}
                                         </SelectItem>
                                     ))}

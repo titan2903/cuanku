@@ -73,7 +73,7 @@ export default function Index(props) {
                 </CardStat>
                 <CardStat
                     data={{
-                        title: 'Cicilan Utang',
+                        title: 'Cicilan Hutang',
                         background: 'text-white bg-gradient-to-r from-red-400 via-red-500 to-red-500',
                         icon: IconMoneybagMinus,
                         iconClassName: 'text-white',
