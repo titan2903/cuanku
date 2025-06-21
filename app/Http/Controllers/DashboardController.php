@@ -208,7 +208,7 @@ class DashboardController extends Controller implements HasMiddleware
 
         foreach (MonthEnum::cases() as $monthEnum) {
             $month = $monthEnum->value;
-            $year = date('Y');
+            $year = now()->year;
 
             $incomes = $incomeData->where('month', $month)->where('year', $year)->first()?->pemasukan ?? 0;
 
