@@ -406,7 +406,7 @@ export default function Index(props) {
                         <CardContent className="p-0 [&-td]:whitespace-nowrap [&-td]:px-6 [&-th]:px-6">
                             {budgetBills.length === 0 ? (
                                 <EmptyState
-                                    icon={IconMoneybagMinus}
+                                    icon={IconInvoice}
                                     title="Belum ada data tagihan"
                                     subtitle="Silakan tambahkan tagihan terlebih dahulu."
                                 />
