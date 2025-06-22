@@ -141,11 +141,11 @@ class PaymentController extends Controller implements HasMiddleware
 
             flashMessage(MessageType::UPDATED->message('Metode Pembayaran.'));
 
-            return to_route('payments.index', 303);
+            return to_route('payments.index');
         } catch (Throwable $e) {
             flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
 
-            return to_route('payments.index', 303);
+            return to_route('payments.index');
         }
     }
 

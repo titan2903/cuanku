@@ -26,7 +26,7 @@ class GoalRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'nominal' => ['required', 'numeric', 'min:0'],
             'monthly_saving' => ['required', 'numeric', 'min:0'],
-            'deadline' => ['required', 'date', 'after_or_equal:today'],
+            'deadline' => ['required', 'date'],
             'beginning_balance' => ['nullable', 'numeric', 'min:0'],
         ];
     }

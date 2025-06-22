@@ -122,11 +122,11 @@ class GoalController extends Controller implements HasMiddleware
 
             flashMessage(MessageType::CREATED->message('Tujuan'));
 
-            return to_route('goals.index', [], 303);
+            return to_route('goals.index');
         } catch (Throwable $e) {
             flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
 
-            return to_route('goals.index', [], 303);
+            return to_route('goals.index');
         }
     }
 
@@ -170,11 +170,11 @@ class GoalController extends Controller implements HasMiddleware
 
             flashMessage(MessageType::UPDATED->message('Tujuan'));
 
-            return to_route('goals.index', 303);
+            return to_route('goals.index');
         } catch (Throwable $e) {
             flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
 
-            return to_route('goals.index', 303);
+            return to_route('goals.index');
         }
     }
 
@@ -192,7 +192,7 @@ class GoalController extends Controller implements HasMiddleware
         } catch (Throwable $e) {
             flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
 
-            return to_route('goals.index', [], 303);
+            return to_route('goals.index');
         }
     }
 
