@@ -1,4 +1,4 @@
-import { Toaster } from '@/Components/ui/toaster';
+import { Toaster } from '@/Components/ui/sonner';
 import { router } from '@inertiajs/react';
 import { clsx } from 'clsx';
 import { format, parseISO } from 'date-fns';
@@ -20,7 +20,7 @@ const deleteAction = (url, { closeModal, ...options } = {}) => {
         onSuccess: (success) => {
             const flash = flashMessage(success);
 
-            if (flash && flash.message) {
+            if (flash) {
                 Toaster[flash.type](flash.message);
             }
 
