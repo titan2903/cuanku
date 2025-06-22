@@ -162,7 +162,7 @@ class LiabilityController extends Controller implements HasMiddleware
 
             flashMessage(MessageType::DELETED->message('Kewajiban.'));
 
-            return to_route('liabilities.index', $netWorth);
+            return to_route('liabilities.index', ['netWorth' => $netWorth], 303);
         } catch (Throwable $e) {
             flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
 

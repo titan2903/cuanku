@@ -1,8 +1,8 @@
+import { Toaster } from '@/Components/ui/toaster';
 import { router } from '@inertiajs/react';
 import { clsx } from 'clsx';
 import { format, parseISO } from 'date-fns';
 import { id } from 'date-fns/locale';
-import { toast } from 'sonner';
 import { twMerge } from 'tailwind-merge';
 
 function cn(...inputs) {
@@ -10,7 +10,7 @@ function cn(...inputs) {
 }
 
 function flashMessage(params) {
-    return params.props.flash_message;
+    return params.props.flash;
 }
 
 const deleteAction = (url, { closeModal, ...options } = {}) => {
@@ -20,8 +20,8 @@ const deleteAction = (url, { closeModal, ...options } = {}) => {
         onSuccess: (success) => {
             const flash = flashMessage(success);
 
-            if (flash) {
-                toast[flash.type](flash.message);
+            if (flash && flash.message) {
+                Toaster[flash.type](flash.message);
             }
 
             if (closeModal && typeof closeModal === 'function') {

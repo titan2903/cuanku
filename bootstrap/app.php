@@ -23,6 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
             ) {
                 $response->setContent('An error occurred. Please try again later.');
 
+                // Ini adalah penanganan error kustom untuk Inertia
                 return inertia('ErrorHandling', [
                     'status' => $response->getStatusCode(),
                     'message' => $exception->getMessage(),
@@ -30,6 +31,7 @@ return Application::configure(basePath: dirname(__DIR__))
                     ->toResponse($request)
                     ->setStatusCode($response->getStatusCode());
             } elseif ($response->getStatusCode() === 419) {
+                // Ini untuk menangani 'Page Expired'
                 return back()->with([
                     'message' => 'Page expired. Please refresh and try again.',
                 ]);
