@@ -21,7 +21,6 @@ const buttonVariants = cva(
                 red: 'text-white bg-gradient-to-r from-red-500 via-red-500 to-red-500',
                 emerald: 'text-white bg-gradient-to-br from-emerald-500 via-emerald-500 to-yellow-200',
                 blueGreen: 'text-white bg-gradient-to-br from-blue-500 via-blue-500 to-green-500',
-                blue: 'text-white bg-gradient-to-br from-blue-500 via-blue-500 to-blue-700',
             },
             size: {
                 default: 'h-9 px-4 py-2',
