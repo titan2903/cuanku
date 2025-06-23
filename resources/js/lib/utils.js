@@ -10,7 +10,7 @@ function cn(...inputs) {
 }
 
 function flashMessage(params) {
-    return params.props.flash;
+    return params.props.flash_message;
 }
 
 const deleteAction = (url, { closeModal, ...options } = {}) => {
