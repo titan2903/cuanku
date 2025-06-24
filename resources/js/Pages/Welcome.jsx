@@ -140,8 +140,8 @@ export default function Welcome({ auth }) {
                                     <h3 className="text-lg font-semibold leading-8 text-gray-900 dark:text-white">Basic</h3>
                                     <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">Semua fitur esensial untuk mengelola keuangan harian Anda.</p>
                                     <p className="mt-6 flex items-baseline gap-x-1">
-                                        <span className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white">Rp 50rb</span>
-                                        <span className="text-sm font-semibold text-gray-600 dark:text-gray-400">/bulan</span>
+                                        <span className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white">Rp 50.000</span>
+                                        <span className="text-xl font-semibold text-gray-600 dark:text-gray-400">/bulan</span>
                                     </p>
                                     <ul role="list" className="mt-8 space-y-3 text-sm text-gray-600 dark:text-gray-400">
                                         <li className="flex gap-x-3">
@@ -165,8 +165,8 @@ export default function Welcome({ auth }) {
                                     <h3 className="text-lg font-semibold leading-8 text-gray-900 dark:text-white">Ultimate</h3>
                                     <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">Dapatkan analisis cerdas dan prediksi keuangan dengan kekuatan AI.</p>
                                     <p className="mt-6 flex items-baseline gap-x-1">
-                                        <span className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white">Rp 100rb</span>
-                                        <span className="text-sm font-semibold text-gray-600 dark:text-gray-400">/bulan</span>
+                                        <span className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white">Rp 100.000</span>
+                                        <span className="text-xl font-semibold text-gray-600 dark:text-gray-400">/bulan</span>
                                     </p>
                                     <ul role="list" className="mt-8 space-y-3 text-sm text-gray-600 dark:text-gray-400">
                                         <li className="flex gap-x-3">
