@@ -138,7 +138,7 @@ export default function Register() {
                                     type="text"
                                     name="phone_number"
                                     value={data.phone_number}
-                                    placeholder="Contoh: 0851-2345-6789"
+                                    placeholder="Contoh: 085123456789"
                                     autoComplete="tel"
                                     pattern="^08[1-9][0-9]{7,10}$"
                                     inputMode="numeric"
