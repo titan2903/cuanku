@@ -22,8 +22,14 @@ export default function Sidebar({ auth, url }) {
             {},
             {
                 onSuccess: () => {
+                    // Setelah logout berhasil, kita bisa mengarahkan pengguna ke halaman login
+                    router.visit('/login', {
+                        method: 'get',
+                        preserveState: false, // Hapus state sebelumnya
+                        preserveScroll: false, // Hapus scroll sebelumnya
+                    });
                     // Session akan otomatis dihapus oleh Laravel di server
-                    console.log('Logged out successfully');
+                    console.log('You have been logged out successfully.');
                 },
             },
         );
@@ -118,12 +124,14 @@ export default function Sidebar({ auth, url }) {
 
                 <div className="px-3 py-2 text-sm font-medium text-muted-foreground">Lainnya</div>
                 <NavLink
-                    url="/login"
                     active={url.startsWith('/logout')}
                     title="Logout"
                     icon={IconLogout2}
                     className="w-full"
-                    onClick={handleLogout}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        handleLogout();
+                    }}
                 />
             </ul>
         </nav>

@@ -25,6 +25,8 @@ class User extends Authenticatable
         'password',
         'avatar',
         'phone_number',
+        'is_agentic',
+        'is_active',
     ];
 
     /**
@@ -47,6 +49,8 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_agentic' => 'boolean',
+            'is_active' => 'boolean',
         ];
     }
 }
