@@ -39,7 +39,9 @@ class Goal extends Model
     public function scopeFilter(Builder $query, array $filters): void
     {
         $query->when($filters['search'] ?? null, function ($query, $search) {
-            $query->where('name', 'REGXP', $search);
+            $query->whereAny([
+                'name',
+            ], 'REGEXP', $search);
         });
     }
 
