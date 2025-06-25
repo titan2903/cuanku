@@ -29,7 +29,7 @@ export default function Sidebar({ auth, url }) {
                         preserveScroll: false, // Hapus scroll sebelumnya
                     });
                     // Session akan otomatis dihapus oleh Laravel di server
-                    console.log('Logged out successfully');
+                    alert('You have been logged out successfully.');
                 },
             },
         );
