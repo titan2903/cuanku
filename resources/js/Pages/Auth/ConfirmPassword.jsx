@@ -6,6 +6,7 @@ import { Input } from '@/Components/ui/input';
 import { Label } from '@/Components/ui/label';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { useForm } from '@inertiajs/react';
+import { useState } from 'react';
 
 export default function ConfirmPassword() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -19,6 +20,9 @@ export default function ConfirmPassword() {
             onFinish: () => reset('password'),
         });
     };
+
+    // Tambahkan state untuk toggle password visibility
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     return (
         <div className="flex flex-col gap-6">
@@ -37,18 +41,33 @@ export default function ConfirmPassword() {
 
                             <div className="grid gap-2">
                                 <Label htmlFor="password">Password</Label>
-                                <Input
-                                    id="password"
-                                    type="password"
-                                    name="password"
-                                    value={data.password}
-                                    placeholder="Masukkan password anda"
-                                    autoComplete="new-password"
-                                    autoFocus
-                                    onChange={(e) => setData('password', e.target.value)}
-                                />
+                                <div className="relative">
+                                    <Input
+                                        id="password"
+                                        type={showConfirmPassword ? 'text' : 'password'}
+                                        name="password"
+                                        value={data.password}
+                                        placeholder="Masukkan password anda"
+                                        autoComplete="new-password"
+                                        autoFocus
+                                        onChange={(e) => setData('password', e.target.value)}
+                                        className="pr-10"
+                                    />
+                                    <button
+                                        type="button"
+                                        className="absolute inset-y-0 right-0 flex items-center pr-3"
+                                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                    >
+                                        {showConfirmPassword ? (
+                                            <span className="text-gray-400 hover:text-gray-600">🙈</span>
+                                        ) : (
+                                            <span className="text-gray-400 hover:text-gray-600">👁️</span>
+                                        )}
+                                    </button>
+                                </div>
                                 {errors.password && <InputError message={errors.password} />}
                             </div>
+
                             <Button variant="emerald" type="submit" className="w-full" disabled={processing}>
                                 Konfirmasi
                             </Button>
