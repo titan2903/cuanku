@@ -50,7 +50,7 @@ class Budget extends Model
                 'Penghasilan' => $query->where('type', BudgetType::INCOME->value),
                 'Tabungan dan Investasi' => $query->where('type', BudgetType::SAVING->value),
                 'Belanja' => $query->where('type', BudgetType::SHOPPING->value),
-                'Expense' => $query->where('type', BudgetType::EXPENSE->value),
+                'Pengeluaran' => $query->where('type', BudgetType::EXPENSE->value),
                 'Cicilan Hutang' => $query->where('type', BudgetType::DEBT->value),
                 'Tagihan' => $query->where('type', BudgetType::BILL->value),
             };

@@ -42,10 +42,15 @@ class Income extends Model
     public function scopeFilter(Builder $query, array $filters): void
     {
         $query->when($filters['search'] ?? null, function ($query, $search) {
-            $query->whereAny([
-                'detail',
-                'month',
-            ], 'REGEXP', $search);
+            // Bungkus dalam 'where' untuk logika OR yang benar
+            $query->where(function (Builder $subQuery) use ($search) {
+                // Cari di kolom 'notes' dari tabel 'incomes' itu sendiri
+                $subQuery->where('notes', 'REGEXP', $search)
+                         // ATAU cari di kolom 'detail' dari relasi 'budget'
+                    ->orWhereHas('budget', function (Builder $budgetQuery) use ($search) {
+                        $budgetQuery->where('detail', 'REGEXP', $search);
+                    });
+            });
         })->when($filters['month'] ?? null, function ($query, $month) {
             $query->where('month', $month);
         })->when($filters['year'] ?? null, function ($query, $year) {

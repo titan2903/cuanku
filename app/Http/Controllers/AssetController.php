@@ -162,7 +162,7 @@ class AssetController extends Controller implements HasMiddleware
 
             flashMessage(MessageType::DELETED->message('Aset.'));
 
-            return to_route('assets.index', ['netWorth' => $netWorth], 303);
+            return to_route('assets.index', $netWorth, 303);
         } catch (Throwable $e) {
             flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
 
