@@ -87,7 +87,7 @@ const InstagramIcon = (props) => (
 
 const TiktokIcon = (props) => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" {...props}>
-        <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-2.43.03-4.83-1-6.66-2.91-1.83-1.9-2.75-4.37-2.75-6.81 0-2.44 1.04-4.87 2.96-6.69 1.83-1.72 4.2-2.65 6.55-2.61.01 2.2.02 4.4-.02 6.6.01-.21.01-.43.03-.63.01-1.08.28-2.15.69-3.16.4-1 .95-1.92 1.58-2.75.05-.07.09-.13.14-.19.04-.05.09-.1.13-.15.04-.04.08-.08.12-.12.01-.01.02-.02.03-.03.01-.01.03-.02.04-.03.01-.01.02-.02.03-.03.02-.02.04-.03.06-.05.01-.01.03-.02.04-.03.01-.01.02-.02.03-.02.02-.02.04-.03.06-.04.01-.01.02-.02.04-.03.01-.01.02-.02.03-.03.02-.01.04-.02.06-.03.02-.01.03-.02.05-.02.01-.01.02-.01.04-.02.02-.01.04-.02.06-.03.01-.01.02-.01.03-.02.02-.01.04-.02.07-.02.02-.01.03-.01.05-.02.02-.01.04-.01.06-.02.02-.01.03-.01.05-.01.02,0 .04-.01.06-.01.02,0 .03-.01.05-.01.02,0 .04,0 .06,0 .01,0 .02,0 .03,0h.01Z"/>
+        <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-2.43.03-4.83-1-6.66-2.91-1.83-1.9-2.75-4.37-2.75-6.81 0-2.44 1.04-4.87 2.96-6.69 1.83-1.72 4.2-2.65 6.55-2.61.01 2.2.02 4.4-.02 6.6.01-.21.01-.43.03-.63.01-1.08.28-2.15.69-3.16.4-1 .95-1.92 1.58-2.75.05-.07.09-.13.14-.19.04-.05.09-.1.13-.15.04-.04.08-.08.12-.12.01-.01.02-.02.03-.03.01-.01.03-.02.04-.03.01-.01.02-.02.03-.03.02-.02.04-.03.06-.05.01-.01.03-.02.04-.03.01-.01.02-.02.03-.02.02-.02.04-.03.06-.04.01-.01.02-.02.04-.03.01-.01.02-.02.03-.03.02-.01.04-.02.06-.03.02-.01.03-.02.05-.02.01-.01.02-.01.04-.02.02-.01.04-.02.06-.03.01-.01.02-.01.03-.02.02-.01.04-.02.07-.02.02-.01.03-.01.05-.02.02-.01.04-.01.06-.02.02-.01.03-.01.05-.01.02,0 .04-.01.06-.01.02,0 .03-.01.05-.01.02,0 .04,0 .06,0 .01,0 .02,0 .03,0h.01Z" />
     </svg>
 );
 
@@ -102,8 +102,6 @@ const TwitterIcon = (props) => (
         <path d="M22.46,6C21.69,6.35 20.86,6.58 20,6.69C20.88,6.16 21.56,5.32 21.88,4.31C21.05,4.81 20.13,5.16 19.16,5.36C18.37,4.5 17.26,4 16,4C13.65,4 11.73,5.92 11.73,8.29C11.73,8.63 11.77,8.96 11.84,9.27C8.28,9.09 5.11,7.38 2.9,4.79C2.53,5.42 2.33,6.16 2.33,6.96C2.33,8.43 3.07,9.74 4.17,10.49C3.47,10.47 2.82,10.28 2.2,10.01C2.2,10.03 2.2,10.05 2.2,10.06C2.2,12.24 3.69,14.08 5.75,14.51C5.42,14.59 5.07,14.64 4.71,14.64C4.43,14.64 4.17,14.61 3.92,14.56C4.49,16.39 6.25,17.72 8.3,17.76C6.83,18.89 4.97,19.56 2.95,19.56C2.62,19.56 2.3,19.54 1.96,19.5C3.88,20.78 6.18,21.56 8.63,21.56C16,21.56 20.25,15.22 20.25,9.65C20.25,9.48 20.25,9.3 20.24,9.13C21.04,8.56 21.83,7.84 22.46,6Z" />
     </svg>
 );
-
-
 
 // --- Komponen Utama ---
 export default function Welcome({ auth }) {
@@ -316,7 +314,7 @@ export default function Welcome({ auth }) {
                         <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
                             <div className="flex flex-col items-center gap-y-6">
                                 {/* Tautan Kontak CS */}
-                                <a 
+                                <a
                                     href="https://wa.me/6281234567890?text=Halo%20Admin%20CuanKu%2C%20saya%20tertarik%20untuk%20berlangganan."
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -325,21 +323,36 @@ export default function Welcome({ auth }) {
                                     <WhatsappIcon className="h-5 w-5" />
                                     Hubungi Kami untuk Berlangganan
                                 </a>
-                                
+
                                 {/* Ikon Media Sosial */}
                                 <div className="flex justify-center space-x-6">
-                                    <a href="#" target="_blank" rel="noopener noreferrer" className="text-gray-400 transition hover:text-emerald-500">
+                                    <a
+                                        href="#"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-gray-400 transition hover:text-emerald-500"
+                                    >
                                         <span className="sr-only">Instagram</span>
                                         <InstagramIcon className="h-6 w-6" />
                                     </a>
-                                    <a href="#" target="_blank" rel="noopener noreferrer" className="text-gray-400 transition hover:text-emerald-500">
+                                    <a
+                                        href="#"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-gray-400 transition hover:text-emerald-500"
+                                    >
                                         <span className="sr-only">TikTok</span>
                                         <TiktokIcon className="h-6 w-6" />
                                     </a>
-                                    <a href="#" target="_blank" rel="noopener noreferrer" className="text-gray-400 transition hover:text-emerald-500">
-                                    <span className="sr-only">Twitter</span>
-                                    <TwitterIcon className="h-6 w-6" />
-                                </a>
+                                    <a
+                                        href="#"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-gray-400 transition hover:text-emerald-500"
+                                    >
+                                        <span className="sr-only">Twitter</span>
+                                        <TwitterIcon className="h-6 w-6" />
+                                    </a>
                                 </div>
                             </div>
                             <p className="mt-8 text-center text-sm text-gray-500 dark:text-gray-400">
