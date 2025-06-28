@@ -64,7 +64,7 @@ export default function Edit(props) {
                     <form className="space-y-4" onSubmit={onHandleSubmit}>
                         <div className="flex flex-col gap-y-2">
                             <Label htmlFor="budget_id" className="text-sm font-semibold">
-                                Sumber
+                                Sumber Pemasukan <span className="text-red-500">*</span>
                             </Label>
                             <Select
                                 defaultValue={data.budget_id}
@@ -88,7 +88,7 @@ export default function Edit(props) {
                         </div>
                         <div className="flex flex-col gap-y-2">
                             <Label htmlFor="date" className="text-sm font-semibold">
-                                Tanggal
+                                Tanggal Pemasukan <span className="text-red-500">*</span>
                             </Label>
                             <Input
                                 type="date"
@@ -102,7 +102,7 @@ export default function Edit(props) {
                         </div>
                         <div className="flex flex-col gap-y-2">
                             <Label htmlFor="nominal" className="text-sm font-semibold">
-                                Nominal
+                                Nominal <span className="text-red-500">*</span>
                             </Label>
                             <Input
                                 type="number"
@@ -135,7 +135,7 @@ export default function Edit(props) {
                         </div>
                         <div className="flex flex-col gap-2">
                             <Label htmlFor="month" className="text-sm font-semibold">
-                                Bulan
+                                Bulan <span className="text-red-500">*</span>
                             </Label>
                             <Select defaultValue={data.month} onValueChange={(value) => setData('month', value)}>
                                 <SelectTrigger>
@@ -156,7 +156,7 @@ export default function Edit(props) {
                         </div>
                         <div className="flex flex-col gap-2">
                             <Label htmlFor="year" className="text-sm font-semibold">
-                                Tahun
+                                Tahun <span className="text-red-500">*</span>
                             </Label>
                             <Select defaultValue={data.year} onValueChange={(value) => setData('year', value)}>
                                 <SelectTrigger>

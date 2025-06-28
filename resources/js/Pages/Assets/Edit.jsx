@@ -60,7 +60,7 @@ export default function Edit(props) {
                     <form className="space-y-4" onSubmit={onHandleSubmit}>
                         <div className="flex flex-col gap-y-2">
                             <Label htmlFor="detail" className="text-sm font-semibold">
-                                Detail
+                                Detail <span className="text-red-500">*</span>
                             </Label>
                             <Input
                                 type="text"
@@ -74,7 +74,7 @@ export default function Edit(props) {
                         </div>
                         <div className="flex flex-col gap-y-2">
                             <Label htmlFor="goal" className="text-sm font-semibold">
-                                Tujuan
+                                Tujuan <span className="text-red-500">*</span>
                             </Label>
                             <Input
                                 type="text"
@@ -88,7 +88,7 @@ export default function Edit(props) {
                         </div>
                         <div className="flex flex-col gap-2">
                             <Label htmlFor="type" className="text-sm font-semibold">
-                                Tipe
+                                Tipe <span className="text-red-500">*</span>
                             </Label>
                             <Select defaultValue={data.type} onValueChange={(value) => setData('type', value)}>
                                 <SelectTrigger>

@@ -91,56 +91,9 @@ export default function Create(props) {
                 </CardHeader>
                 <CardContent>
                     <form className="space-y-4" onSubmit={onHandleSubmit}>
-                        <div className="flex flex-col gap-y-2">
-                            <Label htmlFor="date" className="text-sm font-semibold">
-                                Tanggal
-                            </Label>
-                            <Input
-                                type="date"
-                                name="date"
-                                id="date"
-                                placeholder="Masukkan Tanggal Pengeluaran"
-                                value={data.date}
-                                onChange={onHandleChange}
-                            />
-                            {errors.date && <InputError message={errors.date} />}
-                        </div>
-                        <div className="flex flex-col gap-y-2">
-                            <Label htmlFor="description" className="text-sm font-semibold">
-                                Deskripsi
-                            </Label>
-                            <Textarea
-                                name="description"
-                                id="description"
-                                placeholder="Masukkan Deskripsi Pengeluaran"
-                                onChange={onHandleChange}
-                                value={data.description}
-                            />
-                            {errors.description && <InputError message={errors.description} />}
-                        </div>
-                        <div className="flex flex-col gap-y-2">
-                            <Label htmlFor="nominal" className="text-sm font-semibold">
-                                Nominal
-                            </Label>
-                            <Input
-                                type="number"
-                                name="nominal"
-                                id="nominal"
-                                placeholder="Masukkan Nominal Pengeluaran"
-                                value={data.nominal}
-                                onChange={onHandleChange}
-                                min={0}
-                                onInput={(e) => {
-                                    if (e.target.value < 0) {
-                                        e.target.value = 0;
-                                    }
-                                }}
-                            />
-                            {errors.nominal && <InputError message={errors.nominal} />}
-                        </div>
                         <div className="flex flex-col gap-2">
                             <Label htmlFor="type" className="text-sm font-semibold">
-                                Tipe
+                                Tipe <span className="text-red-500">*</span>
                             </Label>
                             <Select
                                 value={params.type}
@@ -162,7 +115,7 @@ export default function Create(props) {
                         {props.budgets.length > 0 && (
                             <div className="flex flex-col gap-y-2">
                                 <Label htmlFor="budget_id" className="text-sm font-semibold">
-                                    Sumber
+                                    Sumber Pengeluaran <span className="text-red-500">*</span>
                                 </Label>
                                 <Select
                                     defaultValue={data.budget_id}
@@ -184,7 +137,7 @@ export default function Create(props) {
                         )}
                         <div className="flex flex-col gap-2">
                             <Label htmlFor="payment_id" className="text-sm font-semibold">
-                                Metode Pembayaran
+                                Metode Pembayaran <span className="text-red-500">*</span>
                             </Label>
                             <Select
                                 defaultValue={data.payment_id}
@@ -207,6 +160,53 @@ export default function Create(props) {
                             {errors.payment_id && <InputError message={errors.payment_id} />}
                         </div>
                         <div className="flex flex-col gap-y-2">
+                            <Label htmlFor="date" className="text-sm font-semibold">
+                                Tanggal <span className="text-red-500">*</span>
+                            </Label>
+                            <Input
+                                type="date"
+                                name="date"
+                                id="date"
+                                placeholder="Masukkan Tanggal Pengeluaran"
+                                value={data.date}
+                                onChange={onHandleChange}
+                            />
+                            {errors.date && <InputError message={errors.date} />}
+                        </div>
+                        <div className="flex flex-col gap-y-2">
+                            <Label htmlFor="description" className="text-sm font-semibold">
+                                Deskripsi <span className="text-red-500">*</span>
+                            </Label>
+                            <Textarea
+                                name="description"
+                                id="description"
+                                placeholder="Masukkan Deskripsi Pengeluaran"
+                                onChange={onHandleChange}
+                                value={data.description}
+                            />
+                            {errors.description && <InputError message={errors.description} />}
+                        </div>
+                        <div className="flex flex-col gap-y-2">
+                            <Label htmlFor="nominal" className="text-sm font-semibold">
+                                Nominal <span className="text-red-500">*</span>
+                            </Label>
+                            <Input
+                                type="number"
+                                name="nominal"
+                                id="nominal"
+                                placeholder="Masukkan Nominal Pengeluaran"
+                                value={data.nominal}
+                                onChange={onHandleChange}
+                                min={0}
+                                onInput={(e) => {
+                                    if (e.target.value < 0) {
+                                        e.target.value = 0;
+                                    }
+                                }}
+                            />
+                            {errors.nominal && <InputError message={errors.nominal} />}
+                        </div>
+                        <div className="flex flex-col gap-y-2">
                             <Label htmlFor="notes" className="text-sm font-semibold">
                                 Catatan
                             </Label>
@@ -221,7 +221,7 @@ export default function Create(props) {
                         </div>
                         <div className="flex flex-col gap-2">
                             <Label htmlFor="month" className="text-sm font-semibold">
-                                Bulan
+                                Bulan <span className="text-red-500">*</span>
                             </Label>
                             <Select defaultValue={data.month} onValueChange={(value) => setData('month', value)}>
                                 <SelectTrigger>
@@ -242,7 +242,7 @@ export default function Create(props) {
                         </div>
                         <div className="flex flex-col gap-2">
                             <Label htmlFor="year" className="text-sm font-semibold">
-                                Tahun
+                                Tahun <span className="text-red-500">*</span>
                             </Label>
                             <Select defaultValue={data.year} onValueChange={(value) => setData('year', value)}>
                                 <SelectTrigger>

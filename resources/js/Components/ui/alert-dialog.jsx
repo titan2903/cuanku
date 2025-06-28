@@ -69,7 +69,7 @@ AlertDialogAction.displayName = AlertDialogPrimitive.Action.displayName;
 const AlertDialogCancel = React.forwardRef(({ className, ...props }, ref) => (
     <AlertDialogPrimitive.Cancel
         ref={ref}
-        className={cn(buttonVariants({ variant: 'blue' }), 'mt-2 sm:mt-0', className)}
+        className={cn(buttonVariants({ variant: 'green' }), 'mt-2 sm:mt-0', className)}
         {...props}
     />
 ));

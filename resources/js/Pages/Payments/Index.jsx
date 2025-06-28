@@ -14,6 +14,7 @@ import { deleteAction, formatDateIndo } from '@/lib/utils';
 import { Link } from '@inertiajs/react';
 import { IconArrowDown, IconCreditCardPay, IconPencil, IconPlus, IconTrash } from '@tabler/icons-react';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 export default function Index(props) {
     const { data: payments, meta, links } = props.payments;
@@ -32,6 +33,18 @@ export default function Index(props) {
         values: params,
         only: ['payments'],
     });
+
+    const handleDelete = (url) => {
+        return deleteAction(url, {
+            onSuccess: () => {
+                toast.success('Metode pembayaran berhasil dihapus!', {
+                    duration: 3000,
+                    position: 'top-center',
+                    icon: '✅',
+                });
+            },
+        });
+    };
 
     return (
         <div className="flex w-full flex-col gap-y-6 pb-32">
@@ -167,7 +180,7 @@ export default function Index(props) {
                                                             <IconTrash className="size-4" />
                                                         </Button>
                                                     }
-                                                    action={() => deleteAction(route('payments.destroy', [payment]))}
+                                                    action={() => handleDelete(route('payments.destroy', [payment]))}
                                                 />
                                             </div>
                                         </TableCell>

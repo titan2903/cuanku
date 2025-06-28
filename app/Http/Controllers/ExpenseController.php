@@ -82,7 +82,7 @@ class ExpenseController extends Controller implements HasMiddleware
         return inertia('Expenses/Create', [
             'page_settings' => fn () => [
                 'title' => 'Tambah Pengeluaran',
-                'subtitle' => 'Buat pengeluaran baru di sini, klik simpan setelah selesai.',
+                'subtitle' => 'Buat pengeluaran baru di sini, Klik submit setelah selesai.',
                 'method' => 'POST',
                 'action' => route('expenses.store'),
             ],
@@ -152,7 +152,7 @@ class ExpenseController extends Controller implements HasMiddleware
         return inertia('Expenses/Edit', [
             'page_settings' => fn () => [
                 'title' => 'Edit Pengeluaran',
-                'subtitle' => 'Update pengeluaran di sini, klik simpan setelah selesai.',
+                'subtitle' => 'Update pengeluaran di sini, Klik submit setelah selesai.',
                 'method' => 'PUT',
                 'action' => route('expenses.update', $expense),
             ],
