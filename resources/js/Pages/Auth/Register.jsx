@@ -1,5 +1,6 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import InputError from '@/Components/InputError';
+import { Alert, AlertDescription } from '@/Components/ui/alert';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent } from '@/Components/ui/card';
 import { Input } from '@/Components/ui/input';
@@ -9,7 +10,7 @@ import { Link, useForm } from '@inertiajs/react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
-export default function Register() {
+export default function Register({ status }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
@@ -94,6 +95,11 @@ export default function Register() {
                                 <p className="text-sm text-muted-foreground">
                                     Masuk daftar sekarang untuk mengelola keuangan anda
                                 </p>
+                                {status && (
+                                    <Alert variant="success" className="my-2">
+                                        <AlertDescription>{status}</AlertDescription>
+                                    </Alert>
+                                )}
                             </div>
 
                             <div className="grid gap-2">
