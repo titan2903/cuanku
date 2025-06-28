@@ -68,7 +68,8 @@ export default function Create(props) {
                 }
             },
             onError: (errors) => {
-                toast.error(`Terjadi kesalahan saat menambahkan metode pembayaran. Error sebagai berikut ${JSON.stringify(errors)}`, {
+                const formattedErrors = Object.values(errors).join(', ');
+                toast.error(`Terjadi kesalahan saat menambahkan metode pembayaran: ${formattedErrors}`, {
                     duration: 3000,
                     position: 'top-center',
                     icon: '❌',
