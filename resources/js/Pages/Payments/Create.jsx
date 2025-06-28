@@ -42,13 +42,11 @@ export default function Create(props) {
 
         // Jika ada error, tampilkan dan hentikan submit
         if (hasError) {
-            // Cara manual menampilkan error
-            for (const key in clientErrors) {
-                toast.error(clientErrors[key], {
-                    duration: 3000,
-                    position: 'top-center',
-                });
-            }
+            const aggregatedErrors = Object.values(clientErrors).join(', ');
+            toast.error(`Terjadi kesalahan validasi: ${aggregatedErrors}`, {
+                duration: 3000,
+                position: 'top-center',
+            });
             return;
         }
 

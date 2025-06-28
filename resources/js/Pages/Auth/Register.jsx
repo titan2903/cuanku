@@ -49,12 +49,11 @@ export default function Register({ status }) {
         }
 
         if (hasError) {
-            for (const key in clientErrors) {
-                toast.error(clientErrors[key], {
-                    duration: 3000,
-                    position: 'top-center',
-                });
-            }
+            const aggregatedErrors = Object.values(clientErrors).join(', ');
+            toast.error(`Terjadi kesalahan validasi: ${aggregatedErrors}`, {
+                duration: 3000,
+                position: 'top-center',
+            });
             return;
         }
 
