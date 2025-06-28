@@ -60,7 +60,7 @@ export default function Create(props) {
                     <form className="space-y-4" onSubmit={onHandleSubmit}>
                         <div className="flex flex-col gap-y-2">
                             <Label htmlFor="net_worth_goal" className="text-sm font-semibold">
-                                Tujuan Kekayaan Bersih
+                                Tujuan Kekayaan Bersih <span className="text-red-500">*</span>
                             </Label>
                             <Input
                                 type="number"
@@ -80,7 +80,7 @@ export default function Create(props) {
                         </div>
                         <div className="flex flex-col gap-y-2">
                             <Label htmlFor="transaction_per_month" className="text-sm font-semibold">
-                                Transaksi per Bulan
+                                Transaksi per Bulan <span className="text-red-500">*</span>
                             </Label>
                             <Input
                                 type="number"

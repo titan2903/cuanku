@@ -7,6 +7,7 @@ import { Label } from '@/Components/ui/label';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Link, useForm } from '@inertiajs/react';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -20,8 +21,60 @@ export default function Register() {
     const onHandleSubmit = (e) => {
         e.preventDefault();
 
+        const clientErrors = {};
+        let hasError = false;
+        if (!data.email) {
+            clientErrors.email = 'Email harus diisi';
+            hasError = true;
+        }
+        if (!data.password) {
+            clientErrors.password = 'Password harus diisi';
+            hasError = true;
+        }
+        if (!data.name) {
+            clientErrors.name = 'Nama harus diisi';
+            hasError = true;
+        }
+        if (!data.phone_number) {
+            clientErrors.phone_number = 'Nomor HP harus diisi';
+            hasError = true;
+        } else if (!/^08[1-9][0-9]{7,10}$/.test(data.phone_number)) {
+            clientErrors.phone_number = 'Format nomor HP tidak valid';
+            hasError = true;
+        }
+        if (data.password !== data.password_confirmation) {
+            clientErrors.password_confirmation = 'Konfirmasi password tidak cocok';
+            hasError = true;
+        }
+
+        if (hasError) {
+            for (const key in clientErrors) {
+                toast.error(clientErrors[key], {
+                    duration: 3000,
+                    position: 'top-center',
+                });
+            }
+            return;
+        }
+
         post(route('register'), {
             onFinish: () => reset('password', 'password_confirmation'),
+            onSuccess: (success) => {
+                const flash = success.props.flash_message;
+                if (flash) {
+                    if (flash.type === 'success') {
+                        status = flash.message;
+                    } else {
+                        errors[flash.field] = flash.message;
+                    }
+                }
+
+                toast.success('Berhasil melakukan registrasi dan login', {
+                    duration: 3000,
+                    position: 'top-center',
+                    icon: '✅',
+                });
+            },
         });
     };
 
@@ -44,7 +97,9 @@ export default function Register() {
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="email">Email</Label>
+                                <Label htmlFor="email">
+                                    Email <span className="text-red-500">*</span>
+                                </Label>
                                 <Input
                                     id="email"
                                     type="email"
@@ -53,13 +108,15 @@ export default function Register() {
                                     placeholder="Masukkan email anda"
                                     autoComplete="username"
                                     autoFocus
-                                    onChange={(e) => setData('email', e.target.value)}
+                                    onChange={(e) => setData('email', e.target.value.toLowerCase())}
                                 />
                                 {errors.email && <InputError message={errors.email} />}
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="name">Nama</Label>
+                                <Label htmlFor="name">
+                                    Nama <span className="text-red-500">*</span>
+                                </Label>
                                 <Input
                                     id="name"
                                     type="text"
@@ -74,7 +131,9 @@ export default function Register() {
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="password">Password</Label>
+                                <Label htmlFor="password">
+                                    Password <span className="text-red-500">*</span>
+                                </Label>
                                 <div className="relative">
                                     <Input
                                         id="password"
@@ -103,7 +162,9 @@ export default function Register() {
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="password_confirmation">Konfirmasi Password</Label>
+                                <Label htmlFor="password_confirmation">
+                                    Konfirmasi Password <span className="text-red-500">*</span>
+                                </Label>
                                 <div className="relative">
                                     <Input
                                         id="password_confirmation"
@@ -132,7 +193,9 @@ export default function Register() {
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="phone_number">Nomor HP </Label>
+                                <Label htmlFor="phone_number">
+                                    Nomor HP <span className="text-red-500">*</span>
+                                </Label>
                                 <Input
                                     id="phone_number"
                                     type="text"

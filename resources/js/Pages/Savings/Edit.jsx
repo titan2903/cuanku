@@ -61,7 +61,7 @@ export default function Edit(props) {
                     <form className="space-y-4" onSubmit={onHandleSubmit}>
                         <div className="flex flex-col gap-y-2">
                             <Label htmlFor="name" className="text-sm font-semibold">
-                                Nama Tujuan
+                                Nama Tujuan <span className="text-red-500">*</span>
                             </Label>
                             <Input
                                 type="text"
@@ -75,7 +75,7 @@ export default function Edit(props) {
                         </div>
                         <div className="flex flex-col gap-y-2">
                             <Label htmlFor="deadline" className="text-sm font-semibold">
-                                Deadline
+                                Deadline <span className="text-red-500">*</span>
                             </Label>
                             <Input
                                 type="date"
@@ -89,7 +89,7 @@ export default function Edit(props) {
                         </div>
                         <div className="flex flex-col gap-y-2">
                             <Label htmlFor="nominal" className="text-sm font-semibold">
-                                Nominal (Rp)
+                                Nominal (Rp) <span className="text-red-500">*</span>
                             </Label>
                             <Input
                                 type="number"
@@ -109,7 +109,7 @@ export default function Edit(props) {
                         </div>
                         <div className="flex flex-col gap-y-2">
                             <Label htmlFor="monthly_saving" className="text-sm font-semibold">
-                                Tabungan Bulanan (Rp)
+                                Tabungan Bulanan (Rp) <span className="text-red-500">*</span>
                             </Label>
                             <Input
                                 type="number"
@@ -129,7 +129,7 @@ export default function Edit(props) {
                         </div>
                         <div className="flex flex-col gap-y-2">
                             <Label htmlFor="beginning_balance" className="text-sm font-semibold">
-                                Saldo Awal (Rp)
+                                Saldo Awal (Rp) <span className="text-red-500">*</span>
                             </Label>
                             <Input
                                 type="number"

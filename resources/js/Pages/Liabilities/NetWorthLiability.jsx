@@ -47,7 +47,9 @@ export default function NetWorthLiability({ liability }) {
                 <form className="mt-4 space-y-4" onSubmit={onHandleSubmit}>
                     <div className="grid grid-cols-1 lg:grid-cols-2">
                         <div className="col-span-full">
-                            <Label htmlFor="transaction_date">Tanggal Transaksi</Label>
+                            <Label htmlFor="transaction_date">
+                                Tanggal Transaksi <span className="text-red-500">*</span>
+                            </Label>
                             <Input
                                 type="date"
                                 name="transaction_date"
@@ -62,7 +64,9 @@ export default function NetWorthLiability({ liability }) {
 
                     <div className="grid grid-cols-1 lg:grid-cols-2">
                         <div className="col-span-full">
-                            <Label htmlFor="nominal">Nominal</Label>
+                            <Label htmlFor="nominal">
+                                Nominal <span className="text-red-500">*</span>
+                            </Label>
                             <Input
                                 type="number"
                                 name="nominal"

@@ -3,6 +3,7 @@ import { router } from '@inertiajs/react';
 import { clsx } from 'clsx';
 import { format, parseISO } from 'date-fns';
 import { id } from 'date-fns/locale';
+import { toast } from 'sonner';
 import { twMerge } from 'tailwind-merge';
 
 function cn(...inputs) {
@@ -22,10 +23,27 @@ const deleteAction = (url, { closeModal, ...options } = {}) => {
 
             if (flash) {
                 Toaster[flash.type](flash.message);
+            } else {
+                toast.success('Data berhasil dihapus!', {
+                    duration: 3000,
+                    position: 'top-center',
+                    icon: '✅',
+                });
             }
 
             if (closeModal && typeof closeModal === 'function') {
                 closeModal();
+            }
+        },
+        onError: (errors) => {
+            toast.error('Terjadi kesalahan saat menghapus data.', {
+                duration: 3000,
+                position: 'top-center',
+                icon: '❌',
+            });
+
+            if (options.onError) {
+                options.onError(errors);
             }
         },
         ...options,

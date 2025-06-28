@@ -27,12 +27,52 @@ export default function Create(props) {
 
     const onHandleSubmit = (e) => {
         e.preventDefault();
+        const clientErrors = {};
+        let hasError = false;
+
+        if (!data.name) {
+            clientErrors.name = 'Nama Pembayaran harus diisi';
+            hasError = true;
+        }
+
+        if (!data.type) {
+            clientErrors.type = 'Tipe Pembayaran harus dipilih';
+            hasError = true;
+        }
+
+        // Jika ada error, tampilkan dan hentikan submit
+        if (hasError) {
+            // Cara manual menampilkan error
+            for (const key in clientErrors) {
+                toast.error(clientErrors[key], {
+                    duration: 3000,
+                    position: 'top-center',
+                });
+            }
+            return;
+        }
+
         post(props.page_settings.action, {
             preserveScroll: true,
             preserveState: true,
             onSuccess: (success) => {
                 const flash = flashMessage(success);
-                if (flash) toast[flash.type](flash.message);
+                if (flash) {
+                    toast[flash.type](flash.message);
+                } else {
+                    toast.success('Metode pembayaran berhasil ditambahkan!', {
+                        duration: 3000,
+                        position: 'top-center',
+                        icon: '✅',
+                    });
+                }
+            },
+            onError: (errors) => {
+                toast.error(`Terjadi kesalahan saat menambahkan metode pembayaran. Error sebagai berikut ${errors}`, {
+                    duration: 3000,
+                    position: 'top-center',
+                    icon: '❌',
+                });
             },
         });
     };
@@ -61,7 +101,7 @@ export default function Create(props) {
                     <form className="space-y-4" onSubmit={onHandleSubmit}>
                         <div className="flex flex-col gap-y-2">
                             <Label htmlFor="name" className="text-sm font-semibold">
-                                Nama
+                                Nama <span className="text-red-500">*</span>
                             </Label>
                             <Input
                                 type="text"
@@ -75,7 +115,7 @@ export default function Create(props) {
                         </div>
                         <div className="flex flex-col gap-y-2">
                             <Label htmlFor="type" className="text-sm font-semibold">
-                                Tipe
+                                Tipe <span className="text-red-500">*</span>
                             </Label>
                             <Select defaultValue={data.type} onValueChange={(value) => setData('type', value)}>
                                 <SelectTrigger>

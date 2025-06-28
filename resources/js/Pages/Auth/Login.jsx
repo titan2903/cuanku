@@ -9,6 +9,7 @@ import { Label } from '@/Components/ui/label';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Link, useForm } from '@inertiajs/react';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -20,8 +21,57 @@ export default function Login({ status, canResetPassword }) {
     const onHandleSubmit = (e) => {
         e.preventDefault();
 
+        const clientErrors = {};
+        let hasError = false;
+        if (!data.email) {
+            clientErrors.email = 'Email harus diisi';
+            hasError = true;
+        }
+        if (!data.password) {
+            clientErrors.password = 'Password harus diisi';
+            hasError = true;
+        }
+
+        // Jika ada error, tampilkan dan hentikan submit
+        if (hasError) {
+            for (const key in clientErrors) {
+                toast.error(clientErrors[key], {
+                    duration: 3000,
+                    position: 'top-center',
+                });
+            }
+            return;
+        }
+
         post(route('login'), {
             onFinish: () => reset('password'),
+            preserveScroll: true,
+            preserveState: true,
+            onSuccess: (success) => {
+                const flash = success.props.flash_message;
+                if (flash) {
+                    // Tampilkan pesan sukses
+                    if (flash.type === 'success') {
+                        status = flash.message;
+                    } else {
+                        errors[flash.field] = flash.message;
+                    }
+                }
+
+                if (success.props.auth.user == null) {
+                    toast.error('Email atau password salah', {
+                        duration: 3000,
+                        position: 'top-center',
+                        icon: '❌',
+                    });
+                } else {
+                    toast.success('Login berhasil', {
+                        duration: 3000,
+                        position: 'top-center',
+                        icon: '✅',
+                    });
+                }
+            },
         });
     };
 
@@ -56,7 +106,7 @@ export default function Login({ status, canResetPassword }) {
                                     placeholder="Masukkan email anda"
                                     autoComplete="username"
                                     autoFocus
-                                    onChange={(e) => setData('email', e.target.value)}
+                                    onChange={(e) => setData('email', e.target.value.toLowerCase())}
                                 />
                                 {errors.email && <InputError message={errors.email} />}
                             </div>

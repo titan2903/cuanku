@@ -57,7 +57,7 @@ export default function Create(props) {
                     <form className="space-y-4" onSubmit={onHandleSubmit}>
                         <div className="flex flex-col gap-y-2">
                             <Label htmlFor="amount" className="text-sm font-semibold">
-                                Amount (Rp)
+                                Amount (Rp) <span className="text-red-500">*</span>
                             </Label>
                             <Input
                                 type="number"

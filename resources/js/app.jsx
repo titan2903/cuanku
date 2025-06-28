@@ -4,6 +4,7 @@ import './bootstrap';
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createRoot } from 'react-dom/client';
+import { Toaster } from 'sonner';
 import { ThemeProvider } from './Components/Dark/ThemeProvider';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
@@ -15,6 +16,7 @@ createInertiaApp({
         const appElement = (
             <ThemeProvider defaultTheme="light" storageKey="current-theme">
                 <App {...props} />
+                <Toaster position="top-center" richColors />
             </ThemeProvider>
         );
 
