@@ -28,7 +28,9 @@ export default function Create(props) {
             preserveState: true,
             onSuccess: (success) => {
                 const flash = flashMessage(success);
-                if (flash) toast[flash.type](flash.message);
+                if (flash) {
+                    toast[flash.type](flash.message)
+                }
             },
         });
     };
