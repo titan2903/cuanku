@@ -30,12 +30,64 @@ export default function Edit(props) {
 
     const onHandleSubmit = (e) => {
         e.preventDefault();
+
+        // Validasi client-side
+        const clientErrors = {};
+        let hasError = false;
+        if (!data.budget_id) {
+            clientErrors.budget_id = 'Sumber Pemasukan harus dipilih';
+            hasError = true;
+        }
+        if (!data.date) {
+            clientErrors.date = 'Tanggal Pemasukan harus diisi';
+            hasError = true;
+        }
+        if (!data.nominal) {
+            clientErrors.nominal = 'Nominal harus diisi';
+            hasError = true;
+        } else if (data.nominal <= 0) {
+            clientErrors.nominal = 'Nominal tidak boleh kurang dari atau sama dengan 0';
+            hasError = true;
+        }
+        if (!data.month) {
+            clientErrors.month = 'Bulan harus dipilih';
+            hasError = true;
+        }
+        if (!data.year) {
+            clientErrors.year = 'Tahun harus dipilih';
+            hasError = true;
+        }
+
+        // Jika ada error, tampilkan dan hentikan submit
+        if (hasError) {
+            const aggregatedErrors = Object.values(clientErrors).join(', ');
+            toast.error(`Terjadi kesalahan validasi: ${aggregatedErrors}`, {
+                duration: 3000,
+                position: 'top-center',
+            });
+            return;
+        }
+
         post(props.page_settings.action, {
             preserveScroll: true,
             preserveState: true,
             onSuccess: (success) => {
                 const flash = flashMessage(success);
                 if (flash) toast[flash.type](flash.message);
+
+                toast.success('Pemasukan berhasil diperbarui', {
+                    duration: 3000,
+                    position: 'top-center',
+                    icon: '✅',
+                });
+                reset();
+            },
+            onError: (error) => {
+                const errorMessages = Object.values(error).flat().join(', ');
+                toast.error(`Terjadi kesalahan: ${errorMessages}`, {
+                    duration: 3000,
+                    position: 'top-center',
+                });
             },
         });
     };

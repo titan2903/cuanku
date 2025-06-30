@@ -54,6 +54,7 @@ class Expense extends Model
         $query->when($filters['search'] ?? null, function ($query, $search) {
             $query->where(function ($query) use ($search) {
                 $query->where('description', 'REGEXP', $search)
+                    ->orWhere('type', 'REGEXP', $search)
                     ->orWhere('month', 'REGEXP', $search);
             });
         })->when($filters['month'] ?? null, function ($query, $month) {

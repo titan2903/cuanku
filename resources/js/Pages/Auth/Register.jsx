@@ -75,6 +75,13 @@ export default function Register({ status }) {
                     icon: '✅',
                 });
             },
+            onError: (error) => {
+                const errorMessages = Object.values(error).flat().join(', ');
+                toast.error(`Terjadi kesalahan: ${errorMessages}`, {
+                    duration: 3000,
+                    position: 'top-center',
+                });
+            },
         });
     };
 

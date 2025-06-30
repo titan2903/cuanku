@@ -40,6 +40,17 @@ export default function Create(props) {
             hasError = true;
         }
 
+        if (data.type === 'Kartu Debit' || data.type === 'Kartu Kredit' || data.type === 'Dompet Elektronik') {
+            if (!data.account_number) {
+                clientErrors.account_number = 'No. Rekening harus diisi';
+                hasError = true;
+            }
+            if (!data.account_owner) {
+                clientErrors.account_owner = 'Nama Pemilik Rekening harus diisi';
+                hasError = true;
+            }
+        }
+
         // Jika ada error, tampilkan dan hentikan submit
         if (hasError) {
             const aggregatedErrors = Object.values(clientErrors).join(', ');
@@ -57,13 +68,14 @@ export default function Create(props) {
                 const flash = flashMessage(success);
                 if (flash) {
                     toast[flash.type](flash.message);
-                } else {
-                    toast.success('Metode pembayaran berhasil ditambahkan!', {
-                        duration: 3000,
-                        position: 'top-center',
-                        icon: '✅',
-                    });
                 }
+
+                toast.success('Metode pembayaran berhasil ditambahkan!', {
+                    duration: 3000,
+                    position: 'top-center',
+                    icon: '✅',
+                });
+                reset();
             },
             onError: (errors) => {
                 const formattedErrors = Object.values(errors).join(', ');

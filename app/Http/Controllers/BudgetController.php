@@ -100,6 +100,12 @@ class BudgetController extends Controller implements HasMiddleware
                     ->when(request()->year, fn ($q, $year) => $q->where('year', $year))
                     ->where('type', BudgetType::SHOPPING->value)
                     ->sum('nominal'),
+                'expenses' => fn () => Budget::query()
+                    ->where('user_id', Auth::user()->id)
+                    ->when(request()->month, fn ($q, $month) => $q->where('month', $month))
+                    ->when(request()->year, fn ($q, $year) => $q->where('year', $year))
+                    ->where('type', BudgetType::EXPENSE->value)
+                    ->sum('nominal'),
             ],
         ]);
     }

@@ -7,6 +7,7 @@ import { Label } from '@/Components/ui/label';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { useForm } from '@inertiajs/react';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 export default function ConfirmPassword() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -16,7 +17,45 @@ export default function ConfirmPassword() {
     const onHandleSubmit = (e) => {
         e.preventDefault();
 
+        const clientErrors = {};
+        let hasError = false;
+        if (!data.password) {
+            clientErrors.password = 'Password harus diisi';
+            hasError = true;
+        }
+
+        // Jika ada error, tampilkan dan hentikan submit
+        if (hasError) {
+            const aggregatedErrors = Object.values(clientErrors).join(', ');
+            toast.error(`Terjadi kesalahan validasi: ${aggregatedErrors}`, {
+                duration: 3000,
+                position: 'top-center',
+            });
+            return;
+        }
+
         post(route('password.confirm'), {
+            onSuccess: (success) => {
+                if (success.props.auth.user === null) {
+                    toast.error('Gagal mengkonfirmasi password. Silakan coba lagi.', {
+                        duration: 3000,
+                        position: 'top-center',
+                    });
+                } else {
+                    toast.success('Password berhasil dikonfirmasi!', {
+                        duration: 3000,
+                        position: 'top-center',
+                        icon: '✅',
+                    });
+                }
+            },
+            onError: (errors) => {
+                const formattedErrors = Object.values(errors).join(', ');
+                toast.error(`Terjadi kesalahan: ${formattedErrors}`, {
+                    duration: 3000,
+                    position: 'top-center',
+                });
+            },
             onFinish: () => reset('password'),
         });
     };

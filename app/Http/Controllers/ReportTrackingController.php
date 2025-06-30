@@ -35,6 +35,7 @@ class ReportTrackingController extends Controller implements HasMiddleware
         $budgetDebts = $this->prepareBudgetData($request, BudgetType::DEBT->value, Expense::class, 'budget_id', BudgetType::DEBT->value);
         $budgetBills = $this->prepareBudgetData($request, BudgetType::BILL->value, Expense::class, 'budget_id', BudgetType::BILL->value);
         $budgetShoppings = $this->prepareBudgetData($request, BudgetType::SHOPPING->value, Expense::class, 'budget_id', BudgetType::SHOPPING->value);
+        $budgetExpenses = $this->prepareBudgetData($request, BudgetType::EXPENSE->value, Expense::class, 'budget_id', BudgetType::EXPENSE->value);
 
         $incomeTrackers = Income::query()
             ->select([
@@ -87,6 +88,7 @@ class ReportTrackingController extends Controller implements HasMiddleware
                 'Tabungan dan Investasi' => $budgetSavings,
                 'Tagihan' => $budgetBills,
                 'Belanja' => $budgetShoppings,
+                'Pengeluaran' => $budgetExpenses,
             ]
         )->mapWithKeys(function ($items, $category) {
             return [
@@ -147,6 +149,7 @@ class ReportTrackingController extends Controller implements HasMiddleware
             ],
             'reports' => fn () => [
                 'budgetIncomes' => fn () => $this->formatReport($budgetIncomes),
+                'budgetExpenses' => fn () => $this->formatReport($budgetExpenses),
                 'budgetSavings' => fn () => $this->formatReport($budgetSavings),
                 'budgetDebts' => fn () => $this->formatReport($budgetDebts),
                 'budgetBills' => fn () => $this->formatReport($budgetBills),
