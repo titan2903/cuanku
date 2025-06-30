@@ -73,7 +73,7 @@ export default function Edit(props) {
             },
             onError: (errors) => {
                 const formattedErrors = Object.values(errors).join(', ');
-                toast.error(`Terjadi kesalahan saat menambahkan metode pembayaran: ${formattedErrors}`, {
+                toast.error(`Terjadi kesalahan saat memperbarui metode pembayaran: ${formattedErrors}`, {
                     duration: 3000,
                     position: 'top-center',
                     icon: '❌',
