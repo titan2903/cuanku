@@ -72,7 +72,7 @@ export default function Login({ status, canResetPassword }) {
                 }
             },
             onError: (error) => {
-                const errorMessages = Object.values(error.response.data.errors).flat().join(', ');
+                const errorMessages = Object.values(error).flat().join(', ');
                 toast.error(`Terjadi kesalahan: ${errorMessages}`, {
                     duration: 3000,
                     position: 'top-center',

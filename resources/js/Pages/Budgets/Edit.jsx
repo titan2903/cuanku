@@ -77,7 +77,7 @@ export default function Edit(props) {
                 });
             },
             onError: (error) => {
-                const errorMessages = Object.values(error.response.data.errors).flat().join(', ');
+                const errorMessages = Object.values(error).flat().join(', ');
                 toast.error(`Terjadi kesalahan: ${errorMessages}`, {
                     duration: 3000,
                     position: 'top-center',
