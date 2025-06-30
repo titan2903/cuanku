@@ -36,7 +36,7 @@ export default function ConfirmPassword() {
 
         post(route('password.confirm'), {
             onSuccess: (success) => {
-                if (success.props.auth.user == null) {
+                if (success.props.auth.user === null) {
                     toast.error('Gagal mengkonfirmasi password. Silakan coba lagi.', {
                         duration: 3000,
                         position: 'top-center',
