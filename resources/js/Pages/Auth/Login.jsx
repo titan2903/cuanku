@@ -57,7 +57,7 @@ export default function Login({ status, canResetPassword }) {
                     }
                 }
 
-                if (success.props.auth.user == null) {
+                if (success.props.auth.user === null) {
                     toast.error('Email atau password salah', {
                         duration: 3000,
                         position: 'top-center',
@@ -70,6 +70,13 @@ export default function Login({ status, canResetPassword }) {
                         icon: '✅',
                     });
                 }
+            },
+            onError: (error) => {
+                const errorMessages = Object.values(error).flat().join(', ');
+                toast.error(`Terjadi kesalahan: ${errorMessages}`, {
+                    duration: 3000,
+                    position: 'top-center',
+                });
             },
         });
     };

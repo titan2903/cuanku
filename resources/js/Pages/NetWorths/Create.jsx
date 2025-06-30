@@ -26,12 +26,52 @@ export default function Create(props) {
 
     const onHandleSubmit = (e) => {
         e.preventDefault();
+
+        const clientErrors = {};
+        let hasError = false;
+        if (data.net_worth_goal <= 0) {
+            clientErrors.net_worth_goal = 'Tujuan Kekayaan Bersih harus lebih besar dari 0';
+            hasError = true;
+        }
+        if (data.transaction_per_month <= 0) {
+            clientErrors.transaction_per_month = 'Transaksi per Bulan harus lebih besar dari 0';
+            hasError = true;
+        }
+        if (!data.year) {
+            clientErrors.year = 'Tahun harus dipilih';
+            hasError = true;
+        }
+
+        // Jika ada error, tampilkan dan hentikan submit
+        if (hasError) {
+            const aggregatedErrors = Object.values(clientErrors).join(', ');
+            toast.error(`Terjadi kesalahan validasi: ${aggregatedErrors}`, {
+                duration: 3000,
+                position: 'top-center',
+            });
+            return;
+        }
+
         post(props.page_settings.action, {
             preserveScroll: true,
             preserveState: true,
             onSuccess: (success) => {
                 const flash = flashMessage(success);
                 if (flash) toast[flash.type](flash.message);
+
+                toast.success('Kekayaan bersih berhasil ditambahkan', {
+                    duration: 3000,
+                    position: 'top-center',
+                    icon: '✅',
+                });
+                reset();
+            },
+            onError: (errors) => {
+                const formattedErrors = Object.values(errors).join(', ');
+                toast.error(`Terjadi kesalahan: ${formattedErrors}`, {
+                    duration: 3000,
+                    position: 'top-center',
+                });
             },
         });
     };

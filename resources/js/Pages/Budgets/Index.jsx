@@ -20,9 +20,10 @@ import {
     IconCash,
     IconChartArrowsVertical,
     IconInvoice,
-    IconMoneybagHeart,
     IconMoneybagMinus,
+    IconMoneybagMove,
     IconPencil,
+    IconPigMoney,
     IconPlus,
     IconShoppingBag,
     IconTrash,
@@ -50,7 +51,7 @@ export default function Index(props) {
     return (
         <div className="flex w-full flex-col gap-y-6 pb-32">
             <BreadcrumbHeader items={props.items} />
-            <div className="grid grid-cols-1 gap-4 lg:grid-cols-5">
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-6">
                 <CardStat
                     data={{
                         title: 'Penghasilan',
@@ -63,9 +64,19 @@ export default function Index(props) {
                 </CardStat>
                 <CardStat
                     data={{
+                        title: 'Pengeluaran',
+                        background: 'text-white bg-gradient-to-r from-rose-400 via-rose-500 to-rose-500',
+                        icon: IconMoneybagMove,
+                        iconClassName: 'text-white',
+                    }}
+                >
+                    <div className="text-2xl font-bold">{formatToRupiah(props.statistics.expenses)}</div>
+                </CardStat>
+                <CardStat
+                    data={{
                         title: 'Tabungan dan Investasi',
                         background: 'text-white bg-gradient-to-r from-orange-400 via-orange-500 to-orange-500',
-                        icon: IconMoneybagHeart,
+                        icon: IconPigMoney,
                         iconClassName: 'text-white',
                     }}
                 >
@@ -94,7 +105,7 @@ export default function Index(props) {
                 <CardStat
                     data={{
                         title: 'Belanja',
-                        background: 'text-white bg-gradient-to-r from-purple-400 via-purple-500 to-purple-500',
+                        background: 'text-white bg-gradient-to-r from-fuchsia-400 via-fuchsia-500 to-fuchsia-500',
                         icon: IconShoppingBag,
                         iconClassName: 'text-white',
                     }}

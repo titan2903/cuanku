@@ -23,14 +23,47 @@ export default function Create(props) {
 
     const onHandleSubmit = (e) => {
         e.preventDefault();
+
+        // Validasi client-side
+        const clientErrors = {};
+        let hasError = false;
+        if (!data.amount || data.amount <= 0) {
+            clientErrors.amount = 'Jumlah saldo harus diisi dan lebih besar dari 0';
+            hasError = true;
+        }
+
+        // Jika ada error, tampilkan dan hentikan submit
+        if (hasError) {
+            const aggregatedErrors = Object.values(clientErrors).join(', ');
+            toast.error(`Terjadi kesalahan validasi: ${aggregatedErrors}`, {
+                duration: 3000,
+                position: 'top-center',
+            });
+            return;
+        }
+
         post(props.page_settings.action, {
             preserveScroll: true,
             preserveState: true,
             onSuccess: (success) => {
                 const flash = flashMessage(success);
                 if (flash) {
-                    toast[flash.type](flash.message)
+                    toast[flash.type](flash.message);
                 }
+
+                toast.success('Saldo berhasil ditambahkan', {
+                    duration: 3000,
+                    position: 'top-center',
+                    icon: '✅',
+                });
+                reset();
+            },
+            onError: (error) => {
+                const errorMessages = Object.values(error).flat().join(', ');
+                toast.error(`Terjadi kesalahan: ${errorMessages}`, {
+                    duration: 3000,
+                    position: 'top-center',
+                });
             },
         });
     };

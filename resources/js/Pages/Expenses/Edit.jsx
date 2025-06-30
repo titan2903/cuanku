@@ -44,12 +44,71 @@ export default function Edit(props) {
 
     const onHandleSubmit = (e) => {
         e.preventDefault();
+
+        const clientErrors = {};
+        let hasError = false;
+        if (!data.type) {
+            clientErrors.type = 'Tipe harus diisi';
+            hasError = true;
+        }
+        if (!data.budget_id && props.budgets.length > 0) {
+            clientErrors.budget_id = 'Sumber Pengeluaran harus diisi';
+            hasError = true;
+        }
+        if (!data.payment_id) {
+            clientErrors.payment_id = 'Metode Pembayaran harus diisi';
+            hasError = true;
+        }
+        if (!data.date) {
+            clientErrors.date = 'Tanggal harus diisi';
+            hasError = true;
+        }
+        if (!data.description) {
+            clientErrors.description = 'Deskripsi harus diisi';
+            hasError = true;
+        }
+        if (data.nominal <= 0) {
+            clientErrors.nominal = 'Nominal harus lebih besar dari 0';
+            hasError = true;
+        }
+        if (!data.month) {
+            clientErrors.month = 'Bulan harus diisi';
+            hasError = true;
+        }
+        if (!data.year) {
+            clientErrors.year = 'Tahun harus diisi';
+            hasError = true;
+        }
+
+        if (hasError) {
+            const aggregatedErrors = Object.values(clientErrors).join(', ');
+            toast.error(`Terjadi kesalahan validasi: ${aggregatedErrors}`, {
+                duration: 3000,
+                position: 'top-center',
+            });
+            return;
+        }
+
         post(props.page_settings.action, {
             preserveScroll: true,
             preserveState: true,
             onSuccess: (success) => {
                 const flash = flashMessage(success);
                 if (flash) toast[flash.type](flash.message);
+
+                toast.success('Pengeluaran berhasil diperbarui', {
+                    duration: 3000,
+                    position: 'top-center',
+                    icon: '✅',
+                });
+                reset();
+            },
+            onError: (error) => {
+                const errorMessages = Object.values(error).flat().join(', ');
+                toast.error(`Terjadi kesalahan: ${errorMessages}`, {
+                    duration: 3000,
+                    position: 'top-center',
+                });
             },
         });
     };

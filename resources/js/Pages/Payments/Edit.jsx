@@ -27,12 +27,57 @@ export default function Edit(props) {
 
     const onHandleSubmit = (e) => {
         e.preventDefault();
+        const clientErrors = {};
+        let hasError = false;
+
+        if (!data.name) {
+            clientErrors.name = 'Nama Pembayaran harus diisi';
+            hasError = true;
+        }
+
+        if (!data.type) {
+            clientErrors.type = 'Tipe Pembayaran harus dipilih';
+            hasError = true;
+        }
+
+        if (data.type === 'Kartu Debit' || data.type === 'Kartu Kredit' || data.type === 'Dompet Elektronik') {
+            if (!data.account_owner) {
+                clientErrors.account_owner = 'Nama Pemilik Rekening harus diisi';
+                hasError = true;
+            }
+        }
+
+        // Jika ada error, tampilkan dan hentikan submit
+        if (hasError) {
+            const aggregatedErrors = Object.values(clientErrors).join(', ');
+            toast.error(`Terjadi kesalahan validasi: ${aggregatedErrors}`, {
+                duration: 3000,
+                position: 'top-center',
+            });
+            return;
+        }
+
         post(props.page_settings.action, {
             preserveScroll: true,
             preserveState: true,
             onSuccess: (success) => {
                 const flash = flashMessage(success);
                 if (flash) toast[flash.type](flash.message);
+
+                toast.success('Metode pembayaran berhasil diperbarui!', {
+                    duration: 3000,
+                    position: 'top-center',
+                    icon: '✅',
+                });
+                reset();
+            },
+            onError: (errors) => {
+                const formattedErrors = Object.values(errors).join(', ');
+                toast.error(`Terjadi kesalahan saat memperbarui metode pembayaran: ${formattedErrors}`, {
+                    duration: 3000,
+                    position: 'top-center',
+                    icon: '❌',
+                });
             },
         });
     };

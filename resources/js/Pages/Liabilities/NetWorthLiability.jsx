@@ -20,12 +20,51 @@ export default function NetWorthLiability({ liability }) {
 
     const onHandleSubmit = (e) => {
         e.preventDefault();
+
+        // Validasi client-side
+        const clientErrors = {};
+        let hasError = false;
+        if (!data.transaction_date) {
+            clientErrors.transaction_date = 'Tanggal Transaksi harus diisi';
+            hasError = true;
+        }
+        if (!data.nominal) {
+            clientErrors.nominal = 'Nominal harus diisi';
+            hasError = true;
+        } else if (data.nominal <= 0) {
+            clientErrors.nominal = 'Nominal tidak boleh kurang dari atau sama dengan 0';
+            hasError = true;
+        }
+
+        // Jika ada error, tampilkan dan hentikan submit
+        if (hasError) {
+            const aggregatedErrors = Object.values(clientErrors).join(', ');
+            toast.error(`Terjadi kesalahan validasi: ${aggregatedErrors}`, {
+                duration: 3000,
+                position: 'top-center',
+            });
+            return;
+        }
+
         post(route('net-worth-liability', [liability.net_worth_id, liability.id]), {
             preserveScroll: true,
             preserveState: true,
             onSuccess: (success) => {
                 const flash = flashMessage(success);
                 if (flash) toast[flash.type](flash.message);
+
+                toast.success('Kewajiban kekayaan bersih berhasil ditambahkan', {
+                    duration: 3000,
+                    position: 'top-center',
+                });
+                reset();
+            },
+            onError: (error) => {
+                const aggregatedErrors = Object.values(error).join(', ');
+                toast.error(`Terjadi kesalahan: ${aggregatedErrors}`, {
+                    duration: 3000,
+                    position: 'top-center',
+                });
             },
         });
     };
