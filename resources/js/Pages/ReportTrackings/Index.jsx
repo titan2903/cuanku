@@ -90,7 +90,7 @@ export default function Index(props) {
                 </CardHeader>
             </Card>
 
-            <div className="grid grid-cols-1 gap-4 lg:grid-cols-5">
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-6">
                 <CardStat
                     data={{
                         title: 'Penghasilan',
@@ -99,6 +99,17 @@ export default function Index(props) {
                     }}
                 >
                     <div className="text-2xl font-bold">{formatToRupiah(props.reports.budgetIncomes.total.actual)}</div>
+                </CardStat>
+                <CardStat
+                    data={{
+                        title: 'Pengeluaran',
+                        icon: IconMoneybagMove,
+                        background: 'text-white bg-gradient-to-r from-rose-400 via-rose-500 to-rose-500',
+                    }}
+                >
+                    <div className="text-2xl font-bold">
+                        {formatToRupiah(props.reports.budgetExpenses.total.actual)}
+                    </div>
                 </CardStat>
                 <CardStat
                     data={{

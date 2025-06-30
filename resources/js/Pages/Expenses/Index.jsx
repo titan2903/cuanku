@@ -11,7 +11,7 @@ import { Card, CardContent, CardFooter, CardHeader } from '@/Components/ui/card'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
 import { useFilter } from '@/Hooks/use-filter';
 import AppLayout from '@/Layouts/AppLayout';
-import { deleteAction, formatDateIndo, formatToRupiah, MONTHTYPEVARIANTS } from '@/lib/utils';
+import { BUDGETTYPEVARIANTS, deleteAction, formatDateIndo, formatToRupiah, MONTHTYPEVARIANTS } from '@/lib/utils';
 import { Link } from '@inertiajs/react';
 import { IconArrowDown, IconMoneybagMove, IconPencil, IconPlus, IconTrash } from '@tabler/icons-react';
 import { useState } from 'react';
@@ -213,7 +213,9 @@ export default function Index(props) {
                                         <TableCell>{formatDateIndo(expense.date)}</TableCell>
                                         <TableCell>{expense.description}</TableCell>
                                         <TableCell>{formatToRupiah(expense.nominal)}</TableCell>
-                                        <TableCell>{expense.type}</TableCell>
+                                        <TableCell>
+                                            <Badge variant={BUDGETTYPEVARIANTS[expense.type]}>{expense.type}</Badge>
+                                        </TableCell>
                                         <TableCell>{expense.typeDetail.detail}</TableCell>
                                         <TableCell>{expense.payment.name}</TableCell>
                                         <TableCell>{expense.notes}</TableCell>
