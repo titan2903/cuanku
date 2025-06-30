@@ -254,7 +254,7 @@ export default function Register({ status }) {
                         Syarat dan Ketentuan
                     </Link>{' '}
                     serta{' '}
-                    <Link href="#" className="underline">
+                    <Link href={route('privacy.index')} className="underline">
                         Kebijakan Privasi
                     </Link>{' '}
                     kami.
