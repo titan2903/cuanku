@@ -13,12 +13,12 @@ use App\Http\Controllers\NetWorthAssetController;
 use App\Http\Controllers\NetWorthController;
 use App\Http\Controllers\NetWorthLiabilityController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportTrackingController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Controllers\PrivacyController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -127,9 +127,7 @@ Route::get('report-trackings', ReportTrackingController::class)->name('report-tr
 
 Route::get('annual-reports', [AnnualReportController::class, 'index'])->name('annual-reports');
 
-Route::get('/privacy', [PrivacyController::class, 'index'])->name('privacy.index');
-
-
+Route::get('privacy', [PrivacyController::class, 'index'])->name('privacy.index');
 
 Route::middleware('auth')->group(function () {
     Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');

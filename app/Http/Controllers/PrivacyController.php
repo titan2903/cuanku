@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -12,9 +11,9 @@ class PrivacyController extends Controller
     {
         return Inertia::render('Privacy/Index', [
             'page_settings' => [
-                'title' => 'Kebijakan Privasi',
-                'subtitle' => 'Halaman kebijakan privasi aplikasi CuanKu.'
-            ]
+                'title' => 'Kebijakan Privasi CuanKu💲',
+                'subtitle' => 'Halaman kebijakan privasi aplikasi CuanKu 💲.',
+            ],
         ]);
     }
 }
