@@ -1,7 +1,7 @@
 import AlertAction from '@/Components/AlertAction';
 import BreadcrumbHeader from '@/Components/BreadcrumbHeader';
 import CardStat from '@/Components/CardStat';
-import Filter from '@/Components/Datatable/Filter';
+import FilterWithoutInput from '@/Components/Datatable/FilterWithoutInput';
 import PaginationTable from '@/Components/Datatable/PaginationTable';
 import ShowFilter from '@/Components/Datatable/ShowFilter';
 import EmptyState from '@/Components/EmptyState';
@@ -177,7 +177,7 @@ export default function Index(props) {
                                     </Link>
                                 </Button>
                             </div>
-                            <Filter params={params} setParams={setParams} state={props.state} />
+                            <FilterWithoutInput params={params} setParams={setParams} state={props.state} />
                             <ShowFilter params={params} />
                         </CardHeader>
                         <CardContent className="p-0 [&-td]:whitespace-nowrap [&-td]:px-6 [&-th]:px-6">

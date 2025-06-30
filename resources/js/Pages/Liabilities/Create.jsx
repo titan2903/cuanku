@@ -26,12 +26,52 @@ export default function Create(props) {
 
     const onHandleSubmit = (e) => {
         e.preventDefault();
+
+        const clientErrors = {};
+        let hasError = false;
+        if (!data.detail) {
+            clientErrors.detail = 'Nama Pembayaran harus diisi';
+            hasError = true;
+        }
+        if (!data.type) {
+            clientErrors.type = 'Tipe Pembayaran harus dipilih';
+            hasError = true;
+        }
+        if (!data.goal) {
+            clientErrors.goal = 'Tujuan Kewajiban harus diisi';
+            hasError = true;
+        }
+
+        // Jika ada error, tampilkan dan hentikan submit
+        if (hasError) {
+            const aggregatedErrors = Object.values(clientErrors).join(', ');
+            toast.error(`Terjadi kesalahan validasi: ${aggregatedErrors}`, {
+                duration: 3000,
+                position: 'top-center',
+            });
+            return;
+        }
+
         post(props.page_settings.action, {
             preserveScroll: true,
             preserveState: true,
             onSuccess: (success) => {
                 const flash = flashMessage(success);
                 if (flash) toast[flash.type](flash.message);
+
+                toast.success('Kewajiban berhasil dibuat!', {
+                    duration: 3000,
+                    position: 'top-center',
+                    icon: '✅',
+                });
+                reset();
+            },
+            onError: (error) => {
+                const aggregatedErrors = Object.values(error).join(', ');
+                toast.error(`Terjadi kesalahan: ${aggregatedErrors}`, {
+                    duration: 3000,
+                    position: 'top-center',
+                });
             },
         });
     };

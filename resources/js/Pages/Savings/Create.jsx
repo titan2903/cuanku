@@ -27,12 +27,61 @@ export default function Create(props) {
 
     const onHandleSubmit = (e) => {
         e.preventDefault();
+
+        // Validasi client-side
+        const clientErrors = {};
+        let hasError = false;
+        if (!data.name) {
+            clientErrors.name = 'Nama Tujuan harus diisi';
+            hasError = true;
+        }
+        if (!data.deadline) {
+            clientErrors.deadline = 'Deadline harus diisi';
+            hasError = true;
+        }
+        if (!data.nominal || data.nominal <= 0) {
+            clientErrors.nominal = 'Nominal harus diisi dan lebih besar dari 0';
+            hasError = true;
+        }
+        if (!data.monthly_saving || data.monthly_saving <= 0) {
+            clientErrors.monthly_saving = 'Tabungan Bulanan harus diisi dan lebih besar dari 0';
+            hasError = true;
+        }
+        if (!data.beginning_balance || data.beginning_balance < 0) {
+            clientErrors.beginning_balance = 'Saldo Awal harus diisi dan tidak boleh negatif';
+            hasError = true;
+        }
+
+        // Jika ada error, tampilkan dan hentikan submit
+        if (hasError) {
+            const aggregatedErrors = Object.values(clientErrors).join(', ');
+            toast.error(`Terjadi kesalahan validasi: ${aggregatedErrors}`, {
+                duration: 3000,
+                position: 'top-center',
+            });
+            return;
+        }
+
         post(props.page_settings.action, {
             preserveScroll: true,
             preserveState: true,
             onSuccess: (success) => {
                 const flash = flashMessage(success);
                 if (flash) toast[flash.type](flash.message);
+
+                toast.success('Tujuan berhasil dibuat!', {
+                    duration: 3000,
+                    position: 'top-center',
+                    icon: '✅',
+                });
+                reset();
+            },
+            onError: (error) => {
+                const aggregatedErrors = Object.values(error).join(', ');
+                toast.error(`Terjadi kesalahan: ${aggregatedErrors}`, {
+                    duration: 3000,
+                    position: 'top-center',
+                });
             },
         });
     };

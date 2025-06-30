@@ -26,12 +26,51 @@ export default function Edit(props) {
 
     const onHandleSubmit = (e) => {
         e.preventDefault();
+
+        const clientErrors = {};
+        let hasError = false;
+        if (!data.detail) {
+            clientErrors.detail = 'Detail Aset harus diisi';
+            hasError = true;
+        }
+        if (!data.type) {
+            clientErrors.type = 'Tipe Aset harus dipilih';
+            hasError = true;
+        }
+        if (!data.goal) {
+            clientErrors.goal = 'Tujuan Aset harus diisi';
+            hasError = true;
+        }
+
+        // Jika ada error, tampilkan dan hentikan submit
+        if (hasError) {
+            const aggregatedErrors = Object.values(clientErrors).join(', ');
+            toast.error(`Terjadi kesalahan validasi: ${aggregatedErrors}`, {
+                duration: 3000,
+                position: 'top-center',
+            });
+            return;
+        }
+
         post(props.page_settings.action, {
             preserveScroll: true,
             preserveState: true,
             onSuccess: (success) => {
                 const flash = flashMessage(success);
                 if (flash) toast[flash.type](flash.message);
+                toast.success('Aset berhasil diperbarui!', {
+                    duration: 3000,
+                    position: 'top-center',
+                    icon: '✅',
+                });
+                reset();
+            },
+            onError: (errors) => {
+                const formattedErrors = Object.values(errors).join(', ');
+                toast.error(`Terjadi kesalahan: ${formattedErrors}`, {
+                    duration: 3000,
+                    position: 'top-center',
+                });
             },
         });
     };

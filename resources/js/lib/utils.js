@@ -77,13 +77,15 @@ const BUDGETTYPE = {
     DEBT: 'Cicilan Hutang',
     BILL: 'Tagihan',
     SHOPPING: 'Belanja',
+    EXPENSE: 'Pengeluaran',
 };
 const BUDGETTYPEVARIANTS = {
     [BUDGETTYPE.INCOME]: 'emerald',
     [BUDGETTYPE.SAVING]: 'orange',
     [BUDGETTYPE.DEBT]: 'red',
     [BUDGETTYPE.BILL]: 'sky',
-    [BUDGETTYPE.SHOPPING]: 'purple',
+    [BUDGETTYPE.SHOPPING]: 'fuchsia',
+    [BUDGETTYPE.EXPENSE]: 'rose',
 };
 
 const MONTHTYPE = {
