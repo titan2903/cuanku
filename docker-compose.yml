@@ -1,40 +1,50 @@
 version: '3.8'
 
 services:
-    # Laravel Application dengan FrankenPHP
+    # Layanan utama untuk aplikasi Laravel dengan FrankenPHP
     app:
         build:
             context: .
             dockerfile: Dockerfile
-            args:
-                BUILDKIT_INLINE_CACHE: 1
         container_name: cuanku-app-prod
         restart: unless-stopped
+        # ✅ Memuat variabel lingkungan dari file .env.
+        # Docker Compose akan membaca file ini dan menyediakannya untuk kontainer.
+        env_file:
+            - .env
         ports:
-            - '8000:80'   # HTTP - Akses via port 8000
-            - '8001:443'  # HTTPS - Akses via port 8001
+            # Petakan port 8000 di server ke port 80 di dalam kontainer.
+            # CloudPanel akan mengarahkan trafik ke port 8000 ini.
+            - '8000:80'
         volumes:
-            - ./storage:/app/storage
-            - ./bootstrap/cache:/app/bootstrap/cache
+            # Catatan: env_file di atas sudah memuat variabel.
+            # Volume mount ini tetap ada untuk kompatibilitas dengan beberapa perintah artisan
+            # seperti 'config:cache' yang mungkin masih membaca file ini secara langsung.
             - ./.env:/app/.env:ro
-        environment:
-            - APP_ENV=production
-            - APP_DEBUG=false
-        network_mode: bridge  # Use default bridge network for MySQL access
-        healthcheck:
-            test: ['CMD', 'curl', '-f', 'http://localhost']
-            interval: 30s
-            timeout: 10s
-            retries: 3
+            # Mount direktori storage untuk data persisten.
+            - ./storage:/app/storage
+            # Mount direktori public agar aset yang di-build oleh 'node-build' bisa diakses.
+            - ./public:/app/public
+        networks:
+            - cuanku-net
 
-    # Node.js untuk Build Assets (Production)
+    # Layanan sementara HANYA untuk membangun aset frontend.
+    # Menggunakan 'profiles' agar tidak berjalan secara default.
     node-build:
         build:
             context: .
             dockerfile: Dockerfile.node
         container_name: cuanku-node-build
         volumes:
-            - ./public/build:/output # Output untuk built assets
-        network_mode: bridge
+            # Mount direktori public. Saat 'npm run build' selesai di kontainer ini,
+            # hasilnya akan langsung muncul di direktori ./public di host.
+            - ./public:/app/public
+        # 'profiles' memastikan layanan ini hanya berjalan jika dipanggil secara eksplisit.
         profiles:
             - build
+        networks:
+            - cuanku-net
+
+networks:
+    cuanku-net:
+        driver: bridge

@@ -1,33 +1,22 @@
-FROM node:22-alpine AS builder
+# --- Frontend Asset Builder ---
 
+# Gunakan image Node.js versi LTS (Long-Term Support) yang ramping.
+FROM node:20-alpine
+
+# Set direktori kerja di dalam kontainer.
 WORKDIR /app
 
-# Install dependencies dengan cache yang lebih efisien
+# Salin file package manager terlebih dahulu untuk memanfaatkan cache Docker.
 COPY package.json package-lock.json ./
-RUN npm ci --only=production --silent && npm cache clean --force
 
-# Copy source files
+# Jalankan 'npm ci' untuk menginstal SEMUA dependensi (termasuk devDependencies)
+# secara bersih dan cepat dari file package-lock.json.
+RUN npm ci
+
+# Salin sisa kode aplikasi yang diperlukan untuk proses build.
+# Docker akan mengabaikan file yang ada di .dockerignore.
 COPY . .
 
-# Build for production dengan optimasi
-RUN npm run build && rm -rf node_modules
-
-# Final stage - copy built assets to host
-FROM alpine:latest
-WORKDIR /app
-
-# Copy built assets from builder stage
-COPY --from=builder /app/public/build ./public/build
-
-# Create a simple script to copy files to mounted volume
-RUN echo '#!/bin/sh' > /app/copy-assets.sh && \
-    echo 'echo "Copying built assets..."' >> /app/copy-assets.sh && \
-    echo 'if [ -d "/app/public/build" ] && [ "$(ls -A /app/public/build 2>/dev/null)" ]; then' >> /app/copy-assets.sh && \
-    echo '  cp -r /app/public/build/* /output/ 2>/dev/null' >> /app/copy-assets.sh && \
-    echo '  echo "Assets copied successfully"' >> /app/copy-assets.sh && \
-    echo 'else' >> /app/copy-assets.sh && \
-    echo '  echo "No build files found to copy"' >> /app/copy-assets.sh && \
-    echo 'fi' >> /app/copy-assets.sh && \
-    chmod +x /app/copy-assets.sh
-
-CMD ["/app/copy-assets.sh"]
+# Jalankan perintah build untuk production.
+# Ini akan mengkompilasi aset JS/CSS ke direktori /app/public/build.
+RUN npm run build
