@@ -65,62 +65,51 @@ jobs:
                 php artisan view:cache
                 php artisan optimize
 
-                # Buat ecosystem file untuk PM2 jika belum ada
-                if [ ! -f ecosystem.config.js ]; then
-                    echo "📝 Membuat konfigurasi PM2..."
-                    tee ecosystem.config.js > /dev/null <<'EOF'
-                    module.exports = {
-                    apps: [{
-                        name: "cuanku-app",
-                        script: "php",
-                        args: "artisan serve --host=127.0.0.1 --port=8000",
-                        env: {
-                        APP_ENV: "production",
-                        NODE_ENV: "production"
-                        },
-                        watch: false,
-                        instances: 1,
-                        exec_mode: "fork",
-                        max_memory_restart: "200M",
-                        restart_delay: 3000
+                # Buat file ecosystem.config.js menggunakan perintah 'tee'
+                # Ini lebih andal daripada heredoc di dalam skrip SSH.
+                echo "📝 Membuat atau memperbarui konfigurasi PM2..."
+                tee ecosystem.config.js > /dev/null <<'EOF'
+                module.exports = {
+                apps: [{
+                    name: "cuanku-app",
+                    script: "php",
+                    args: "artisan serve --host=127.0.0.1 --port=8000",
+                    env: {
+                    APP_ENV: "production",
+                    NODE_ENV: "production"
                     },
-                    {
-                        name: "cuanku-queue",
-                        script: "php",
-                        args: "artisan queue:work --tries=3 --timeout=90",
-                        env: {
-                        APP_ENV: "production",
-                        NODE_ENV: "production"
-                        },
-                        watch: false,
-                        instances: 1,
-                        exec_mode: "fork",
-                        max_memory_restart: "150M"
-                    }]
-                    }
-                    EOF
-                fi
+                    watch: false,
+                    instances: 1,
+                    exec_mode: "fork",
+                    max_memory_restart: "200M",
+                    restart_delay: 3000
+                },
+                {
+                    name: "cuanku-queue",
+                    script: "php",
+                    args: "artisan queue:work --tries=3 --timeout=90",
+                    env: {
+                    APP_ENV: "production",
+                    NODE_ENV: "production"
+                    },
+                    watch: false,
+                    instances: 1,
+                    exec_mode: "fork",
+                    max_memory_restart: "150M"
+                }]
+                }
+                EOF
 
-                # Menjalankan/merestart aplikasi dengan PM2
+                # Menjalankan atau merestart aplikasi dengan PM2
                 echo "🚀 Menjalankan aplikasi dengan PM2..."
-                if pm2 list | grep -q "cuanku-app"; then
-                    echo "♻️ Merestart aplikasi yang sudah ada..."
-                    pm2 reload ecosystem.config.js
-                else
-                    echo "🆕 Menjalankan aplikasi baru..."
-                    pm2 start ecosystem.config.js
-                fi
+                # 'pm2 startOrReload' akan menjalankan jika belum ada, atau me-reload jika sudah ada.
+                pm2 startOrReload ecosystem.config.js
 
-                # Setup startup script
+                # Setup startup script dan simpan konfigurasi
                 echo "⚙️ Konfigurasi startup pada boot..."
-                pm2 startup | grep -v "sudo" | bash || echo "⚠️ PM2 startup tidak berhasil, perlu akses sudo"
+                pm2 startup
                 pm2 save
 
-                # Monitoring
-                echo "📊 Status PM2:"
-                pm2 status
-                echo "📈 Monitoring aplikasi (ctrl+c untuk keluar):"
-                pm2 monit --mini || echo "Monitoring hanya tersedia di sesi interaktif"
-                
                 echo "🎉 Deployment selesai!"
+
           ENDSSH
