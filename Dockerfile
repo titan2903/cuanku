@@ -9,7 +9,11 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     unzip \
     curl \
+    git \
     && rm -rf /var/lib/apt/lists/*
+
+# Install Composer manually if COPY method fails
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Instal ekstensi PHP yang umum untuk Laravel
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
@@ -20,6 +24,9 @@ RUN echo "opcache.enable=1" >> /usr/local/etc/php/conf.d/opcache.ini \
     && echo "opcache.memory_consumption=256" >> /usr/local/etc/php/conf.d/opcache.ini \
     && echo "opcache.max_accelerated_files=20000" >> /usr/local/etc/php/conf.d/opcache.ini \
     && echo "opcache.validate_timestamps=0" >> /usr/local/etc/php/conf.d/opcache.ini
+
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # --- Stage 2: Composer Dependencies ---
 FROM base AS composer_deps

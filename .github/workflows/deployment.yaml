@@ -84,6 +84,6 @@ jobs:
                       echo "🎉 Deployment completed successfully"
                       docker compose ps
 
-                    #   Show application logs (last 20 lines)
-                    #   echo "📋 Recent application logs:"
-                    #   docker compose logs --tail=20 app
+                      # Show application logs (last 20 lines)
+                      echo "📋 Recent application logs:"
+                      docker compose logs --tail=20 app
