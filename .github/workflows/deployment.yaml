@@ -38,7 +38,8 @@ jobs:
 
                     # Atur izin file yang benar setelah deployment
                     echo "🔐 Mengatur izin file..."
-                    chown -R cuanku-user:cuanku-user .
+                    # Menggunakan user situs yang benar (cuanku-pm2)
+                    chown -R cuanku-pm2:cuanku-pm2 .
                     chmod -R 775 storage bootstrap/cache
 
                     echo "🔄 Menjalankan migrasi dan optimisasi Laravel..."
@@ -47,5 +48,19 @@ jobs:
                     php artisan route:cache
                     php artisan view:cache
                     php artisan optimize
+
+                    # Menjalankan aplikasi dengan PM2
+                    echo "🚀 Menjalankan atau merestart aplikasi dengan PM2..."
+                    # --host=127.0.0.1 agar hanya bisa diakses dari dalam server
+                    # 'pm2 reload' akan me-restart tanpa downtime jika sudah berjalan
+                    pm2 reload cuanku-app || pm2 start --name cuanku-php "php artisan serve --host=0.0.0.0 --port=8000"
+                    pm2 reload cuanku-vite || pm2 start --name cuanku-vite "npm run dev"
+
+                    # Simpan daftar proses PM2 agar otomatis berjalan setelah reboot server
+                    pm2 startup
+                    pm2 save
+
+                    # cek status PM2
+                    pm2 status
 
                     echo "🎉 Deployment selesai!"
