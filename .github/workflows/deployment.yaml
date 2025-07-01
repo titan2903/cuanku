@@ -60,13 +60,44 @@ jobs:
                           exit 1
                       fi
 
-                      # Run Laravel-specific commands inside the container
-                      echo "Running Laravel optimizations..."
-                      docker compose exec -T app php artisan migrate --force
+                      # Run Laravel-specific commands including MIGRATION
+                      echo "Running Laravel migrations and optimizations..."
+                      
+                      # Run database migrations
+                      echo "🔄 Running database migrations..."
+                      if docker compose exec -T app php artisan migrate --force; then
+                          echo "✅ Database migrations completed successfully"
+                      else
+                          echo "❌ Database migrations failed"
+                          docker compose logs --tail=50 app
+                          exit 1
+                      fi
+                      
+                      # Run Laravel optimizations
+                      echo "🔄 Running Laravel optimizations..."
                       docker compose exec -T app php artisan config:cache
                       docker compose exec -T app php artisan route:cache
                       docker compose exec -T app php artisan view:cache
                       docker compose exec -T app php artisan optimize
+                      echo "✅ Laravel optimizations completed"
+                      
+                      # Create admin user if not exists
+                      echo "🔄 Checking admin user..."
+                      docker compose exec -T app php artisan tinker --execute="
+                      \$admin = \App\Models\User::where('name', 'admin')->first();
+                      if (!\$admin) {
+                          \App\Models\User::create([
+                              'name' => 'admin',
+                              'email' => 'admin@cuanku.local',
+                              'password' => bcrypt('admin123'),
+                              'is_active' => true,
+                              'role' => 'admin',
+                          ]);
+                          echo 'Admin user created with email: admin@cuanku.local and password: admin123';
+                      } else {
+                          echo 'Admin user already exists';
+                      }
+                      " 2>/dev/null || echo "Admin user creation skipped"
 
                       # Clean up unused Docker resources
                       docker system prune -f
