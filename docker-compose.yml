@@ -20,7 +20,7 @@ services:
             - APP_DEBUG=false
         networks:
             - cuanku-network
-            - mysql-network   # Akses ke container MySQL yang sudah ada
+        network_mode: bridge  # Use default bridge network for MySQL access
         healthcheck:
             test: ['CMD', 'curl', '-f', 'http://localhost']
             interval: 30s
@@ -37,12 +37,10 @@ services:
             - ./public/build:/output # Output untuk built assets
         networks:
             - cuanku-network
+        network_mode: bridge
         profiles:
             - build
 
 networks:
     cuanku-network:
         driver: bridge
-    mysql-network:
-        external: true
-        name: shared-network

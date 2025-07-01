@@ -60,6 +60,36 @@ jobs:
                           exit 1
                       fi
 
+                      # Create database if not exists
+                      echo "🔄 Creating database if not exists..."
+                      docker exec mysql mysql -u root -fah6w2yfG2JL7Jk -e "CREATE DATABASE IF NOT EXISTS cuanku CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;" || echo "Database creation skipped"
+
+                      # Debug network connectivity
+                      echo "🔍 Testing network connectivity..."
+                      docker compose exec -T app ping -c 2 mysql || echo "❌ Cannot reach mysql container"
+                      docker compose exec -T app nslookup mysql || echo "❌ Cannot resolve mysql hostname"
+
+                      # Test database connection
+                      echo "🔄 Testing database connection..."
+                      if docker compose exec -T app php artisan tinker --execute="
+                      try {
+                          DB::connection()->getPdo();
+                          echo 'Database connected successfully!';
+                      } catch (Exception \$e) {
+                          echo 'Database connection failed: ' . \$e->getMessage();
+                          exit(1);
+                      }
+                      " 2>/dev/null; then
+                          echo "✅ Database connection successful"
+                      else
+                          echo "❌ Database connection failed"
+                          echo "Checking container logs..."
+                          docker compose logs --tail=20 app
+                          echo "Checking MySQL container..."
+                          docker logs --tail=20 mysql
+                          exit 1
+                      fi
+
                       # Run Laravel-specific commands including MIGRATION
                       echo "Running Laravel migrations and optimizations..."
                       
@@ -113,6 +143,7 @@ jobs:
 
                       # Output deployment status
                       echo "🎉 Deployment completed successfully"
+                      docker system prune -f
                       docker compose ps
 
                       # Show application logs (last 20 lines)
