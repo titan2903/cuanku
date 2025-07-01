@@ -45,4 +45,4 @@ networks:
         driver: bridge
     mysql-network:
         external: true
-        name: bridge
+        name: shared-network
