@@ -23,7 +23,7 @@ jobs:
                   script: |
                     # Pindah ke direktori proyek Anda di server
                     # Ganti path ini jika berbeda
-                    cd /root/project/cuanku
+                    cd /home/cuanku-pm2/htdocs/cuanku.web.id
                     
                     echo "🔄 Mengambil kode terbaru dari branch main..."
                     git checkout main
