@@ -25,38 +25,140 @@ jobs:
                       git checkout main
                       git pull origin main
 
+                      # Check system resources before build
+                      echo "🔍 Checking system resources..."
+                      echo "📊 Disk space:"
+                      df -h /
+                      echo "📊 Memory usage:"
+                      free -h
+                      echo "📊 Docker daemon status:"
+                      sudo systemctl is-active docker
+
+                      # Check if we have enough space (at least 2GB free)
+                      available_space=$(df / | tail -1 | awk '{print $4}')
+                      if [ $available_space -lt 2097152 ]; then # 2GB in KB
+                          echo "⚠️ Low disk space detected. Cleaning up..."
+                          docker system prune -af
+                          docker volume prune -f
+                      fi
+
                       # Stop existing containers (if any)
                       docker compose down
 
-                      # Build Docker images
-                      docker compose build
+                      # Clean up Docker resources before build
+                      echo "🧹 Cleaning up Docker resources..."
+                      docker system prune -f
+                      docker volume prune -f
+                      docker image prune -f
 
-                      # Build assets with Node.js (production)
+                      # Build Docker images with retry logic
+                      echo "🔨 Building Docker images..."
+                      export DOCKER_BUILDKIT=1
+                      export COMPOSE_DOCKER_CLI_BUILD=1
+                      
+                      build_retry=0
+                      max_retries=3
+
+                      while [ $build_retry -lt $max_retries ]; do
+                          echo "Build attempt $((build_retry + 1))/$max_retries"
+                          
+                          if docker compose build --no-cache --force-rm; then
+                              echo "✅ Docker build completed successfully"
+                              break
+                          else
+                              build_retry=$((build_retry + 1))
+                              if [ $build_retry -lt $max_retries ]; then
+                                  echo "⚠️ Build failed, retrying in 30 seconds..."
+                                  sleep 30
+                                  # Clean up before retry
+                                  docker system prune -f
+                              else
+                                  echo "❌ Docker build failed after $max_retries attempts"
+                                  echo "📋 Checking Docker daemon status..."
+                                  sudo systemctl status docker
+                                  echo "📋 Recent Docker logs:"
+                                  sudo journalctl -u docker --no-pager --lines=20
+                                  exit 1
+                              fi
+                          fi
+                      done
+
+                      # Build assets with Node.js (production) with retry
                       echo "Building frontend assets..."
-                      docker compose --profile build up node-build
+                      asset_retry=0
+                      max_asset_retries=2
+
+                      while [ $asset_retry -lt $max_asset_retries ]; do
+                          echo "Asset build attempt $((asset_retry + 1))/$max_asset_retries"
+                          
+                          if docker compose --profile build up node-build; then
+                              echo "✅ Frontend assets build completed successfully"
+                              break
+                          else
+                              asset_retry=$((asset_retry + 1))
+                              if [ $asset_retry -lt $max_asset_retries ]; then
+                                  echo "⚠️ Asset build failed, retrying..."
+                                  sleep 15
+                                  docker compose rm -f node-build
+                              else
+                                  echo "❌ Asset build failed after $max_asset_retries attempts"
+                                  echo "📋 Node build container logs:"
+                                  docker compose logs node-build
+                                  # Continue anyway - assets might exist from previous build
+                                  echo "⚠️ Continuing deployment without fresh assets..."
+                              fi
+                          fi
+                      done
 
                       # Remove node-build container after completion
                       docker compose rm -f node-build
 
-                      # Start the application
+                      # Start the application with health check
                       echo "Starting Laravel application..."
-                      docker compose up -d app
+                      if docker compose up -d app; then
+                          echo "✅ Container started successfully"
+                      else
+                          echo "❌ Failed to start container"
+                          echo "📋 Container logs:"
+                          docker compose logs app
+                          echo "📋 Docker system info:"
+                          docker system df
+                          exit 1
+                      fi
 
-                      # Wait for container to be healthy
+                      # Wait for container to be healthy with extended timeout
                       echo "Waiting for application to be ready..."
-                      timeout=60
+                      timeout=120  # Extended timeout to 2 minutes
+                      health_check_interval=10
+                      
                       while [ $timeout -gt 0 ]; do
+                          # Check if container is running first
+                          if ! docker compose ps app | grep -q "Up"; then
+                              echo "❌ Container is not running"
+                              docker compose logs --tail=50 app
+                              exit 1
+                          fi
+                          
+                          # Check if application responds
                           if docker compose exec -T app curl -f http://localhost/ >/dev/null 2>&1; then
-                              echo "Application is ready!"
+                              echo "✅ Application is ready!"
                               break
                           fi
+                          
                           echo "Waiting... ($timeout seconds remaining)"
-                          sleep 5
-                          timeout=$((timeout-5))
+                          sleep $health_check_interval
+                          timeout=$((timeout-health_check_interval))
                       done
 
                       if [ $timeout -eq 0 ]; then
-                          echo "Application failed to start within timeout"
+                          echo "❌ Application failed to start within timeout"
+                          echo "📋 Container status:"
+                          docker compose ps
+                          echo "📋 Application logs:"
+                          docker compose logs --tail=100 app
+                          echo "📋 System resources:"
+                          free -h
+                          df -h
                           exit 1
                       fi
 
@@ -107,13 +209,25 @@ jobs:
                       docker compose exec -T app php artisan view:clear || echo "View clear skipped"
                       echo "✅ Caches cleared"
                       
-                      # Run database migrations
+                      # Run database migrations with error handling
                       echo "🔄 Running database migrations..."
                       if docker compose exec -T app php artisan migrate --force; then
                           echo "✅ Database migrations completed successfully"
                       else
                           echo "❌ Database migrations failed"
+                          echo "📋 Checking migration status..."
+                          docker compose exec -T app php artisan migrate:status || echo "Migration status check failed"
+                          echo "📋 Application logs:"
                           docker compose logs --tail=50 app
+                          echo "📋 Checking database connection again..."
+                          docker compose exec -T app php artisan tinker --execute="
+                          try {
+                              DB::connection()->getPdo();
+                              echo 'Database still connected';
+                          } catch (Exception \$e) {
+                              echo 'Database connection lost: ' . \$e->getMessage();
+                          }
+                          " || echo "Database recheck failed"
                           exit 1
                       fi
                       
@@ -157,8 +271,15 @@ jobs:
 
                       # Output deployment status
                       echo "🎉 Deployment completed successfully"
-                      docker system prune -f
+                      echo "📋 Final status check:"
+                      echo "Container status:"
                       docker compose ps
+                      echo "System resources after deployment:"
+                      free -h
+                      df -h /
+                      
+                      # Clean up unused Docker resources (do this once at the end)
+                      docker system prune -f
 
                       # Show application logs (last 20 lines)
                       echo "📋 Recent application logs:"
