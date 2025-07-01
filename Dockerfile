@@ -7,6 +7,9 @@ RUN apt-get update && apt-get install -y \
     libjpeg-dev \
     libfreetype6-dev \
     libzip-dev \
+    libicu-dev \
+    libonig-dev \
+    libxml2-dev \
     unzip \
     curl \
     git \
@@ -17,7 +20,18 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 # Instal ekstensi PHP yang umum untuk Laravel
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) gd pdo pdo_mysql zip opcache
+    && docker-php-ext-install -j$(nproc) \
+        gd \
+        pdo \
+        pdo_mysql \
+        zip \
+        opcache \
+        intl \
+        mbstring \
+        xml \
+        bcmath \
+        ctype \
+        fileinfo
 
 # Configure OPcache untuk production
 RUN echo "opcache.enable=1" >> /usr/local/etc/php/conf.d/opcache.ini \
@@ -37,7 +51,7 @@ WORKDIR /app
 # Ini dilakukan terpisah agar Docker bisa menggunakan cache layer
 # jika tidak ada perubahan pada dependensi.
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --no-scripts --no-autoloader
+RUN composer install --no-dev --no-scripts --no-autoloader --ignore-platform-reqs
 
 # --- Stage 3: Final Application Image ---
 FROM base AS app
