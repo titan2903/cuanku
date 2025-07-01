@@ -66,8 +66,7 @@ jobs:
 
                       # Test external database connectivity
                       echo "🔍 Testing external database connectivity..."
-                      docker compose exec -T app ping -c 2 176.100.37.75 || echo "❌ Cannot reach database server"
-                      docker compose exec -T app nc -zv 176.100.37.75 3307 || echo "❌ Cannot connect to MySQL port 3307"
+                      docker compose exec -T app php -r "echo (gethostbyname('176.100.37.75') !== '176.100.37.75') ? 'DNS resolved' : 'Using direct IP';" || echo "Network test skipped"
 
                       # Test database connection
                       echo "🔄 Testing database connection..."
@@ -85,13 +84,28 @@ jobs:
                           echo "❌ Database connection failed"
                           echo "Checking container logs..."
                           docker compose logs --tail=20 app
-                          echo "Checking network connectivity to external database..."
-                          docker compose exec -T app ping -c 2 176.100.37.75 || echo "Cannot reach database server"
+                          echo "Testing direct database connection..."
+                          docker compose exec -T app php -r "
+                          try {
+                              \$pdo = new PDO('mysql:host=176.100.37.75;port=3307', 'root', 'fah6w2yfG2JL7Jk');
+                              echo 'Direct connection successful';
+                          } catch (Exception \$e) {
+                              echo 'Direct connection failed: ' . \$e->getMessage();
+                          }
+                          " || echo "Direct connection test failed"
                           exit 1
                       fi
 
                       # Run Laravel-specific commands including MIGRATION
                       echo "Running Laravel migrations and optimizations..."
+                      
+                      # Clear all caches first to ensure fresh config
+                      echo "🔄 Clearing Laravel caches..."
+                      docker compose exec -T app php artisan config:clear || echo "Config clear skipped"
+                      docker compose exec -T app php artisan cache:clear || echo "Cache clear skipped" 
+                      docker compose exec -T app php artisan route:clear || echo "Route clear skipped"
+                      docker compose exec -T app php artisan view:clear || echo "View clear skipped"
+                      echo "✅ Caches cleared"
                       
                       # Run database migrations
                       echo "🔄 Running database migrations..."
