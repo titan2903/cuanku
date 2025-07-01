@@ -102,7 +102,7 @@ jobs:
                           
                           # Execute build with timeout (20 minutes untuk handle package discovery)
                           echo "⏰ Starting build with 20-minute timeout..."
-                          if timeout 1200 $build_cmd; then
+                          if timeout 1800 $build_cmd; then
                               echo "✅ Docker build completed successfully"
                               echo "📦 New image built with latest code changes"
                               break

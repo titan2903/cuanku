@@ -95,9 +95,9 @@ RUN composer dump-autoload --optimize --no-dev --classmap-authoritative --no-scr
 # ✅ Hapus .env temporary setelah optimization
 RUN rm -f .env
 
-# ✅ Ensure proper permissions hanya untuk file yang perlu
-RUN find /app -type f -name "*.php" -exec chmod 644 {} + \
-    && find /app -type d -exec chmod 755 {} + \
+# ✅ Set permissions dengan cara yang lebih efisien - DIUBAH
+# Ganti find yang lambat dengan chmod langsung
+RUN chmod -R u+rw,g+rw,o+r /app \
     && chmod -R 775 /app/storage /app/bootstrap/cache
 
 # Health check untuk monitoring
