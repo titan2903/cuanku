@@ -60,14 +60,14 @@ jobs:
                           exit 1
                       fi
 
-                      # Create database if not exists
+                      # Create database if not exists (using external connection)
                       echo "🔄 Creating database if not exists..."
                       docker exec mysql mysql -u root -pfah6w2yfG2JL7Jk -e "CREATE DATABASE IF NOT EXISTS cuanku CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;" || echo "Database creation skipped"
 
-                      # Debug network connectivity
-                      echo "🔍 Testing network connectivity..."
-                      docker compose exec -T app ping -c 2 mysql || echo "❌ Cannot reach mysql container"
-                      docker compose exec -T app nslookup mysql || echo "❌ Cannot resolve mysql hostname"
+                      # Test external database connectivity
+                      echo "🔍 Testing external database connectivity..."
+                      docker compose exec -T app ping -c 2 176.100.37.75 || echo "❌ Cannot reach database server"
+                      docker compose exec -T app nc -zv 176.100.37.75 3307 || echo "❌ Cannot connect to MySQL port 3307"
 
                       # Test database connection
                       echo "🔄 Testing database connection..."
@@ -85,8 +85,8 @@ jobs:
                           echo "❌ Database connection failed"
                           echo "Checking container logs..."
                           docker compose logs --tail=20 app
-                          echo "Checking MySQL container..."
-                          docker logs --tail=20 mysql
+                          echo "Checking network connectivity to external database..."
+                          docker compose exec -T app ping -c 2 176.100.37.75 || echo "Cannot reach database server"
                           exit 1
                       fi
 

@@ -36,7 +36,3 @@ services:
         network_mode: bridge
         profiles:
             - build
-
-networks:
-    cuanku-network:
-        driver: bridge
