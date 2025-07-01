@@ -13,10 +13,12 @@ RUN apt-get update && apt-get install -y \
     unzip \
     curl \
     git \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
 
-# Install Composer manually if COPY method fails
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# Install Composer manually dengan timeout yang lebih besar
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+    && chmod +x /usr/local/bin/composer
 
 # Instal ekstensi PHP yang umum untuk Laravel
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
@@ -51,24 +53,35 @@ WORKDIR /app
 # Ini dilakukan terpisah agar Docker bisa menggunakan cache layer
 # jika tidak ada perubahan pada dependensi.
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --no-scripts --no-autoloader --ignore-platform-reqs
+RUN composer install --no-dev --no-scripts --no-autoloader --ignore-platform-reqs --optimize-autoloader
 
 # --- Stage 3: Final Application Image ---
 FROM base AS app
 
 WORKDIR /app
 
+# ✅ Buat direktori storage dan cache terlebih dahulu dengan permission yang benar
+RUN mkdir -p /app/storage/app/public \
+    && mkdir -p /app/storage/framework/cache/data \
+    && mkdir -p /app/storage/framework/sessions \
+    && mkdir -p /app/storage/framework/views \
+    && mkdir -p /app/storage/logs \
+    && mkdir -p /app/bootstrap/cache \
+    && chown -R www-data:www-data /app/storage /app/bootstrap \
+    && chmod -R 775 /app/storage /app/bootstrap
+
 # Salin dependensi dari stage sebelumnya
 COPY --from=composer_deps /app/vendor /app/vendor
 
-# Salin sisa kode aplikasi
-COPY . .
+# ✅ Salin aplikasi dengan ownership yang benar langsung
+COPY --chown=www-data:www-data . .
 
-# Buat cache untuk optimasi (tanpa php artisan optimize yang butuh .env)
+# ✅ Jalankan autoload optimization
 RUN composer dump-autoload --optimize --no-dev --classmap-authoritative
 
-# Atur kepemilikan file agar server bisa menulis ke storage dan cache
-RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache \
+# ✅ Ensure proper permissions hanya untuk file yang perlu
+RUN find /app -type f -name "*.php" -exec chmod 644 {} + \
+    && find /app -type d -exec chmod 755 {} + \
     && chmod -R 775 /app/storage /app/bootstrap/cache
 
 # Health check untuk monitoring
