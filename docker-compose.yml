@@ -20,6 +20,7 @@ services:
             - APP_DEBUG=false
         networks:
             - cuanku-network
+            - mysql-network   # Akses ke container MySQL yang sudah ada
         healthcheck:
             test: ['CMD', 'curl', '-f', 'http://localhost']
             interval: 30s
@@ -42,3 +43,6 @@ services:
 networks:
     cuanku-network:
         driver: bridge
+    mysql-network:
+        external: true
+        name: docker-compose_default
