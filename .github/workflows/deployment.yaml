@@ -100,9 +100,9 @@ jobs:
                               build_cmd="docker compose build --no-cache --force-rm --pull --parallel"
                           fi
                           
-                          # Execute build with timeout (20 minutes untuk handle package discovery)
-                          echo "⏰ Starting build with 20-minute timeout..."
-                          if timeout 1800 $build_cmd; then
+                          # Execute build with timeout (35 minutes untuk handle package discovery)
+                          echo "⏰ Starting build with 35-minute timeout..."
+                          if timeout 2100 $build_cmd; then
                               echo "✅ Docker build completed successfully"
                               echo "📦 New image built with latest code changes"
                               break

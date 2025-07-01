@@ -53,7 +53,9 @@ WORKDIR /app
 # Ini dilakukan terpisah agar Docker bisa menggunakan cache layer
 # jika tidak ada perubahan pada dependensi.
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --no-scripts --no-autoloader --ignore-platform-reqs --optimize-autoloader --no-plugins
+# ✅ Jalankan composer install dengan cache mount
+RUN --mount=type=cache,target=/root/.composer/cache \
+    composer install --no-dev --no-scripts --no-autoloader --ignore-platform-reqs --optimize-autoloader --no-plugins
 
 # --- Stage 3: Final Application Image ---
 FROM base AS app
