@@ -9,8 +9,8 @@ services:
         container_name: cuanku-app-prod
         restart: unless-stopped
         ports:
-            - '80:80'
-            - '443:443'
+            - '8000:80'   # HTTP - Akses via port 8000
+            - '8443:443'  # HTTPS - Akses via port 8443
         volumes:
             - ./storage:/app/storage
             - ./bootstrap/cache:/app/bootstrap/cache
