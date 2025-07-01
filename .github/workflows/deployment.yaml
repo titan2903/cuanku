@@ -23,8 +23,10 @@ jobs:
             -o StrictHostKeyChecking=no \
             -p ${{ secrets.SERVER_PORT }} \
             ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} <<'ENDSSH'
-                # ✅ Muat environment shell untuk memastikan semua path (npm, pm2, dll.) tersedia
-                source ~/.profile
+                # ✅ Muat environment NVM secara eksplisit untuk sesi non-interaktif
+                export NVM_DIR="$HOME/.nvm"
+                [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+                
                 # Pindah ke direktori proyek Anda di server
                 # Ganti path ini jika berbeda
                 cd /home/cuanku-pm2/htdocs/cuanku.web.id
@@ -57,8 +59,7 @@ jobs:
                 echo "🚀 Menjalankan atau merestart aplikasi dengan PM2..."
                 # --host=127.0.0.1 agar hanya bisa diakses dari dalam server
                 # 'pm2 reload' akan me-restart tanpa downtime jika sudah berjalan
-                pm2 reload cuanku-app || pm2 start --name cuanku-php "php artisan serve --host=0.0.0.0 --port=8000"
-                pm2 reload cuanku-vite || pm2 start --name cuanku-vite "npm run dev"
+                pm2 reload cuanku-app || pm2 start "php artisan serve --host=127.0.0.1 --port=8000" --name cuanku-app
 
                 # Simpan daftar proses PM2 agar otomatis berjalan setelah reboot server
                 pm2 startup
