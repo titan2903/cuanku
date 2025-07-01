@@ -62,7 +62,7 @@ jobs:
 
                       # Create database if not exists
                       echo "🔄 Creating database if not exists..."
-                      docker exec mysql mysql -u root -fah6w2yfG2JL7Jk -e "CREATE DATABASE IF NOT EXISTS cuanku CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;" || echo "Database creation skipped"
+                      docker exec mysql mysql -u root -pfah6w2yfG2JL7Jk -e "CREATE DATABASE IF NOT EXISTS cuanku CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;" || echo "Database creation skipped"
 
                       # Debug network connectivity
                       echo "🔍 Testing network connectivity..."
