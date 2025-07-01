@@ -45,4 +45,4 @@ networks:
         driver: bridge
     mysql-network:
         external: true
-        name: docker-compose_default
+        name: bridge
