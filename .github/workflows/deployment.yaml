@@ -23,47 +23,49 @@ jobs:
             -o StrictHostKeyChecking=no \
             -p ${{ secrets.SERVER_PORT }} \
             ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} <<'ENDSSH'
-              # Pindah ke direktori proyek Anda di server
-              # Ganti path ini jika berbeda
-              cd /home/cuanku-pm2/htdocs/cuanku.web.id
+                # ✅ Muat environment shell untuk memastikan semua path (npm, pm2, dll.) tersedia
+                source ~/.profile
+                # Pindah ke direktori proyek Anda di server
+                # Ganti path ini jika berbeda
+                cd /home/cuanku-pm2/htdocs/cuanku.web.id
 
-              echo "🔄 Mengambil kode terbaru dari branch main..."
-              git checkout main
-              git pull origin main
+                echo "🔄 Mengambil kode terbaru dari branch main..."
+                git checkout main
+                git pull origin main
 
-              echo "📦 Menginstal dependensi Composer..."
-              composer install --no-dev --optimize-autoloader
+                echo "📦 Menginstal dependensi Composer..."
+                composer install --no-dev --optimize-autoloader
 
-              echo "📦 Membangun aset frontend (JavaScript/CSS)..."
-              npm install
-              npm run build
+                echo "📦 Membangun aset frontend (JavaScript/CSS)..."
+                npm install
+                npm run build
 
-              # Atur izin file yang benar setelah deployment
-              echo "🔐 Mengatur izin file..."
-              # Menggunakan user situs yang benar (cuanku-pm2)
-              chown -R cuanku-pm2:cuanku-pm2 .
-              chmod -R 775 storage bootstrap/cache
+                # Atur izin file yang benar setelah deployment
+                echo "🔐 Mengatur izin file..."
+                # Menggunakan user situs yang benar (cuanku-pm2)
+                chown -R cuanku-pm2:cuanku-pm2 .
+                chmod -R 775 storage bootstrap/cache
 
-              echo "🔄 Menjalankan migrasi dan optimisasi Laravel..."
-              php artisan migrate --force
-              php artisan config:cache
-              php artisan route:cache
-              php artisan view:cache
-              php artisan optimize
+                echo "🔄 Menjalankan migrasi dan optimisasi Laravel..."
+                php artisan migrate --force
+                php artisan config:cache
+                php artisan route:cache
+                php artisan view:cache
+                php artisan optimize
 
-              # Menjalankan aplikasi dengan PM2
-              echo "🚀 Menjalankan atau merestart aplikasi dengan PM2..."
-              # --host=127.0.0.1 agar hanya bisa diakses dari dalam server
-              # 'pm2 reload' akan me-restart tanpa downtime jika sudah berjalan
-              pm2 reload cuanku-app || pm2 start --name cuanku-php "php artisan serve --host=0.0.0.0 --port=8000"
-              pm2 reload cuanku-vite || pm2 start --name cuanku-vite "npm run dev"
+                # Menjalankan aplikasi dengan PM2
+                echo "🚀 Menjalankan atau merestart aplikasi dengan PM2..."
+                # --host=127.0.0.1 agar hanya bisa diakses dari dalam server
+                # 'pm2 reload' akan me-restart tanpa downtime jika sudah berjalan
+                pm2 reload cuanku-app || pm2 start --name cuanku-php "php artisan serve --host=0.0.0.0 --port=8000"
+                pm2 reload cuanku-vite || pm2 start --name cuanku-vite "npm run dev"
 
-              # Simpan daftar proses PM2 agar otomatis berjalan setelah reboot server
-              pm2 startup
-              pm2 save
+                # Simpan daftar proses PM2 agar otomatis berjalan setelah reboot server
+                pm2 startup
+                pm2 save
 
-              # cek status PM2
-              pm2 status
+                # cek status PM2
+                pm2 status
 
-              echo "🎉 Deployment selesai!"
+                echo "🎉 Deployment selesai!"
           ENDSSH
