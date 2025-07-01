@@ -1,0 +1,89 @@
+name: Deploy to Production Server
+
+on:
+    push:
+        branches: [main]
+    workflow_dispatch:
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+
+            - name: Deploy to Production Server
+              uses: appleboy/ssh-action@master
+              with:
+                  host: ${{ secrets.SERVER_HOST }}
+                  username: ${{ secrets.SERVER_USERNAME }}
+                  key: ${{ secrets.SERVER_SSH_KEY }}
+                  port: ${{ secrets.SERVER_PORT }}
+                  script: |
+                      cd /root/project/cuanku
+                      git checkout main
+                      git pull origin main
+
+                      # Stop existing containers (if any)
+                      docker compose down
+
+                      # Build Docker images
+                      docker compose build
+
+                      # Build assets with Node.js (production)
+                      echo "Building frontend assets..."
+                      docker compose --profile build up node-build
+
+                      # Remove node-build container after completion
+                      docker compose rm -f node-build
+
+                      # Start the application
+                      echo "Starting Laravel application..."
+                      docker compose up -d app
+
+                      # Wait for container to be healthy
+                      echo "Waiting for application to be ready..."
+                      timeout=60
+                      while [ $timeout -gt 0 ]; do
+                          if docker compose exec -T app curl -f http://localhost/ >/dev/null 2>&1; then
+                              echo "Application is ready!"
+                              break
+                          fi
+                          echo "Waiting... ($timeout seconds remaining)"
+                          sleep 5
+                          timeout=$((timeout-5))
+                      done
+
+                      if [ $timeout -eq 0 ]; then
+                          echo "Application failed to start within timeout"
+                          exit 1
+                      fi
+
+                      # Run Laravel-specific commands inside the container
+                      echo "Running Laravel optimizations..."
+                      docker compose exec -T app php artisan migrate --force
+                      docker compose exec -T app php artisan config:cache
+                      docker compose exec -T app php artisan route:cache
+                      docker compose exec -T app php artisan view:cache
+                      docker compose exec -T app php artisan optimize
+
+                      # Clean up unused Docker resources
+                      docker system prune -f
+
+                      # Verify deployment
+                      echo "Verifying deployment..."
+                      if docker compose exec -T app php artisan --version >/dev/null 2>&1; then
+                          echo "✅ Laravel is running successfully"
+                      else
+                          echo "❌ Laravel verification failed"
+                          exit 1
+                      fi
+
+                      # Output deployment status
+                      echo "🎉 Deployment completed successfully"
+                      docker compose ps
+
+                    #   Show application logs (last 20 lines)
+                    #   echo "📋 Recent application logs:"
+                    #   docker compose logs --tail=20 app

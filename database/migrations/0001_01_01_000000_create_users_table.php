@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('phone_number')->nullable(true);
             $table->boolean('is_agentic')->default(false);
             $table->boolean('is_active')->default(true);
+            $table->string('role')->default('user'); // Added role column
             $table->rememberToken();
             $table->timestamps();
         });

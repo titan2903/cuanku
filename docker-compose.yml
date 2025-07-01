@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+    # Laravel Application dengan FrankenPHP
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: cuanku-app-prod
+        restart: unless-stopped
+        ports:
+            - '80:80'
+            - '443:443'
+        volumes:
+            - ./storage:/app/storage
+            - ./bootstrap/cache:/app/bootstrap/cache
+            - ./.env:/app/.env:ro
+        environment:
+            - APP_ENV=production
+            - APP_DEBUG=false
+        networks:
+            - cuanku-network
+        healthcheck:
+            test: ['CMD', 'curl', '-f', 'http://localhost']
+            interval: 30s
+            timeout: 10s
+            retries: 3
+
+    # Node.js untuk Build Assets (Production)
+    node-build:
+        build:
+            context: .
+            dockerfile: Dockerfile.node
+        container_name: cuanku-node-build
+        volumes:
+            - ./public/build:/output # Output untuk built assets
+        networks:
+            - cuanku-network
+        profiles:
+            - build
+
+networks:
+    cuanku-network:
+        driver: bridge
