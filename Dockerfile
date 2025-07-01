@@ -1,5 +1,5 @@
 # --- Stage 1 : Base Image ---
-FROM dunglas/frankenphp:1-php8.3-fpm AS base
+FROM dunglas/frankenphp:1-php8.3 AS base
 
 # Instal dependensi sistem yang umum diperlukan oleh package PHP
 RUN apt-get update && apt-get install -y \
