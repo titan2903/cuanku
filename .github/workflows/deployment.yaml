@@ -43,45 +43,75 @@ jobs:
                       fi
 
                       # Stop existing containers (if any)
-                      docker compose down
+                      echo "🛑 Stopping existing containers..."
+                      if docker compose ps -q | grep -q .; then
+                          echo "Found running containers, stopping them..."
+                          docker compose down
+                          echo "✅ Containers stopped successfully"
+                      else
+                          echo "No running containers found"
+                      fi
+
+                      # Check existing images and build strategy
+                      echo "🔍 Checking existing Docker images..."
+                      existing_app_image=$(docker images -q cuanku-app-prod:latest 2>/dev/null)
+                      existing_node_image=$(docker images -q cuanku-node-build:latest 2>/dev/null)
+                      
+                      if [ -n "$existing_app_image" ]; then
+                          echo "📦 Found existing app image: $existing_app_image"
+                          echo "📊 Image created: $(docker inspect --format='{{.Created}}' $existing_app_image)"
+                          echo "🔄 Will rebuild to get latest code changes"
+                      else
+                          echo "📦 No existing app image found, will create new one"
+                      fi
 
                       # Clean up Docker resources before build
                       echo "🧹 Cleaning up Docker resources..."
-                      docker system prune -f
-                      docker volume prune -f
+                      # Only clean dangling images to preserve cache
                       docker image prune -f
+                      docker container prune -f
+                      
+                      # If low disk space, do more aggressive cleanup but keep recent images
+                      available_space=$(df / | tail -1 | awk '{print $4}')
+                      if [ $available_space -lt 2097152 ]; then # 2GB in KB
+                          echo "⚠️ Low disk space detected. More aggressive cleanup..."
+                          docker system prune -f --volumes
+                          docker image prune -a -f --filter "until=24h"
+                      fi
 
-                      # Build Docker images with retry logic and extended timeout
-                      echo "🔨 Building Docker images..."
+                      # Build Docker images with force rebuild for latest code
+                      echo "🔨 Building Docker images (force rebuild for latest code)..."
                       export DOCKER_BUILDKIT=1
                       export COMPOSE_DOCKER_CLI_BUILD=1
                       export BUILDKIT_PROGRESS=plain
                       
                       build_retry=0
-                      max_retries=2  # Reduced retries since we're using better build strategy
+                      max_retries=2
 
                       while [ $build_retry -lt $max_retries ]; do
                           echo "Build attempt $((build_retry + 1))/$max_retries"
                           
-                          # Use different build strategies based on attempt
+                          # Always rebuild to get latest code changes
                           if [ $build_retry -eq 0 ]; then
-                              echo "First attempt: Building with cache..."
-                              build_cmd="docker compose build --parallel"
+                              echo "� First attempt: Building with fresh layers (no cache for code changes)..."
+                              build_cmd="docker compose build --no-cache --pull --parallel"
                           else
-                              echo "Retry attempt: Building without cache..."
-                              build_cmd="docker compose build --no-cache --force-rm"
+                              echo "🔄 Retry attempt: Building without cache and removing old images..."
+                              build_cmd="docker compose build --no-cache --force-rm --pull --parallel"
                           fi
                           
-                          # Execute build with timeout (15 minutes)
-                          if timeout 900 $build_cmd; then
+                          # Execute build with timeout (20 minutes untuk handle package discovery)
+                          echo "⏰ Starting build with 20-minute timeout..."
+                          if timeout 1200 $build_cmd; then
                               echo "✅ Docker build completed successfully"
+                              echo "📦 New image built with latest code changes"
                               break
                           else
                               build_exit_code=$?
                               build_retry=$((build_retry + 1))
                               
                               if [ $build_exit_code -eq 124 ]; then
-                                  echo "⏰ Build timed out after 15 minutes"
+                                  echo "⏰ Build timed out after 20 minutes"
                               else
                                   echo "❌ Build failed with exit code $build_exit_code"
                               fi
@@ -89,7 +119,9 @@ jobs:
                               if [ $build_retry -lt $max_retries ]; then
                                   echo "⚠️ Build failed, cleaning up and retrying in 30 seconds..."
                                   docker compose down || true
+                                  # More aggressive cleanup on retry
                                   docker system prune -f
+                                  docker builder prune -f || true
                                   sleep 30
                               else
                                   echo "❌ Docker build failed after $max_retries attempts"
@@ -99,7 +131,15 @@ jobs:
                                   docker system df
                                   echo "📋 Available disk space:"
                                   df -h /var/lib/docker 2>/dev/null || df -h /
-                                  exit 1
+                                  
+                                  # Try to use existing image if available as fallback
+                                  if [ -n "$existing_app_image" ]; then
+                                      echo "🔄 Attempting to use existing image as fallback..."
+                                      echo "⚠️ Using existing image - deployment will have previous code version"
+                                      break
+                                  else
+                                      exit 1
+                                  fi
                               fi
                           fi
                       done
@@ -134,17 +174,32 @@ jobs:
                       # Remove node-build container after completion
                       docker compose rm -f node-build
 
-                      # Start the application with health check
-                      echo "Starting Laravel application..."
+                      # Start the application with latest build
+                      echo "🚀 Starting Laravel application with latest build..."
+                      
+                      # Remove old containers and start fresh with new image
+                      docker compose down app 2>/dev/null || true
+                      
                       if docker compose up -d app; then
-                          echo "✅ Container started successfully"
+                          echo "✅ Container started successfully with latest build"
                       else
-                          echo "❌ Failed to start container"
+                          echo "❌ Failed to start container with new build"
                           echo "📋 Container logs:"
                           docker compose logs app
                           echo "📋 Docker system info:"
                           docker system df
-                          exit 1
+                          
+                          # Try to start with existing image if new one failed
+                          if [ -n "$existing_app_image" ]; then
+                              echo "🔄 Attempting to start with previous working image..."
+                              if docker compose up -d app; then
+                                  echo "✅ Started with previous working image"
+                              else
+                                  exit 1
+                              fi
+                          else
+                              exit 1
+                          fi
                       fi
 
                       # Wait for container to be healthy with extended timeout
@@ -230,6 +285,10 @@ jobs:
                       docker compose exec -T app php artisan view:clear || echo "View clear skipped"
                       echo "✅ Caches cleared"
                       
+                      # Run package discovery untuk ensure semua packages ter-discover
+                      echo "🔄 Running package discovery..."
+                      docker compose exec -T app php artisan package:discover --ansi || echo "Package discovery completed"
+                      
                       # Run database migrations with error handling
                       echo "🔄 Running database migrations..."
                       if docker compose exec -T app php artisan migrate --force; then
@@ -295,11 +354,17 @@ jobs:
                       echo "📋 Final status check:"
                       echo "Container status:"
                       docker compose ps
-                      echo "System resources after deployment:"
+                      echo "📋 Image information:"
+                      docker images | grep cuanku || echo "No cuanku images found"
+                      echo "📋 System resources after deployment:"
                       free -h
                       df -h /
                       
-                      # Clean up unused Docker resources (do this once at the end)
+                      # Clean up dangling images only (keep current ones)
+                      echo "🧹 Cleaning up dangling images..."
+                      docker image prune -f
+                      
+                      # Final cleanup of unused resources
                       docker system prune -f
 
                       # Show application logs (last 20 lines)

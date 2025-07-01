@@ -53,7 +53,7 @@ WORKDIR /app
 # Ini dilakukan terpisah agar Docker bisa menggunakan cache layer
 # jika tidak ada perubahan pada dependensi.
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --no-scripts --no-autoloader --ignore-platform-reqs --optimize-autoloader
+RUN composer install --no-dev --no-scripts --no-autoloader --ignore-platform-reqs --optimize-autoloader --no-plugins
 
 # --- Stage 3: Final Application Image ---
 FROM base AS app
@@ -76,8 +76,24 @@ COPY --from=composer_deps /app/vendor /app/vendor
 # ✅ Salin aplikasi dengan ownership yang benar langsung
 COPY --chown=www-data:www-data . .
 
-# ✅ Jalankan autoload optimization
-RUN composer dump-autoload --optimize --no-dev --classmap-authoritative
+# ✅ Buat .env minimal untuk autoload optimization
+RUN echo "APP_NAME=CuanKu" > .env \
+    && echo "APP_ENV=production" >> .env \
+    && echo "APP_KEY=base64:lxbDb+HQTc/b26RkYlQ5BRSSp+9opsZm58H89jPhYI8=" >> .env \
+    && echo "APP_DEBUG=false" >> .env \
+    && echo "LOG_CHANNEL=stack" >> .env \
+    && echo "DB_CONNECTION=mysql" >> .env \
+    && echo "DB_HOST=127.0.0.1" >> .env \
+    && echo "DB_PORT=3306" >> .env \
+    && echo "DB_DATABASE=temp" >> .env \
+    && echo "DB_USERNAME=temp" >> .env \
+    && echo "DB_PASSWORD=temp" >> .env
+
+# ✅ Jalankan autoload optimization tanpa Laravel scripts
+RUN composer dump-autoload --optimize --no-dev --classmap-authoritative --no-scripts
+
+# ✅ Hapus .env temporary setelah optimization
+RUN rm -f .env
 
 # ✅ Ensure proper permissions hanya untuk file yang perlu
 RUN find /app -type f -name "*.php" -exec chmod 644 {} + \
