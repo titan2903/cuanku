@@ -53,7 +53,6 @@ export default function Edit(props) {
             hasError = true;
         }
 
-        // Jika ada error, tampilkan dan hentikan submit
         if (hasError) {
             const aggregatedErrors = Object.values(clientErrors).join(', ');
             toast.error(`Terjadi kesalahan validasi: ${aggregatedErrors}`, {
