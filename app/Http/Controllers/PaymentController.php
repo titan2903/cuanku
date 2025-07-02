@@ -12,6 +12,7 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
+use function App\Helpers\flashMessage;
 use Throwable;
 
 class PaymentController extends Controller implements HasMiddleware

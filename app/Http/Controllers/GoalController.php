@@ -121,11 +121,11 @@ class GoalController extends Controller implements HasMiddleware
                 'beginning_balance' => $request->beginning_balance,
             ]);
 
-            \flashMessage(MessageType::CREATED->message('Tujuan'));
+            flashMessage(MessageType::CREATED->message('Tujuan'));
 
             return to_route('goals.index');
         } catch (Throwable $e) {
-            \flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
+            flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
 
             return to_route('goals.index');
         }
@@ -169,11 +169,11 @@ class GoalController extends Controller implements HasMiddleware
                 ),
             ]);
 
-            \flashMessage(MessageType::UPDATED->message('Tujuan'));
+            flashMessage(MessageType::UPDATED->message('Tujuan'));
 
             return to_route('goals.index');
         } catch (Throwable $e) {
-            \flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
+            flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
 
             return to_route('goals.index');
         }
@@ -187,11 +187,11 @@ class GoalController extends Controller implements HasMiddleware
             }
 
             $goal->delete();
-            \flashMessage(MessageType::DELETED->message('Tujuan'));
+            flashMessage(MessageType::DELETED->message('Tujuan'));
 
             return to_route('goals.index', [], 303);
         } catch (Throwable $e) {
-            \flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
+            flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
 
             return to_route('goals.index');
         }

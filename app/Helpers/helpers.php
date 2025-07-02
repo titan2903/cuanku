@@ -1,6 +1,7 @@
 <?php
+namespace App\Helpers;
 
-if (! function_exists('flashMessage')) {
+if (! function_exists('App\Helpers\flashMessage')) {
     function flashMessage($message, $type = 'success')
     {
         session()->flash('message', $message);

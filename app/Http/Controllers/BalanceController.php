@@ -13,6 +13,7 @@ use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
 use Throwable;
+use function App\Helpers\flashMessage;
 
 class BalanceController extends Controller implements HasMiddleware
 {
