@@ -190,7 +190,7 @@ export default function Login({ status, canResetPassword }) {
             <div className="text-balance text-center text-sm text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary">
                 <p>
                     Dengan masuk, Anda setuju dengan{' '}
-                    <Link href="#" className="underline">
+                    <Link href={route('term-and-condition.index')} className="underline">
                         Syarat dan Ketentuan
                     </Link>{' '}
                     serta{' '}
