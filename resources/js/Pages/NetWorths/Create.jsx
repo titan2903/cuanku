@@ -66,13 +66,13 @@ export default function Create(props) {
                 });
                 reset();
             },
-            onError: (errors) => {
-                const formattedErrors = Object.values(errors).join(', ');
-                toast.error(`Terjadi kesalahan: ${formattedErrors}`, {
-                    duration: 3000,
-                    position: 'top-center',
-                });
-            },
+            // onError: (errors) => {
+            //     const formattedErrors = Object.values(errors).join(', ');
+            //     toast.error(`Terjadi kesalahan: ${formattedErrors}`, {
+            //         duration: 3000,
+            //         position: 'top-center',
+            //     });
+            // },
         });
     };
 
