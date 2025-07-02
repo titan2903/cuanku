@@ -65,20 +65,46 @@ jobs:
                         php artisan view:cache
                         php artisan optimize
 
-                        # Menjalankan atau merestart aplikasi Laravel dengan PM2
-                        echo "🚀 Menjalankan aplikasi Laravel dengan PM2..."
-                        if pm2 list | grep -q "cuanku-app"; then
-                          pm2 restart cuanku-app
-                        else
-                          pm2 start php --name cuanku-app -- artisan serve --host=127.0.0.1 --port=8000
-                        fi
+                        echo "📝 Membuat atau memperbarui ecosystem.config.js..."
+                        tee ecosystem.config.js > /dev/null <<EOF
+module.exports = {
+  apps: [
+    {
+      name: "cuanku-app",
+      script: "php",
+      args: "artisan serve --host=127.0.0.1 --port=8000",
+      env: {
+        APP_ENV: "production",
+        NODE_ENV: "production"
+      },
+      watch: false,
+      instances: 1,
+      exec_mode: "fork",
+      max_memory_restart: "200M",
+      restart_delay: 3000
+    },
+    {
+      name: "cuanku-queue",
+      script: "php",
+      args: "artisan queue:work --tries=3 --timeout=90",
+      env: {
+        APP_ENV: "production",
+        NODE_ENV: "production"
+      },
+      watch: false,
+      instances: 1,
+      exec_mode: "fork",
+      max_memory_restart: "150M"
+    }
+  ]
+}
+EOF
 
-                        # Menjalankan atau merestart queue worker dengan PM2
-                        echo "🚀 Menjalankan queue worker dengan PM2..."
-                        if pm2 list | grep -q "cuanku-queue"; then
-                          pm2 restart cuanku-queue
+                        echo "🚀 Menjalankan aplikasi dengan PM2 (ecosystem.config.js)..."
+                        if pm2 list | grep -q "cuanku-app"; then
+                          pm2 reload ecosystem.config.js
                         else
-                          pm2 start php --name cuanku-queue -- artisan queue:work --tries=3 --timeout=90
+                          pm2 start ecosystem.config.js
                         fi
 
                         echo "⚙️ Konfigurasi startup pada boot..."
