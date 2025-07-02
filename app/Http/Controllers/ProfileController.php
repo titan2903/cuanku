@@ -32,7 +32,7 @@ class ProfileController extends Controller
         $request->user()->fill($request->validated());
 
         if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+            $request->user()->email_verified_at = now()->subYears(100); // Use a date in distant past to indicate "not verified"
         }
 
         $request->user()->save();
