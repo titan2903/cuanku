@@ -65,12 +65,22 @@ jobs:
                         php artisan view:cache
                         php artisan optimize
 
-                        # Menjalankan atau merestart aplikasi dengan PM2 menggunakan file ecosystem
-                        echo "🚀 Menjalankan aplikasi dengan PM2..."
-                        # 'pm2 startOrReload' akan menjalankan jika belum ada, atau me-reload jika sudah ada.
-                        pm2 startOrReload ecosystem.config.js
+                        # Menjalankan atau merestart aplikasi Laravel dengan PM2
+                        echo "🚀 Menjalankan aplikasi Laravel dengan PM2..."
+                        if pm2 list | grep -q "cuanku-app"; then
+                          pm2 restart cuanku-app
+                        else
+                          pm2 start php --name cuanku-app -- artisan serve --host=127.0.0.1 --port=8000
+                        fi
 
-                        # Setup startup script dan simpan konfigurasi
+                        # Menjalankan atau merestart queue worker dengan PM2
+                        echo "🚀 Menjalankan queue worker dengan PM2..."
+                        if pm2 list | grep -q "cuanku-queue"; then
+                          pm2 restart cuanku-queue
+                        else
+                          pm2 start php --name cuanku-queue -- artisan queue:work --tries=3 --timeout=90
+                        fi
+
                         echo "⚙️ Konfigurasi startup pada boot..."
                         pm2 startup
                         pm2 save
