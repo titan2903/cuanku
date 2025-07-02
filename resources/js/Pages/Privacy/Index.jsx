@@ -69,7 +69,7 @@ export default function PrivacyPolicy(props) {
                         {/* --- PERBAIKAN: Menggunakan 'space-y-6' untuk jarak antar elemen --- */}
                         <div className="prose prose-emerald dark:prose-invert max-w-none space-y-6">
                             <p className="lead">
-                                Selamat datang di CuanKu. Kami berkomitmen untuk melindungi privasi dan keamanan data
+                                Selamat datang di CuanKu💲. Kami berkomitmen untuk melindungi privasi dan keamanan data
                                 Anda. Kebijakan Privasi ini menjelaskan bagaimana kami mengumpulkan, menggunakan, dan
                                 melindungi informasi pribadi Anda saat Anda menggunakan layanan kami.
                             </p>
