@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Throwable;
+
 use function App\Helpers\flashMessage;
 
 class NetWorthAssetController extends Controller implements HasMiddleware

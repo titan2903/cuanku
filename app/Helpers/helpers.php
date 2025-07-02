@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Helpers;
 
 if (! function_exists('App\Helpers\flashMessage')) {
