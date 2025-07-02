@@ -124,7 +124,7 @@ export default function Welcome({ auth }) {
     return (
         <>
             <Head title="Welcome" />
-            <div className="min-h-screen bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-zinc-900 dark:text-gray-200">
+            <div className="min-h-screen bg-gradient-to-b from-white to-emerald-300 text-gray-800 transition-colors duration-300 dark:from-zinc-900 dark:to-zinc-800 dark:text-gray-200">
                 {/* --- Header / Navbar --- */}
                 <header className="fixed left-0 right-0 top-0 z-50 bg-white/80 backdrop-blur-sm dark:bg-zinc-900/80">
                     <div className="mx-auto max-w-7xl px-6 lg:px-8">
