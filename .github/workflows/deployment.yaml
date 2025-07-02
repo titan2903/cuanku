@@ -47,6 +47,7 @@ jobs:
 
                         echo "📦 Menginstal dependensi Composer..."
                         composer install --no-dev --optimize-autoloader
+                        composer dump-autoload --optimize 
 
                         echo "📦 Membangun aset frontend (JavaScript/CSS)..."
                         npm install
@@ -57,6 +58,13 @@ jobs:
                         # Menggunakan user situs yang benar (cuanku-pm2)
                         chown -R cuanku-pm2:cuanku-pm2 .
                         chmod -R 775 storage bootstrap/cache
+
+                        echo "🔄 Menjalankan migrasi dan optimisasi Laravel..."
+                        php artisan clear-compiled  
+                        php artisan cache:clear     
+                        php artisan config:clear    
+                        php artisan route:clear     
+                        php artisan view:clear      
 
                         echo "🔄 Menjalankan migrasi dan optimisasi Laravel..."
                         php artisan migrate --force
