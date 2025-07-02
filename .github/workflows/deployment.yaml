@@ -64,7 +64,8 @@ jobs:
                         php artisan cache:clear     
                         php artisan config:clear    
                         php artisan route:clear     
-                        php artisan view:clear      
+                        php artisan view:clear
+                        php artisan optimize:clear      
 
                         echo "🔄 Menjalankan migrasi dan optimisasi Laravel..."
                         php artisan migrate --force
