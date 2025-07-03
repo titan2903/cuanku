@@ -294,6 +294,18 @@ export default function Welcome({ auth }) {
                                                 className="h-6 w-5 flex-none text-emerald-500"
                                                 aria-hidden="true"
                                             />
+                                            <span>
+                                                <span className="font-semibold text-gray-800 dark:text-white">
+                                                    Chatbot AI
+                                                </span>{' '}
+                                                untuk dukungan dan pertanyaan keuangan 24/7
+                                            </span>
+                                        </li>
+                                        <li className="flex gap-x-3">
+                                            <SparklesIcon
+                                                className="h-6 w-5 flex-none text-emerald-500"
+                                                aria-hidden="true"
+                                            />
                                             Prediksi & Rekomendasi Keuangan
                                         </li>
                                         <li className="flex gap-x-3">
