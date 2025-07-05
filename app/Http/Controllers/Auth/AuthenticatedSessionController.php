@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
+use function App\Helpers\flashMessage;
 
 class AuthenticatedSessionController extends Controller
 {
