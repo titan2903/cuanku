@@ -1,7 +1,6 @@
 import { Head, Link } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 
-// --- Komponen Ikon (dibuat inline agar mandiri) ---
 const CheckIcon = (props) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +79,7 @@ const MoonIcon = (props) => (
 );
 
 // Favicon icon component untuk social media
-const FaviconIcon = ({ domain, alt, className = "h-6 w-6" }) => (
+const FaviconIcon = ({ domain, alt, className = 'h-6 w-6' }) => (
     <img
         src={`https://www.google.com/s2/favicons?domain=${domain}&sz=32`}
         alt={alt}
@@ -331,7 +330,11 @@ export default function Welcome({ auth }) {
                                         className="text-gray-400 transition hover:text-emerald-500"
                                     >
                                         <span className="sr-only">Instagram</span>
-                                        <FaviconIcon domain="instagram.com" alt="Instagram" className="h-6 w-6 filter grayscale hover:grayscale-0 transition-all" />
+                                        <FaviconIcon
+                                            domain="instagram.com"
+                                            alt="Instagram"
+                                            className="h-6 w-6 grayscale filter transition-all hover:grayscale-0"
+                                        />
                                     </a>
                                     <a
                                         href="#"
@@ -340,7 +343,11 @@ export default function Welcome({ auth }) {
                                         className="text-gray-400 transition hover:text-emerald-500"
                                     >
                                         <span className="sr-only">TikTok</span>
-                                        <FaviconIcon domain="tiktok.com" alt="TikTok" className="h-6 w-6 filter grayscale hover:grayscale-0 transition-all" />
+                                        <FaviconIcon
+                                            domain="tiktok.com"
+                                            alt="TikTok"
+                                            className="h-6 w-6 grayscale filter transition-all hover:grayscale-0"
+                                        />
                                     </a>
                                     <a
                                         href="#"
@@ -349,7 +356,11 @@ export default function Welcome({ auth }) {
                                         className="text-gray-400 transition hover:text-emerald-500"
                                     >
                                         <span className="sr-only">Twitter</span>
-                                        <FaviconIcon domain="twitter.com" alt="Twitter" className="h-6 w-6 filter grayscale hover:grayscale-0 transition-all" />
+                                        <FaviconIcon
+                                            domain="twitter.com"
+                                            alt="Twitter"
+                                            className="h-6 w-6 grayscale filter transition-all hover:grayscale-0"
+                                        />
                                     </a>
                                 </div>
                             </div>
