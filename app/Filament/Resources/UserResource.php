@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\RoleType;
 use App\Filament\Resources\UserResource\Pages;
 use App\Models\User;
 use Filament\Forms;
@@ -31,6 +32,10 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('phone_number')
                     ->tel()
                     ->maxLength(255),
+                Forms\Components\Select::make('role')
+                    ->options(RoleType::options())
+                    ->required()
+                    ->rules(['in:'.implode(',', RoleType::values())]),
                 Forms\Components\Toggle::make('is_agentic')
                     ->required(),
                 Forms\Components\Toggle::make('is_active')
@@ -50,6 +55,8 @@ class UserResource extends Resource
                     ->dateTime()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('phone_number')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('role')
                     ->searchable(),
                 Tables\Columns\IconColumn::make('is_agentic')
                     ->boolean(),
@@ -87,6 +94,19 @@ class UserResource extends Resource
                             ->placeholder('Search by email'),
                     ])
                     ->query(fn ($query, array $data) => $query->where('email', 'like', '%'.$data['email'].'%')),
+                // filter role
+                Tables\Filters\Filter::make('role')
+                    ->form([
+                        Forms\Components\Select::make('role')
+                            ->label('Role')
+                            ->options(RoleType::options())
+                            ->placeholder('Select a role'),
+                    ])
+                    ->query(function ($query, array $data) {
+                        return isset($data['role']) && $data['role'] !== ''
+                            ? $query->where('role', $data['role'])
+                            : $query;
+                    }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
