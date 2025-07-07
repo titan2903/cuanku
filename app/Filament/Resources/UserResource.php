@@ -107,8 +107,8 @@ class UserResource extends Resource
                             ->placeholder('Select a role'),
                     ])
                     ->query(function ($query, array $data) {
-                        return isset($data['role']) && $data['role'] !== '' 
-                            ? $query->where('role', $data['role']) 
+                        return isset($data['role']) && $data['role'] !== ''
+                            ? $query->where('role', $data['role'])
                             : $query;
                     }),
             ])
