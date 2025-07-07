@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\RoleType;
 use App\Filament\Resources\UserResource\Pages;
 use App\Models\User;
 use Filament\Forms;
@@ -32,10 +33,7 @@ class UserResource extends Resource
                     ->tel()
                     ->maxLength(255),
                 Forms\Components\Select::make('role')
-                    ->options([
-                        'admin' => 'Admin',
-                        'user' => 'User',
-                    ])
+                    ->options(RoleType::options())
                     ->required(),
                 Forms\Components\Toggle::make('is_agentic')
                     ->required(),
@@ -100,10 +98,7 @@ class UserResource extends Resource
                     ->form([
                         Forms\Components\Select::make('role')
                             ->label('Role')
-                            ->options([
-                                'admin' => 'Admin',
-                                'user' => 'User',
-                            ])
+                            ->options(RoleType::options())
                             ->placeholder('Select a role'),
                     ])
                     ->query(function ($query, array $data) {
