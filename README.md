@@ -62,6 +62,8 @@ CuanKu is a comprehensive personal finance management platform designed to help 
 * 🤖 **AI-Powered Insights** - Get personalized financial recommendations powered by n8n automation
 * 📧 **Automated Reports** - Monthly/yearly financial summaries sent via intelligent workflows
 * 📱 **Modern UI/UX** - Beautiful and responsive design across all devices
+* � **Admin Dashboard** - Elegant admin panel built with Filament for user management
+* �🔍 **Error Monitoring** - Real-time error tracking and performance monitoring with Sentry
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -74,9 +76,12 @@ This project is built using modern web technologies:
 * [![Inertia.js][Inertia.js]][Inertia-url]
 * [![Tailwind CSS][TailwindCSS]][Tailwind-url]
 * [![Shadcn/ui][Shadcn]][Shadcn-url]
+* [![Filament][Filament]][Filament-url]
 * [![MySQL][MySQL]][MySQL-url]
 * [![MongoDB][MongoDB]][MongoDB-url]
 * [![n8n][n8n]][n8n-url]
+* [![Metabase][Metabase]][Metabase-url]
+* [![Sentry][Sentry]][Sentry-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -94,6 +99,9 @@ Make sure you have the following installed:
 * MySQL >= 8.0
 * MongoDB >= 6.0
 * n8n (for AI automation workflows)
+* Metabase (for business analytics)
+* Filament (for admin dashboard)
+* Sentry (for error tracking and monitoring)
 * Git
 
 ### Installation
@@ -137,13 +145,9 @@ Make sure you have the following installed:
    DB_USERNAME=your_username
    DB_PASSWORD=your_password
    
-   # MongoDB Configuration
-   MONGODB_URI=mongodb://localhost:27017/cuanku
-   
-   # n8n Configuration
-   N8N_HOST=localhost
-   N8N_PORT=5678
-   N8N_WEBHOOK_URL=http://localhost:5678/webhook
+   # Sentry Configuration (optional)
+   SENTRY_LARAVEL_DSN=your_sentry_dsn_here
+   SENTRY_TRACES_SAMPLE_RATE=1.0
    ```
 
 8. Run database migrations
@@ -169,6 +173,15 @@ Make sure you have the following installed:
 12. Start n8n for AI automation (in separate terminal)
     ```sh
     npx n8n
+    ```
+
+13. Configure Sentry for error tracking (optional)
+    - Sign up for a free account at [Sentry.io](https://sentry.io/)
+    - Create a new Laravel project
+    - Copy your DSN and add it to your `.env` file
+    - Install Sentry SDK:
+    ```sh
+    composer require sentry/sentry-laravel
     ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -201,6 +214,20 @@ Access your financial overview with real-time data visualization including:
 - Receive milestone notifications
 - Adjust goals as needed
 
+### Business Analytics Dashboard (Metabase)
+- Access comprehensive business intelligence dashboards
+- Monitor user engagement and platform performance
+- Analyze financial trends and user behavior patterns
+- Generate custom reports for stakeholder insights
+- Real-time metrics visualization for business decisions
+
+### Admin Dashboard (Filament)
+- Access admin panel at `/admin` route
+- Manage user accounts and permissions
+- View user statistics and activity
+- Clean and intuitive interface for user management
+- Built with Filament for Laravel administration
+
 _For more examples, please refer to the [Documentation](https://github.com/titanioy/cuanku/wiki)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -218,6 +245,7 @@ _For more examples, please refer to the [Documentation](https://github.com/titan
 - [x] Admin Panel (Filament)
 - [x] Responsive Design
 - [x] AI-Powered Financial Insights
+- [x] Business Analytics Dashboard (Metabase)
 - [ ] Mobile App
 - [ ] Bank Integration
 - [ ] Investment Tracking
@@ -285,9 +313,15 @@ Project Link: [https://github.com/titanioy/cuanku](https://github.com/titanioy/c
 [Tailwind-url]: https://tailwindcss.com/
 [Shadcn]: https://img.shields.io/badge/shadcn%2Fui-000000?style=for-the-badge&logo=shadcnui&logoColor=white
 [Shadcn-url]: https://ui.shadcn.com/
+[Filament]: https://img.shields.io/badge/Filament-FDAE4B?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIwIDQwQzMxLjA0NTcgNDAgNDAgMzEuMDQ1NyA0MCAyMEM0MCA4Ljk1NDMgMzEuMDQ1NyAwIDIwIDBDOC45NTQzIDAgMCA4Ljk1NDMgMCAyMEMwIDMxLjA0NTcgOC45NTQzIDQwIDIwIDQwWiIgZmlsbD0iIzAwMCIvPgo8cGF0aCBkPSJNMjAgMzJDMjYuNjI3NCAzMiAzMiAyNi42Mjc0IDMyIDIwQzMyIDEzLjM3MjYgMjYuNjI3NCA4IDIwIDhDMTMuMzcyNiA4IDggMTMuMzcyNiA4IDIwQzggMjYuNjI3NCAxMy4zNzI2IDMyIDIwIDMyWiIgZmlsbD0iI0ZEQUU0QiIvPgo8L3N2Zz4K&logoColor=white
+[Filament-url]: https://filamentphp.com/
 [MySQL]: https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white
 [MySQL-url]: https://mysql.com/
 [MongoDB]: https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white
 [MongoDB-url]: https://mongodb.com/
 [n8n]: https://img.shields.io/badge/n8n-EA4B71?style=for-the-badge&logo=n8n&logoColor=white
 [n8n-url]: https://n8n.io/
+[Metabase]: https://img.shields.io/badge/Metabase-509EE3?style=for-the-badge&logo=metabase&logoColor=white
+[Metabase-url]: https://metabase.com/
+[Sentry]: https://img.shields.io/badge/Sentry-362D59?style=for-the-badge&logo=sentry&logoColor=white
+[Sentry-url]: https://sentry.io/
