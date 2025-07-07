@@ -170,12 +170,7 @@ Make sure you have the following installed:
     php artisan serve
     ```
 
-12. Start n8n for AI automation (in separate terminal)
-    ```sh
-    npx n8n
-    ```
-
-13. Configure Sentry for error tracking (optional)
+12. Configure Sentry for error tracking (optional)
     - Sign up for a free account at [Sentry.io](https://sentry.io/)
     - Create a new Laravel project
     - Copy your DSN and add it to your `.env` file
