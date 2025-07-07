@@ -59,11 +59,12 @@ CuanKu is a comprehensive personal finance management platform designed to help 
 * 📊 **Expense Tracking** - Categorize and analyze your spending patterns
 * 🎯 **Goal Setting** - Set and achieve your financial objectives
 * 📈 **Net Worth Tracking** - Monitor your assets and liabilities
+* 💰 **Savings Reminders** - Automated notifications to encourage regular saving habits
 * 🤖 **AI-Powered Insights** - Get personalized financial recommendations powered by n8n automation
 * 📧 **Automated Reports** - Monthly/yearly financial summaries sent via intelligent workflows
 * 📱 **Modern UI/UX** - Beautiful and responsive design across all devices
-* � **Admin Dashboard** - Elegant admin panel built with Filament for user management
-* �🔍 **Error Monitoring** - Real-time error tracking and performance monitoring with Sentry
+* 🔧 **Admin Dashboard** - Elegant admin panel built with Filament for user management
+* 🔍 **Error Monitoring** - Real-time error tracking and performance monitoring with Sentry
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
