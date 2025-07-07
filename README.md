@@ -266,7 +266,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@titanioy](https://twitter.com/titanioy) - titanioy98@gmail.com
+Titanio Yudista - titanio.yudista@cakrawala.ac.id
 
 Project Link: [https://github.com/titanioy/cuanku](https://github.com/titanioy/cuanku)
 
