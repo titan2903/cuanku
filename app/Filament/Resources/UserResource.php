@@ -35,7 +35,7 @@ class UserResource extends Resource
                 Forms\Components\Select::make('role')
                     ->options(RoleType::options())
                     ->required()
-                    ->rule('in:' . implode(',', RoleType::values())),
+                    ->rules(['in:' . implode(',', RoleType::values())]),
                 Forms\Components\Toggle::make('is_agentic')
                     ->required(),
                 Forms\Components\Toggle::make('is_active')
