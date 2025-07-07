@@ -59,7 +59,8 @@ CuanKu is a comprehensive personal finance management platform designed to help 
 * 📊 **Expense Tracking** - Categorize and analyze your spending patterns
 * 🎯 **Goal Setting** - Set and achieve your financial objectives
 * 📈 **Net Worth Tracking** - Monitor your assets and liabilities
-* 🤖 **AI-Powered Insights** - Get personalized financial recommendations
+* 🤖 **AI-Powered Insights** - Get personalized financial recommendations powered by n8n automation
+* 📧 **Automated Reports** - Monthly/yearly financial summaries sent via intelligent workflows
 * 📱 **Modern UI/UX** - Beautiful and responsive design across all devices
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -74,6 +75,8 @@ This project is built using modern web technologies:
 * [![Tailwind CSS][TailwindCSS]][Tailwind-url]
 * [![Shadcn/ui][Shadcn]][Shadcn-url]
 * [![MySQL][MySQL]][MySQL-url]
+* [![MongoDB][MongoDB]][MongoDB-url]
+* [![n8n][n8n]][n8n-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -89,6 +92,8 @@ Make sure you have the following installed:
 * Composer
 * Node.js >= 16
 * MySQL >= 8.0
+* MongoDB >= 6.0
+* n8n (for AI automation workflows)
 * Git
 
 ### Installation
@@ -131,6 +136,14 @@ Make sure you have the following installed:
    DB_DATABASE=cuanku
    DB_USERNAME=your_username
    DB_PASSWORD=your_password
+   
+   # MongoDB Configuration
+   MONGODB_URI=mongodb://localhost:27017/cuanku
+   
+   # n8n Configuration
+   N8N_HOST=localhost
+   N8N_PORT=5678
+   N8N_WEBHOOK_URL=http://localhost:5678/webhook
    ```
 
 8. Run database migrations
@@ -151,6 +164,11 @@ Make sure you have the following installed:
 11. Start the development server
     ```sh
     php artisan serve
+    ```
+
+12. Start n8n for AI automation (in separate terminal)
+    ```sh
+    npx n8n
     ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -269,3 +287,7 @@ Project Link: [https://github.com/titanioy/cuanku](https://github.com/titanioy/c
 [Shadcn-url]: https://ui.shadcn.com/
 [MySQL]: https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white
 [MySQL-url]: https://mysql.com/
+[MongoDB]: https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white
+[MongoDB-url]: https://mongodb.com/
+[n8n]: https://img.shields.io/badge/n8n-EA4B71?style=for-the-badge&logo=n8n&logoColor=white
+[n8n-url]: https://n8n.io/
