@@ -125,8 +125,10 @@ Route::controller(LiabilityController::class)->group(function () {
 Route::post('net-worths/{netWorth}/liabilities/{liability}/net-worth-liability', NetWorthLiabilityController::class)->name('net-worth-liability');
 
 Route::get('report-trackings', ReportTrackingController::class)->name('report-trackings');
+Route::get('report-trackings/download-pdf', [ReportTrackingController::class, 'downloadPdf'])->name('report-trackings.download-pdf');
 
 Route::get('annual-reports', [AnnualReportController::class, 'index'])->name('annual-reports');
+Route::get('annual-reports/download-pdf', [AnnualReportController::class, 'downloadPdf'])->name('annual-reports.download-pdf');
 
 Route::get('privacy', [PrivacyController::class, 'index'])->name('privacy.index');
 

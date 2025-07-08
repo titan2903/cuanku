@@ -2,6 +2,7 @@ import BreadcrumbHeader from '@/Components/BreadcrumbHeader';
 import EmptyState from '@/Components/EmptyState';
 import HeaderTitle from '@/Components/HeaderTitle';
 import { Badge } from '@/Components/ui/badge';
+import { Button } from '@/Components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
@@ -12,6 +13,7 @@ import {
     IconCashBanknote,
     IconCashBanknoteMinus,
     IconCashBanknotePlus,
+    IconDownload,
     IconInvoice,
     IconLogs,
     IconShoppingBag,
@@ -35,6 +37,11 @@ export default function Index(props) {
         only: ['annuals'],
     });
 
+    const handleDownloadPdf = () => {
+        const downloadUrl = route('annual-reports.download-pdf', { year: params.year });
+        window.open(downloadUrl, '_blank');
+    };
+
     return (
         <div className="flex w-full flex-col gap-y-6 pb-32">
             <BreadcrumbHeader items={props.items} />
@@ -48,6 +55,15 @@ export default function Index(props) {
                         />
 
                         <div className="flex flex-row gap-x-4">
+                            <Button
+                                onClick={handleDownloadPdf}
+                                variant="outline"
+                                size="sm"
+                                className="flex items-center gap-x-2 hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700"
+                            >
+                                <IconDownload className="h-4 w-4" />
+                                Download PDF
+                            </Button>
                             <Select
                                 value={params?.year.toString()}
                                 onValueChange={(value) => setParams({ ...params, year: value.toString() })}
@@ -373,7 +389,7 @@ export default function Index(props) {
 
             <Card>
                 <CardHeader>
-                    <CardTitle>Laporan Setiap Kateogri Per Bulan</CardTitle>
+                    <CardTitle>Laporan Setiap Kategori Per Bulan</CardTitle>
                     <CardDescription>
                         Menyajikan laporan bulanan yang terperinci untuk setiap kategori keuangan seperti penghasilan,
                         tabungan, hutang, tagihan, dan belanja.

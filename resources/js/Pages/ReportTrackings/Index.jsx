@@ -3,6 +3,7 @@ import CardStat from '@/Components/CardStat';
 import EmptyState from '@/Components/EmptyState';
 import HeaderTitle from '@/Components/HeaderTitle';
 import { Badge } from '@/Components/ui/badge';
+import { Button } from '@/Components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
@@ -11,6 +12,7 @@ import AppLayout from '@/Layouts/AppLayout';
 import { BUDGETTYPEVARIANTS, formatDateIndo, formatToRupiah } from '@/lib/utils';
 import {
     IconCash,
+    IconDownload,
     IconInvoice,
     IconLogs,
     IconMoneybagMinus,
@@ -42,6 +44,12 @@ export default function Index(props) {
         only: ['reports', 'incomeTrackers', 'expenseTrackers'],
     });
 
+    const handleDownloadPdf = () => {
+        const filterDate = `${params.year}-${params.month.toString().padStart(2, '0')}`;
+        const url = route('report-trackings.download-pdf', { filter_date: filterDate });
+        window.open(url, '_blank');
+    };
+
     return (
         <div className="flex w-full flex-col gap-y-6 pb-32">
             <BreadcrumbHeader items={props.items} />
@@ -55,6 +63,15 @@ export default function Index(props) {
                         />
 
                         <div className="flex flex-row gap-x-4">
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={handleDownloadPdf}
+                                className="flex items-center gap-x-2"
+                            >
+                                <IconDownload size={16} />
+                                Download PDF
+                            </Button>
                             <Select
                                 value={params.month}
                                 onValueChange={(value) => setParams({ ...params, month: value })}

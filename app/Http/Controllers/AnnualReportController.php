@@ -8,11 +8,13 @@ use App\Models\Expense;
 use App\Models\Income;
 use App\Traits\BudgetTrait;
 use App\Traits\FormatReportTrait;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
-use Inertia\Response;
+use Inertia\Response as InertiaResponse;
 
 class AnnualReportController extends Controller implements HasMiddleware
 {
@@ -87,7 +89,7 @@ class AnnualReportController extends Controller implements HasMiddleware
         })->toArray();
     }
 
-    public function index(Request $request): Response
+    public function index(Request $request): InertiaResponse
     {
         $annualIncomes = $this->prepareBudgetData($request, BudgetType::INCOME->value, Income::class, 'budget_id');
         $annualSavings = $this->prepareBudgetData($request, BudgetType::SAVING->value, Expense::class, 'budget_id', BudgetType::SAVING->value);
@@ -155,5 +157,78 @@ class AnnualReportController extends Controller implements HasMiddleware
                 'annualMonths' => $annualMonths,
             ],
         ]);
+    }
+
+    public function downloadPdf(Request $request): Response
+    {
+        $annualIncomes = $this->prepareBudgetData($request, BudgetType::INCOME->value, Income::class, 'budget_id');
+        $annualSavings = $this->prepareBudgetData($request, BudgetType::SAVING->value, Expense::class, 'budget_id', BudgetType::SAVING->value);
+        $annualDebts = $this->prepareBudgetData($request, BudgetType::DEBT->value, Expense::class, 'budget_id', BudgetType::DEBT->value);
+        $annualBills = $this->prepareBudgetData($request, BudgetType::BILL->value, Expense::class, 'budget_id', BudgetType::BILL->value);
+        $annualShoppings = $this->prepareBudgetData($request, BudgetType::SHOPPING->value, Expense::class, 'budget_id', BudgetType::SHOPPING->value);
+
+        $annualMonths = $this->getAnnualDataGroupByMonth(
+            $annualIncomes,
+            $annualSavings,
+            $annualDebts,
+            $annualBills,
+            $annualShoppings
+        );
+
+        $year = $request->year ?? now()->year;
+
+        $data = [
+            'year' => $year,
+            'annuals' => [
+                'annualIncomes' => [
+                    'data' => $this->calculateByMonth($annualIncomes),
+                    'total' => [
+                        'plan' => $annualIncomes->sum('plan'),
+                        'actual' => $annualIncomes->sum('actual'),
+                    ],
+                ],
+                'annualSavings' => [
+                    'data' => $this->calculateByMonth($annualSavings),
+                    'total' => [
+                        'plan' => $annualSavings->sum('plan'),
+                        'actual' => $annualSavings->sum('actual'),
+                    ],
+                ],
+                'annualDebts' => [
+                    'data' => $this->calculateByMonth($annualDebts),
+                    'total' => [
+                        'plan' => $annualDebts->sum('plan'),
+                        'actual' => $annualDebts->sum('actual'),
+                    ],
+                ],
+                'annualBills' => [
+                    'data' => $this->calculateByMonth($annualBills),
+                    'total' => [
+                        'plan' => $annualBills->sum('plan'),
+                        'actual' => $annualBills->sum('actual'),
+                    ],
+                ],
+                'annualShoppings' => [
+                    'data' => $this->calculateByMonth($annualShoppings),
+                    'total' => [
+                        'plan' => $annualShoppings->sum('plan'),
+                        'actual' => $annualShoppings->sum('actual'),
+                    ],
+                ],
+            ],
+            'annualMonths' => $annualMonths,
+        ];
+
+        $pdf = Pdf::loadView('pdf.annual-report', $data);
+        $pdf->setPaper('A4', 'portrait');
+        $pdf->setOptions([
+            'isHtml5ParserEnabled' => true,
+            'isRemoteEnabled' => true,
+            'defaultFont' => 'DejaVu Sans',
+        ]);
+
+        $filename = "laporan-tahunan-{$year}-".now()->format('Y-m-d').'.pdf';
+
+        return $pdf->download($filename);
     }
 }
