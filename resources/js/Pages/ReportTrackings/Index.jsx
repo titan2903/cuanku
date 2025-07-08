@@ -64,12 +64,12 @@ export default function Index(props) {
 
                         <div className="flex flex-row gap-x-4">
                             <Button
+                                onClick={handleDownloadPdf}
                                 variant="outline"
                                 size="sm"
-                                onClick={handleDownloadPdf}
-                                className="flex items-center gap-x-2"
+                                className="flex items-center gap-x-2 hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700 w-full sm:w-auto sm:min-w-[140px]"
                             >
-                                <IconDownload size={16} />
+                                <IconDownload className="h-4 w-4" />
                                 Download PDF
                             </Button>
                             <Select
