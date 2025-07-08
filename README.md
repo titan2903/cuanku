@@ -48,6 +48,7 @@
 </details>
 
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
 [![CuanKu Screen Shot][product-screenshot]](https://github.com/titanioy/cuanku)
@@ -55,16 +56,17 @@
 CuanKu is a comprehensive personal finance management platform designed to help individuals take control of their financial lives. With intelligent features and an intuitive interface, CuanKu empowers users to track expenses, manage budgets, set financial goals, and make informed financial decisions.
 
 ### Key Highlights:
-* 🎯 **Smart Budget Management** - Create and track budgets with real-time monitoring
-* 📊 **Expense Tracking** - Categorize and analyze your spending patterns
-* 🎯 **Goal Setting** - Set and achieve your financial objectives
-* 📈 **Net Worth Tracking** - Monitor your assets and liabilities
-* 💰 **Savings Reminders** - Automated notifications to encourage regular saving habits
-* 🤖 **AI-Powered Insights** - Get personalized financial recommendations powered by n8n automation
-* 📧 **Automated Reports** - Monthly/yearly financial summaries sent via intelligent workflows
-* 📱 **Modern UI/UX** - Beautiful and responsive design across all devices
-* 🔧 **Admin Dashboard** - Elegant admin panel built with Filament for user management
-* 🔍 **Error Monitoring** - Real-time error tracking and performance monitoring with Sentry
+
+- 🎯 **Smart Budget Management** - Create and track budgets with real-time monitoring
+- 📊 **Expense Tracking** - Categorize and analyze your spending patterns
+- 🎯 **Goal Setting** - Set and achieve your financial objectives
+- 📈 **Net Worth Tracking** - Monitor your assets and liabilities
+- 💰 **Savings Reminders** - Automated notifications to encourage regular saving habits
+- 🤖 **AI-Powered Insights** - Get personalized financial recommendations powered by n8n automation
+- 📧 **Automated Reports** - Monthly/yearly financial summaries sent via intelligent workflows
+- 📱 **Modern UI/UX** - Beautiful and responsive design across all devices
+- 🔧 **Admin Dashboard** - Elegant admin panel built with Filament for user management
+- 🔍 **Error Monitoring** - Real-time error tracking and performance monitoring with Sentry
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -72,21 +74,22 @@ CuanKu is a comprehensive personal finance management platform designed to help 
 
 This project is built using modern web technologies:
 
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![React][React.js]][React-url]
-* [![Inertia.js][Inertia.js]][Inertia-url]
-* [![Tailwind CSS][TailwindCSS]][Tailwind-url]
-* [![Shadcn/ui][Shadcn]][Shadcn-url]
-* [![Filament][Filament]][Filament-url]
-* [![MySQL][MySQL]][MySQL-url]
-* [![MongoDB][MongoDB]][MongoDB-url]
-* [![n8n][n8n]][n8n-url]
-* [![Metabase][Metabase]][Metabase-url]
-* [![Sentry][Sentry]][Sentry-url]
+- [![Laravel][Laravel.com]][Laravel-url]
+- [![React][React.js]][React-url]
+- [![Inertia.js][Inertia.js]][Inertia-url]
+- [![Tailwind CSS][TailwindCSS]][Tailwind-url]
+- [![Shadcn/ui][Shadcn]][Shadcn-url]
+- [![Filament][Filament]][Filament-url]
+- [![MySQL][MySQL]][MySQL-url]
+- [![MongoDB][MongoDB]][MongoDB-url]
+- [![n8n][n8n]][n8n-url]
+- [![Metabase][Metabase]][Metabase-url]
+- [![Sentry][Sentry]][Sentry-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 To get a local copy up and running follow these simple steps.
@@ -94,79 +97,91 @@ To get a local copy up and running follow these simple steps.
 ### Prerequisites
 
 Make sure you have the following installed:
-* PHP >= 8.1
-* Composer
-* Node.js >= 16
-* MySQL >= 8.0
-* MongoDB >= 6.0
-* n8n (for AI automation workflows)
-* Metabase (for business analytics)
-* Filament (for admin dashboard)
-* Sentry (for error tracking and monitoring)
-* Git
+
+- PHP >= 8.1
+- Composer
+- Node.js >= 16
+- MySQL >= 8.0
+- MongoDB >= 6.0
+- n8n (for AI automation workflows)
+- Metabase (for business analytics)
+- Filament (for admin dashboard)
+- Sentry (for error tracking and monitoring)
+- Git
 
 ### Installation
 
 1. Clone the repository
-   ```sh
-   git clone https://github.com/titanioy/cuanku.git
-   ```
+
+    ```sh
+    git clone https://github.com/titanioy/cuanku.git
+    ```
 
 2. Navigate to the project directory
-   ```sh
-   cd cuanku
-   ```
+
+    ```sh
+    cd cuanku
+    ```
 
 3. Install PHP dependencies
-   ```sh
-   composer install
-   ```
+
+    ```sh
+    composer install
+    ```
 
 4. Install NPM packages
-   ```sh
-   npm install
-   ```
+
+    ```sh
+    npm install
+    ```
 
 5. Copy the environment file
-   ```sh
-   cp .env.example .env
-   ```
+
+    ```sh
+    cp .env.example .env
+    ```
 
 6. Generate application key
-   ```sh
-   php artisan key:generate
-   ```
+
+    ```sh
+    php artisan key:generate
+    ```
 
 7. Configure your database in `.env` file
-   ```
-   DB_CONNECTION=mysql
-   DB_HOST=127.0.0.1
-   DB_PORT=3306
-   DB_DATABASE=cuanku
-   DB_USERNAME=your_username
-   DB_PASSWORD=your_password
-   
-   # Sentry Configuration (optional)
-   SENTRY_LARAVEL_DSN=your_sentry_dsn_here
-   SENTRY_TRACES_SAMPLE_RATE=1.0
-   ```
+
+    ```
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=cuanku
+    DB_USERNAME=your_username
+    DB_PASSWORD=your_password
+
+    # Sentry Configuration (optional)
+    SENTRY_LARAVEL_DSN=your_sentry_dsn_here
+    SENTRY_TRACES_SAMPLE_RATE=1.0
+    ```
 
 8. Run database migrations
-   ```sh
-   php artisan migrate
-   ```
+
+    ```sh
+    php artisan migrate
+    ```
 
 9. Seed the database (optional)
-   ```sh
-   php artisan db:seed
-   ```
+
+    ```sh
+    php artisan db:seed
+    ```
 
 10. Build frontend assets
+
     ```sh
     npm run build
     ```
 
 11. Start the development server
+
     ```sh
     php artisan serve
     ```
@@ -183,34 +198,41 @@ Make sure you have the following installed:
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
+
 ## Usage
 
 ### Dashboard Overview
+
 Access your financial overview with real-time data visualization including:
+
 - Monthly income vs expenses
 - Budget performance
 - Goal progress tracking
 - Net worth evolution
 
 ### Budget Management
+
 - Create monthly budgets by category
 - Track spending against budget limits
 - Receive alerts when approaching limits
 - Analyze budget performance over time
 
 ### Expense Tracking
+
 - Log expenses with detailed categorization
 - Upload receipts and notes
 - Generate expense reports
 - Identify spending patterns
 
 ### Financial Goals
+
 - Set short-term and long-term financial goals
 - Track progress with visual indicators
 - Receive milestone notifications
 - Adjust goals as needed
 
 ### Business Analytics Dashboard (Metabase)
+
 - Access comprehensive business intelligence dashboards
 - Monitor user engagement and platform performance
 - Analyze financial trends and user behavior patterns
@@ -218,17 +240,29 @@ Access your financial overview with real-time data visualization including:
 - Real-time metrics visualization for business decisions
 
 ### Admin Dashboard (Filament)
+
 - Access admin panel at `/admin` route
 - Manage user accounts and permissions
 - View user statistics and activity
 - Clean and intuitive interface for user management
 - Built with Filament for Laravel administration
 
+### Annual Reports & PDF Export
+
+- Generate comprehensive annual financial reports
+- Download reports in PDF format with professional styling
+- Include monthly breakdowns for all financial categories
+- Automated calculations for planned vs actual comparisons
+- Shareable reports for financial planning and analysis
+- **Indonesia timezone support** - All timestamps show WIB (Waktu Indonesia Barat)
+- **Indonesian date formatting** - Dates displayed in Indonesian language (Juli, Agustus, etc.)
+
 _For more examples, please refer to the [Documentation](https://github.com/titanioy/cuanku/wiki)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- FEATURES -->
+
 ## Features
 
 - [x] User Authentication & Authorization
@@ -238,6 +272,7 @@ _For more examples, please refer to the [Documentation](https://github.com/titan
 - [x] Net Worth Calculation
 - [x] Dashboard Analytics
 - [x] Monthly/Yearly Financial Reports
+- [x] PDF Export for Annual Reports
 - [x] Admin Panel (Filament)
 - [x] Responsive Design
 - [x] AI-Powered Financial Insights
@@ -250,6 +285,7 @@ _For more examples, please refer to the [Documentation](https://github.com/titan
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ROADMAP -->
+
 ## Roadmap
 
 - [ ] Add mobile application
@@ -265,6 +301,7 @@ See the [open issues](https://github.com/titanioy/cuanku/issues) for a full list
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -281,6 +318,7 @@ Don't forget to give the project a star! Thanks again!
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- LICENSE -->
+
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
@@ -288,6 +326,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTACT -->
+
 ## Contact
 
 Titanio Yudista - titanio.yudista@cakrawala.ac.id
@@ -298,6 +337,7 @@ Project Link: [https://github.com/titanioy/cuanku](https://github.com/titanioy/c
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
 [product-screenshot]: public/images/cuanku.png
 [Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
 [Laravel-url]: https://laravel.com

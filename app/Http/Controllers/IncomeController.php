@@ -95,9 +95,12 @@ class IncomeController extends Controller implements HasMiddleware
                 ->select(['id', 'detail', 'year', 'month', 'type'])
                 ->where([
                     ['user_id', Auth::user()->id],
-                    ['month', MonthEnum::month(now()->month)->value],
                     ['year', now()->year],
                     ['type', BudgetType::INCOME->value],
+                ])
+                ->whereIn('month', [
+                    MonthEnum::month(now()->month)->value,
+                    MonthEnum::month(now()->subMonth()->month)->value,
                 ])
                 ->orderByDesc('year')
                 ->orderByDesc('month')
@@ -153,9 +156,12 @@ class IncomeController extends Controller implements HasMiddleware
                 ->select(['id', 'detail', 'year', 'month', 'type'])
                 ->where([
                     ['user_id', Auth::user()->id],
-                    ['month', MonthEnum::month(now()->month)->value],
                     ['year', now()->year],
                     ['type', BudgetType::INCOME->value],
+                ])
+                ->whereIn('month', [
+                    MonthEnum::month(now()->month)->value,
+                    MonthEnum::month(now()->subMonth()->month)->value,
                 ])
                 ->orderByDesc('year')
                 ->orderByDesc('month')

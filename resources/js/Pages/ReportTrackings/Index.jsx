@@ -3,6 +3,7 @@ import CardStat from '@/Components/CardStat';
 import EmptyState from '@/Components/EmptyState';
 import HeaderTitle from '@/Components/HeaderTitle';
 import { Badge } from '@/Components/ui/badge';
+import { Button } from '@/Components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
@@ -11,6 +12,7 @@ import AppLayout from '@/Layouts/AppLayout';
 import { BUDGETTYPEVARIANTS, formatDateIndo, formatToRupiah } from '@/lib/utils';
 import {
     IconCash,
+    IconDownload,
     IconInvoice,
     IconLogs,
     IconMoneybagMinus,
@@ -42,6 +44,15 @@ export default function Index(props) {
         only: ['reports', 'incomeTrackers', 'expenseTrackers'],
     });
 
+    const handleDownloadPdf = () => {
+        // Kirim parameter bulan dan tahun terpisah
+        const url = route('report-trackings.download-pdf', {
+            month: params.month,
+            year: params.year,
+        });
+        window.open(url, '_blank');
+    };
+
     return (
         <div className="flex w-full flex-col gap-y-6 pb-32">
             <BreadcrumbHeader items={props.items} />
@@ -55,6 +66,15 @@ export default function Index(props) {
                         />
 
                         <div className="flex flex-row gap-x-4">
+                            <Button
+                                onClick={handleDownloadPdf}
+                                variant="outline"
+                                size="sm"
+                                className="flex w-full items-center gap-x-2 hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700 sm:w-auto sm:min-w-[140px]"
+                            >
+                                <IconDownload className="h-4 w-4" />
+                                Download PDF
+                            </Button>
                             <Select
                                 value={params.month}
                                 onValueChange={(value) => setParams({ ...params, month: value })}
@@ -157,7 +177,7 @@ export default function Index(props) {
                         <CardHeader>
                             <CardTitle>Overviews</CardTitle>
                             <CardDescription>
-                                Menyajikan dan memanjau ringkasan keuangan secara menyeluruh.
+                                Menyajikan dan memanjau ringkasan arus kas keluar secara menyeluruh.
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="p-0 [&-td]:whitespace-nowrap [&-td]:px-6 [&-th]:px-6">
