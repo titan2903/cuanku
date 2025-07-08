@@ -87,6 +87,7 @@ class ReportTrackingController extends Controller implements HasMiddleware
 
         $overviews = collect(
             [
+                'Penghasilan' => $budgetIncomes,
                 'Cicilan Hutang' => $budgetDebts,
                 'Tabungan dan Investasi' => $budgetSavings,
                 'Tagihan' => $budgetBills,
