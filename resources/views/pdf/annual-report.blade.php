@@ -14,64 +14,79 @@
         body {
             font-family: 'DejaVu Sans', sans-serif;
             font-size: 12px;
-            line-height: 1.4;
-            color: #333;
+            line-height: 1.5;
+            color: #222;
+            background: #fff;
+            margin: 32px 36px 48px 36px;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #10b981;
+            margin-bottom: 36px;
+            padding-bottom: 18px;
+            border-bottom: 3px solid #10b981;
         }
 
         .header h1 {
             color: #10b981;
-            font-size: 24px;
-            margin-bottom: 5px;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
         }
 
         .header h2 {
             color: #6b7280;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: normal;
         }
 
         .section {
-            margin-bottom: 25px;
+            margin-bottom: 32px;
             page-break-inside: avoid;
+            padding: 0 6px;
         }
 
         .section-title {
             background-color: #10b981;
             color: white;
-            padding: 8px 12px;
-            font-size: 14px;
+            padding: 7px 14px 7px 10px;
+            font-size: 13.5px;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 13px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
         }
 
         .table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 15px;
+            background: #fff;
+            border-radius: 7px;
+            overflow: hidden;
+            box-shadow: 0 1px 2px rgba(16,185,129,0.04);
         }
 
         .table th,
         .table td {
             border: 1px solid #d1d5db;
-            padding: 8px;
+            padding: 9px 8px;
             text-align: left;
         }
 
         .table th {
-            background-color: #f3f4f6;
+            background-color: #e6f9f2;
             font-weight: bold;
-            font-size: 11px;
+            font-size: 12.5px;
+            color: #059669;
+            border-bottom: 2px solid #10b981;
         }
 
         .table td {
-            font-size: 10px;
+            font-size: 11px;
         }
 
         .table tfoot td {

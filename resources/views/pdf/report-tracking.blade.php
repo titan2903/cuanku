@@ -3,182 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laporan Pelacakan {{ $month }} {{ $year }} - CuanKu</title>
+    <title>Laporan Pelacakan {{ $monthName }} {{ $year }} - CuanKu</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'DejaVu Sans', sans-serif;
             font-size: 12px;
-            line-height: 1.4;
-            color: #333;
+            line-height: 1.5;
+            color: #222;
+            background: #fff;
+            margin: 32px 36px 48px 36px;
         }
-
         .header {
             text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #10b981;
+            margin-bottom: 32px;
+            padding-bottom: 18px;
+            border-bottom: 3px solid #10b981;
         }
-
         .header h1 {
             color: #10b981;
-            font-size: 24px;
-            margin-bottom: 5px;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
         }
-
         .header h2 {
             color: #6b7280;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: normal;
         }
-
-        .section {
-            margin-bottom: 25px;
-            page-break-inside: avoid;
+        .header p {
+            margin-top: 10px;
+            color: #6b7280;
+            font-size: 11px;
         }
-
+        .section {
+            margin-bottom: 32px;
+            page-break-inside: avoid;
+            padding: 0 6px;
+        }
         .section-title {
             background-color: #10b981;
             color: white;
-            padding: 8px 12px;
-            font-size: 14px;
+            padding: 7px 14px 7px 10px;
+            font-size: 13.5px;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 13px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
         }
-
         .table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 15px;
+            background: #fff;
+            border-radius: 7px;
+            overflow: hidden;
+            box-shadow: 0 1px 2px rgba(16,185,129,0.04);
         }
-
         .table th,
         .table td {
             border: 1px solid #d1d5db;
-            padding: 8px;
+            padding: 9px 8px;
             text-align: left;
         }
-
         .table th {
-            background-color: #f3f4f6;
+            background-color: #e6f9f2;
             font-weight: bold;
+            font-size: 12.5px;
+            color: #059669;
+            border-bottom: 2px solid #10b981;
+        }
+        .table td {
             font-size: 11px;
         }
-
-        .table td {
-            font-size: 10px;
-        }
-
         .table tfoot td {
             background-color: #10b981;
             color: white;
             font-weight: bold;
         }
-
         .currency {
             text-align: right;
         }
-
         .grid {
-            display: table;
+            display: flex;
+            gap: 16px;
             width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
-
         .grid-item {
-            display: table-cell;
-            width: 50%;
-            padding-right: 10px;
-            vertical-align: top;
+            flex: 1 1 0;
+            min-width: 0;
         }
-
-        .grid-item:last-child {
-            padding-right: 0;
-        }
-
         .overview-card {
             background-color: #f8fafc;
             border: 1px solid #e2e8f0;
             border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
+            padding: 12px 10px 10px 10px;
+            margin-bottom: 0;
         }
-
         .overview-title {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
             color: #1f2937;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
-
         .cash-flow-positive {
             color: #10b981;
         }
-
         .cash-flow-negative {
             color: #ef4444;
         }
-
         .footer {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            height: 30px;
+            height: 26px;
             text-align: center;
-            font-size: 10px;
-            color: #6b7280;
+            font-size: 9.5px;
+            color: #a0aec0;
             border-top: 1px solid #e5e7eb;
-            padding-top: 5px;
+            padding-top: 4px;
+            background: #fff;
         }
-
         .page-break {
             page-break-before: always;
         }
-
         .no-data {
             text-align: center;
             color: #6b7280;
             font-style: italic;
-            padding: 20px;
+            padding: 18px;
         }
-
         .category-badge {
-            padding: 2px 6px;
+            padding: 2px 7px;
             border-radius: 4px;
             font-size: 9px;
             font-weight: bold;
             color: white;
         }
-
         .category-income { background-color: #10b981; }
         .category-saving { background-color: #3b82f6; }
         .category-debt { background-color: #ef4444; }
         .category-bill { background-color: #f59e0b; }
         .category-shopping { background-color: #8b5cf6; }
         .category-expense { background-color: #6b7280; }
-
         .tracker-section {
-            margin-top: 20px;
+            margin-top: 16px;
         }
-
         .tracker-item {
             background-color: #f9fafb;
             border-left: 4px solid #10b981;
-            padding: 10px;
-            margin-bottom: 8px;
+            padding: 8px 10px;
+            margin-bottom: 7px;
         }
-
         .tracker-date {
             font-weight: bold;
             color: #374151;
         }
-
         .tracker-amount {
             font-weight: bold;
             color: #10b981;
@@ -187,14 +176,14 @@
 </head>
 <body>
     <div class="header">
-        <h1>Laporan Pelacakan {{ $month }} {{ $year }}</h1>
+        <h1>Laporan Pelacakan {{ $monthName }} {{ $year }}</h1>
         <h2>CuanKu - Personal Finance Management</h2>
-        <p style="margin-top: 10px; color: #6b7280;">Digenerate pada {{ $generatedAt->translatedFormat('d F Y, H:i') }} WIB</p>
+        <p style="margin-top: 10px; color: #6b7280; font-size:12px;">Digenerate pada {{ $generatedAt->translatedFormat('d F Y, H:i') }} WIB</p>
     </div>
 
     <!-- Cash Flow Overview -->
     <div class="section">
-        <div class="section-title">💰 Ringkasan Arus Kas</div>
+        <div class="section-title"><span style="font-size:15px;">💰</span> Ringkasan Arus Kas</div>
         <div class="grid">
             @foreach($cashFlows as $category => $flow)
             <div class="grid-item">
@@ -228,7 +217,7 @@
 
     <!-- Budget Overview -->
     <div class="section">
-        <div class="section-title">📊 Ringkasan Budget per Kategori</div>
+        <div class="section-title"><span style="font-size:15px;">📊</span> Ringkasan Budget per Kategori</div>
         <table class="table">
             <thead>
                 <tr>
@@ -245,6 +234,7 @@
                     <td>
                         <span class="category-badge 
                             @if($category == 'Tabungan dan Investasi') category-saving
+                            @elseif($category == 'Penghasilan') category-income
                             @elseif($category == 'Cicilan Hutang') category-debt
                             @elseif($category == 'Tagihan') category-bill
                             @elseif($category == 'Belanja') category-shopping
@@ -269,7 +259,7 @@
 
     <!-- Budget Details -->
     <div class="section">
-        <div class="section-title">📈 Detail Budget Penghasilan</div>
+        <div class="section-title"><span style="font-size:15px;">📈</span> Detail Budget Penghasilan</div>
         @if(count($reports['budgetIncomes']['data']) > 0)
             <table class="table">
                 <thead>
@@ -305,7 +295,7 @@
                 </tfoot>
             </table>
         @else
-            <div class="no-data">Tidak ada data budget penghasilan untuk bulan {{ $month }} {{ $year }}</div>
+            <div class="no-data">Tidak ada data budget penghasilan untuk bulan {{ $monthName }} {{ $year }}</div>
         @endif
     </div>
 
@@ -313,7 +303,7 @@
 
     <!-- Income Trackers -->
     <div class="section">
-        <div class="section-title">💵 Pelacakan Penghasilan</div>
+        <div class="section-title"><span style="font-size:15px;">💵</span> Pelacakan Penghasilan</div>
         @if(count($incomeTrackers) > 0)
             <div class="tracker-section">
                 @foreach($incomeTrackers as $income)
@@ -332,13 +322,13 @@
                 </div>
             </div>
         @else
-            <div class="no-data">Tidak ada data pelacakan penghasilan untuk bulan {{ $month }} {{ $year }}</div>
+            <div class="no-data">Tidak ada data pelacakan penghasilan untuk bulan {{ $monthName }} {{ $year }}</div>
         @endif
     </div>
 
     <!-- Expense Trackers -->
     <div class="section">
-        <div class="section-title">💸 Pelacakan Pengeluaran</div>
+        <div class="section-title"><span style="font-size:15px;">💸</span> Pelacakan Pengeluaran</div>
         @if(count($expenseTrackers) > 0)
             <div class="tracker-section">
                 @foreach($expenseTrackers as $expense)
@@ -373,7 +363,7 @@
                 </div>
             </div>
         @else
-            <div class="no-data">Tidak ada data pelacakan pengeluaran untuk bulan {{ $month }} {{ $year }}</div>
+            <div class="no-data">Tidak ada data pelacakan pengeluaran untuk bulan {{ $monthName }} {{ $year }}</div>
         @endif
     </div>
 

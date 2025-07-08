@@ -47,4 +47,23 @@ enum MonthEnum: string
             default => throw new InvalidArgumentException("Invalid month: {$month}"),
         };
     }
+
+    public static function stringMonth(string $month): self
+    {
+        return match ($month) {
+            'Januari' => self::JANUARY,
+            'Februari' => self::FEBRUARY,
+            'Maret' => self::MARCH,
+            'April' => self::APRIL,
+            'Mei' => self::MAY,
+            'Juni' => self::JUNE,
+            'Juli' => self::JULY,
+            'Agustus' => self::AUGUST,
+            'September' => self::SEPTEMBER,
+            'Oktober' => self::OCTOBER,
+            'November' => self::NOVEMBER,
+            'Desember' => self::DECEMBER,
+            default => throw new InvalidArgumentException("Invalid month: {$month}"),
+        };
+    }
 }

@@ -87,7 +87,6 @@ class ReportTrackingController extends Controller implements HasMiddleware
 
         $overviews = collect(
             [
-                'Penghasilan' => $budgetIncomes,
                 'Cicilan Hutang' => $budgetDebts,
                 'Tabungan dan Investasi' => $budgetSavings,
                 'Tagihan' => $budgetBills,
@@ -275,7 +274,7 @@ class ReportTrackingController extends Controller implements HasMiddleware
             'user' => Auth::user(),
             'month' => $request->month ?? MonthEnum::month(now()->month)->value,
             'year' => $request->year ?? now()->year,
-            'monthName' => MonthEnum::month($request->month ?? now()->month)->name,
+            'monthName' => MonthEnum::stringMonth($request->month ?? now()->month)->name,
             'reports' => [
                 'budgetIncomes' => $this->formatReport($budgetIncomes),
                 'budgetExpenses' => $this->formatReport($budgetExpenses),

@@ -45,8 +45,11 @@ export default function Index(props) {
     });
 
     const handleDownloadPdf = () => {
-        const filterDate = `${params.year}-${params.month.toString().padStart(2, '0')}`;
-        const url = route('report-trackings.download-pdf', { filter_date: filterDate });
+        // Kirim parameter bulan dan tahun terpisah
+        const url = route('report-trackings.download-pdf', {
+            month: params.month,
+            year: params.year,
+        });
         window.open(url, '_blank');
     };
 
@@ -67,7 +70,7 @@ export default function Index(props) {
                                 onClick={handleDownloadPdf}
                                 variant="outline"
                                 size="sm"
-                                className="flex items-center gap-x-2 hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700 w-full sm:w-auto sm:min-w-[140px]"
+                                className="flex w-full items-center gap-x-2 hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700 sm:w-auto sm:min-w-[140px]"
                             >
                                 <IconDownload className="h-4 w-4" />
                                 Download PDF
@@ -174,7 +177,7 @@ export default function Index(props) {
                         <CardHeader>
                             <CardTitle>Overviews</CardTitle>
                             <CardDescription>
-                                Menyajikan dan memanjau ringkasan keuangan secara menyeluruh.
+                                Menyajikan dan memanjau ringkasan arus kas keluar secara menyeluruh.
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="p-0 [&-td]:whitespace-nowrap [&-td]:px-6 [&-th]:px-6">
