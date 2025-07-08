@@ -61,7 +61,7 @@ export default function Sidebar({ auth, url }) {
                     icon={IconLayoutDashboardFilled}
                 />
 
-                <div className="px-3 py-2 text-sm font-medium text-muted-foreground">Master</div>
+                <div className="px-3 py-2 text-sm font-medium text-muted-foreground">Alat Pembayaran</div>
                 <NavLink
                     url={route('payments.index')}
                     active={url.startsWith('/payments')}
