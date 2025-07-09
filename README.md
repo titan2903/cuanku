@@ -201,6 +201,7 @@ Make sure you have the following installed:
 
 ## Usage
 
+
 ### Dashboard Overview
 
 Access your financial overview with real-time data visualization including:
@@ -223,6 +224,14 @@ Access your financial overview with real-time data visualization including:
 - Upload receipts and notes
 - Generate expense reports
 - Identify spending patterns
+
+### Report Tracking & PDF Download
+
+- View monthly financial tracking reports with month/year filter
+- See cash flow summary, budget overview, income & expense tracking in one place
+- Download Report Tracking as a professionally formatted PDF
+- Includes detailed breakdowns of income, expenses, and budget performance
+- Download PDF with a single click
 
 ### Financial Goals
 
@@ -254,8 +263,6 @@ Access your financial overview with real-time data visualization including:
 - Include monthly breakdowns for all financial categories
 - Automated calculations for planned vs actual comparisons
 - Shareable reports for financial planning and analysis
-- **Indonesia timezone support** - All timestamps show WIB (Waktu Indonesia Barat)
-- **Indonesian date formatting** - Dates displayed in Indonesian language (Juli, Agustus, etc.)
 
 _For more examples, please refer to the [Documentation](https://github.com/titanioy/cuanku/wiki)_
 

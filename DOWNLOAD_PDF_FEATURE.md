@@ -25,7 +25,7 @@ Fitur untuk mengunduh Laporan Pelacakan (Report Tracking) dalam format PDF denga
 - Menampilkan:
     - Ringkasan Arus Kas
     - Ikhtisar Anggaran
-    - Pelacak Pendapatan
+    - Pelacak Penghasilan
     - Pelacak Pengeluaran
 
 ### 3. Route

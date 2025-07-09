@@ -155,7 +155,7 @@ export default function TermsAndConditions(props) {
                                                 membantu pengguna:
                                             </p>
                                             <ul className="mt-4 space-y-3">
-                                                <li>Melacak pendapatan dan pengeluaran secara real-time</li>
+                                                <li>Melacak pemasukan dan pengeluaran secara real-time</li>
                                                 <li>Membuat dan mengelola anggaran keuangan</li>
                                                 <li>Menetapkan dan memantau tujuan keuangan</li>
                                                 <li>Menganalisis pola pengeluaran dan tabungan</li>

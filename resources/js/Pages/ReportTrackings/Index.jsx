@@ -250,7 +250,7 @@ export default function Index(props) {
                         <CardHeader>
                             <CardTitle>Penghasilan</CardTitle>
                             <CardDescription>
-                                Menampilkan sumber dan total pemasukan Anda, baik dari gaji, bisnis dan pendapatan
+                                Menampilkan sumber dan total pemasukan Anda, baik dari gaji, bisnis dan penghasilan
                                 lainnya.
                             </CardDescription>
                         </CardHeader>
@@ -552,7 +552,7 @@ export default function Index(props) {
                     <CardTitle>Lacak Pemasukan</CardTitle>
 
                     <CardDescription>
-                        Memberikan detail setiap transaksi pemasukan untuk mengetahui sumber pendapatan secara rinci.
+                        Memberikan detail setiap transaksi pemasukan untuk mengetahui sumber penghasilan secara rinci.
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="p-0 [&-td]:whitespace-nowrap [&-td]:px-6 [&-th]:px-6">
