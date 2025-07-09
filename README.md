@@ -2,7 +2,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/titanioy/cuanku">
-    <img src="public/logo.png" alt="Logo" width="80" height="80">
+    <img src="public/logo.png" alt="Logo" width="350" height="350">
   </a>
 
   <h3 align="center">CuanKu</h3>
