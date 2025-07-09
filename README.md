@@ -300,7 +300,7 @@ _For more examples, please refer to the [Documentation](https://github.com/titan
 - [ ] Add bank account integration
 - [ ] Multi-language Support
 - [ ] Investment portfolio tracking
-- [ ] Automated bill reminders
+- [x] Automated bill reminders
 - [ ] Financial planning tools
 
 See the [open issues](https://github.com/titanioy/cuanku/issues) for a full list of proposed features (and known issues).
