@@ -201,7 +201,6 @@ Make sure you have the following installed:
 
 ## Usage
 
-
 ### Dashboard Overview
 
 Access your financial overview with real-time data visualization including:

@@ -66,6 +66,7 @@ class DashboardController extends Controller implements HasMiddleware
             ])->where('user_id', Auth::user()->id)
             ->latest('deadline')
             ->withSum('balances', 'amount')
+            ->orderBy('nominal', 'desc')
             ->limit(5)
             ->get();
 
@@ -86,6 +87,7 @@ class DashboardController extends Controller implements HasMiddleware
             ])
             ->with(['budget'])
             ->latest('created_at')
+            ->orderBy('nominal', 'desc')
             ->limit(5)
             ->get();
 
@@ -109,6 +111,7 @@ class DashboardController extends Controller implements HasMiddleware
             ])
             ->with(['typeDetail', 'payment'])
             ->latest('created_at')
+            ->orderBy('nominal', 'desc')
             ->limit(5)
             ->get();
 
