@@ -32,6 +32,7 @@ export default function Index(props) {
     const budgetDebts = props.reports.budgetDebts.data;
     const budgetBills = props.reports.budgetBills.data;
     const budgetShoppings = props.reports.budgetShoppings.data;
+    const budgetExpenses = props.reports.budgetExpenses.data;
 
     const incomeTrackers = props.incomeTrackers;
     const expenseTrackers = props.expenseTrackers;
@@ -206,7 +207,6 @@ export default function Index(props) {
                         </CardContent>
                     </Card>
                 </div>
-
                 <div className="col-span-full">
                     <Card>
                         <CardHeader>
@@ -244,7 +244,6 @@ export default function Index(props) {
                         </CardContent>
                     </Card>
                 </div>
-
                 <div className="col-span-full">
                     <Card>
                         <CardHeader>
@@ -297,6 +296,63 @@ export default function Index(props) {
                                             </TableCell>
                                             <TableCell>
                                                 {formatToRupiah(props.reports.budgetIncomes.total.difference)}
+                                            </TableCell>
+                                        </TableRow>
+                                    </TableFooter>
+                                </Table>
+                            )}
+                        </CardContent>
+                    </Card>
+                </div>
+                <div className="col-span-full">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Pengeluaran</CardTitle>
+                            <CardDescription>Menampilkan sumber dan total pengeluaran anda.</CardDescription>
+                        </CardHeader>
+                        <CardContent className="p-0 [&-td]:whitespace-nowrap [&-td]:px-6 [&-th]:px-6">
+                            {budgetExpenses.length === 0 ? (
+                                <EmptyState
+                                    icon={IconCash}
+                                    title="Belum ada data pengeluaran"
+                                    subtitle="Silakan tambahkan pengeluaran terlebih dahulu."
+                                />
+                            ) : (
+                                <Table className="w-full">
+                                    <TableHeader>
+                                        <TableRow>
+                                            <TableHead>#</TableHead>
+                                            <TableHead>Sumber</TableHead>
+                                            <TableHead>Rencana</TableHead>
+                                            <TableHead>Aktual</TableHead>
+                                            <TableHead>Perbedaan</TableHead>
+                                        </TableRow>
+                                    </TableHeader>
+                                    <TableBody>
+                                        {budgetExpenses.map((budgetIncome, index) => (
+                                            <TableRow key={index}>
+                                                <TableCell>{index + 1}</TableCell>
+                                                <TableCell>{budgetIncome.detail}</TableCell>
+                                                <TableCell>{formatToRupiah(budgetIncome.plan)}</TableCell>
+                                                <TableCell>{formatToRupiah(budgetIncome.actual)}</TableCell>
+                                                <TableCell>{formatToRupiah(budgetIncome.difference)}</TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+
+                                    <TableFooter className="bg-emerald-500 font-bold text-white">
+                                        <TableRow>
+                                            <TableCell colSpan={2} className="text-left">
+                                                Total
+                                            </TableCell>
+                                            <TableCell>
+                                                {formatToRupiah(props.reports.budgetExpenses.total.plan)}
+                                            </TableCell>
+                                            <TableCell>
+                                                {formatToRupiah(props.reports.budgetExpenses.total.actual)}
+                                            </TableCell>
+                                            <TableCell>
+                                                {formatToRupiah(props.reports.budgetExpenses.total.difference)}
                                             </TableCell>
                                         </TableRow>
                                     </TableFooter>

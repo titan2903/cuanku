@@ -16,6 +16,7 @@ import {
     IconDownload,
     IconInvoice,
     IconLogs,
+    IconMoneybagMove,
     IconShoppingBag,
 } from '@tabler/icons-react';
 import { useState } from 'react';
@@ -28,6 +29,7 @@ export default function Index(props) {
     const annualDebts = props.annuals.annualDebts.data;
     const annualBills = props.annuals.annualBills.data;
     const annualShoppings = props.annuals.annualShoppings.data;
+    const annualExpenses = props.annuals.annualExpenses.data;
 
     const annualMonths = props.annuals.annualMonths;
 
@@ -84,7 +86,7 @@ export default function Index(props) {
                 </CardHeader>
             </Card>
 
-            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
                 <div className="col-span-1">
                     <Card>
                         <CardHeader>
@@ -196,6 +198,63 @@ export default function Index(props) {
                                             </TableCell>
                                             <TableCell>
                                                 {formatToRupiah(props.annuals.annualSavings.total.actual)}
+                                            </TableCell>
+                                        </TableRow>
+                                    </TableFooter>
+                                </Table>
+                            )}
+                        </CardContent>
+                    </Card>
+                </div>
+
+                <div className="col-span-1">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Pengeluaran</CardTitle>
+                            <CardDescription>Menyajikan total pengeluaran tahunan setiap bulannya.</CardDescription>
+                        </CardHeader>
+                        <CardContent className="p-0 [&-td]:whitespace-nowrap [&-td]:px-6 [&-th]:px-6">
+                            {annualExpenses.length === 0 ? (
+                                <EmptyState
+                                    icon={IconMoneybagMove}
+                                    title="Belum ada data pengeluaran"
+                                    subtitle="Silakan tambahkan data pengeluaran."
+                                />
+                            ) : (
+                                <Table className="w-full">
+                                    <TableHeader>
+                                        <TableRow>
+                                            <TableHead>#</TableHead>
+                                            <TableHead>Bulan</TableHead>
+                                            <TableHead>Rencana</TableHead>
+                                            <TableHead>Aktual</TableHead>
+                                        </TableRow>
+                                    </TableHeader>
+                                    <TableBody>
+                                        {annualExpenses.map((annualSaving, index) => (
+                                            <TableRow key={index}>
+                                                <TableCell>{index + 1}</TableCell>
+                                                <TableCell>
+                                                    <Badge variant={MONTHTYPEVARIANTS[annualSaving.month]}>
+                                                        {annualSaving.month}
+                                                    </Badge>
+                                                </TableCell>
+                                                <TableCell>{formatToRupiah(annualSaving.plan)}</TableCell>
+                                                <TableCell>{formatToRupiah(annualSaving.actual)}</TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+
+                                    <TableFooter className="bg-emerald-500 font-bold text-white">
+                                        <TableRow>
+                                            <TableCell colSpan={2} className="text-left">
+                                                Total
+                                            </TableCell>
+                                            <TableCell>
+                                                {formatToRupiah(props.annuals.annualExpenses.total.plan)}
+                                            </TableCell>
+                                            <TableCell>
+                                                {formatToRupiah(props.annuals.annualExpenses.total.actual)}
                                             </TableCell>
                                         </TableRow>
                                     </TableFooter>

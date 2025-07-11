@@ -299,6 +299,216 @@
         @endif
     </div>
 
+    <!-- Detail Budget Pengeluaran -->
+    <div class="section">
+        <div class="section-title"><span style="font-size:15px;">💸</span> Detail Budget Pengeluaran</div>
+        @if(count($reports['budgetExpenses']['data']) > 0)
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Budget</th>
+                        <th class="currency">Rencana</th>
+                        <th class="currency">Aktual</th>
+                        <th class="currency">Selisih</th>
+                        <th class="currency">Persentase</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($reports['budgetExpenses']['data'] as $expense)
+                    <tr>
+                        <td>{{ $expense['budget_name'] }}</td>
+                        <td class="currency">{{ 'Rp ' . number_format($expense['plan'], 0, ',', '.') }}</td>
+                        <td class="currency">{{ 'Rp ' . number_format($expense['actual'], 0, ',', '.') }}</td>
+                        <td class="currency" style="color: {{ $expense['difference'] >= 0 ? '#10b981' : '#ef4444' }}">
+                            {{ 'Rp ' . number_format($expense['difference'], 0, ',', '.') }}
+                        </td>
+                        <td class="currency">{{ $expense['plan'] > 0 ? number_format(($expense['actual'] / $expense['plan']) * 100, 1) : '0' }}%</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td class="currency"><strong>{{ 'Rp ' . number_format($reports['budgetExpenses']['total']['plan'], 0, ',', '.') }}</strong></td>
+                        <td class="currency"><strong>{{ 'Rp ' . number_format($reports['budgetExpenses']['total']['actual'], 0, ',', '.') }}</strong></td>
+                        <td class="currency"><strong>{{ 'Rp ' . number_format($reports['budgetExpenses']['total']['difference'], 0, ',', '.') }}</strong></td>
+                        <td class="currency"><strong>{{ $reports['budgetExpenses']['total']['plan'] > 0 ? number_format(($reports['budgetExpenses']['total']['actual'] / $reports['budgetExpenses']['total']['plan']) * 100, 1) : '0' }}%</strong></td>
+                    </tr>
+                </tfoot>
+            </table>
+        @else
+            <div class="no-data">Tidak ada data budget pengeluaran untuk bulan {{ $monthName }} {{ $year }}</div>
+        @endif
+    </div>
+
+    <!-- Detail Budget Tabungan & Investasi -->
+    <div class="section">
+        <div class="section-title"><span style="font-size:15px;">💎</span> Detail Budget Tabungan & Investasi</div>
+        @if(count($reports['budgetSavings']['data']) > 0)
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Budget</th>
+                        <th class="currency">Rencana</th>
+                        <th class="currency">Aktual</th>
+                        <th class="currency">Selisih</th>
+                        <th class="currency">Persentase</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($reports['budgetSavings']['data'] as $saving)
+                    <tr>
+                        <td>{{ $saving['budget_name'] }}</td>
+                        <td class="currency">{{ 'Rp ' . number_format($saving['plan'], 0, ',', '.') }}</td>
+                        <td class="currency">{{ 'Rp ' . number_format($saving['actual'], 0, ',', '.') }}</td>
+                        <td class="currency" style="color: {{ $saving['difference'] >= 0 ? '#10b981' : '#ef4444' }}">
+                            {{ 'Rp ' . number_format($saving['difference'], 0, ',', '.') }}
+                        </td>
+                        <td class="currency">{{ $saving['plan'] > 0 ? number_format(($saving['actual'] / $saving['plan']) * 100, 1) : '0' }}%</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td class="currency"><strong>{{ 'Rp ' . number_format($reports['budgetSavings']['total']['plan'], 0, ',', '.') }}</strong></td>
+                        <td class="currency"><strong>{{ 'Rp ' . number_format($reports['budgetSavings']['total']['actual'], 0, ',', '.') }}</strong></td>
+                        <td class="currency"><strong>{{ 'Rp ' . number_format($reports['budgetSavings']['total']['difference'], 0, ',', '.') }}</strong></td>
+                        <td class="currency"><strong>{{ $reports['budgetSavings']['total']['plan'] > 0 ? number_format(($reports['budgetSavings']['total']['actual'] / $reports['budgetSavings']['total']['plan']) * 100, 1) : '0' }}%</strong></td>
+                    </tr>
+                </tfoot>
+            </table>
+        @else
+            <div class="no-data">Tidak ada data budget tabungan & investasi untuk bulan {{ $monthName }} {{ $year }}</div>
+        @endif
+    </div>
+
+    <!-- Detail Budget Cicilan Hutang -->
+    <div class="section">
+        <div class="section-title"><span style="font-size:15px;">💳</span> Detail Budget Cicilan Hutang</div>
+        @if(count($reports['budgetDebts']['data']) > 0)
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Budget</th>
+                        <th class="currency">Rencana</th>
+                        <th class="currency">Aktual</th>
+                        <th class="currency">Selisih</th>
+                        <th class="currency">Persentase</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($reports['budgetDebts']['data'] as $debt)
+                    <tr>
+                        <td>{{ $debt['budget_name'] }}</td>
+                        <td class="currency">{{ 'Rp ' . number_format($debt['plan'], 0, ',', '.') }}</td>
+                        <td class="currency">{{ 'Rp ' . number_format($debt['actual'], 0, ',', '.') }}</td>
+                        <td class="currency" style="color: {{ $debt['difference'] >= 0 ? '#10b981' : '#ef4444' }}">
+                            {{ 'Rp ' . number_format($debt['difference'], 0, ',', '.') }}
+                        </td>
+                        <td class="currency">{{ $debt['plan'] > 0 ? number_format(($debt['actual'] / $debt['plan']) * 100, 1) : '0' }}%</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td class="currency"><strong>{{ 'Rp ' . number_format($reports['budgetDebts']['total']['plan'], 0, ',', '.') }}</strong></td>
+                        <td class="currency"><strong>{{ 'Rp ' . number_format($reports['budgetDebts']['total']['actual'], 0, ',', '.') }}</strong></td>
+                        <td class="currency"><strong>{{ 'Rp ' . number_format($reports['budgetDebts']['total']['difference'], 0, ',', '.') }}</strong></td>
+                        <td class="currency"><strong>{{ $reports['budgetDebts']['total']['plan'] > 0 ? number_format(($reports['budgetDebts']['total']['actual'] / $reports['budgetDebts']['total']['plan']) * 100, 1) : '0' }}%</strong></td>
+                    </tr>
+                </tfoot>
+            </table>
+        @else
+            <div class="no-data">Tidak ada data budget cicilan hutang untuk bulan {{ $monthName }} {{ $year }}</div>
+        @endif
+    </div>
+
+    <!-- Detail Budget Tagihan -->
+    <div class="section">
+        <div class="section-title"><span style="font-size:15px;">📄</span> Detail Budget Tagihan</div>
+        @if(count($reports['budgetBills']['data']) > 0)
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Budget</th>
+                        <th class="currency">Rencana</th>
+                        <th class="currency">Aktual</th>
+                        <th class="currency">Selisih</th>
+                        <th class="currency">Persentase</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($reports['budgetBills']['data'] as $bill)
+                    <tr>
+                        <td>{{ $bill['budget_name'] }}</td>
+                        <td class="currency">{{ 'Rp ' . number_format($bill['plan'], 0, ',', '.') }}</td>
+                        <td class="currency">{{ 'Rp ' . number_format($bill['actual'], 0, ',', '.') }}</td>
+                        <td class="currency" style="color: {{ $bill['difference'] >= 0 ? '#10b981' : '#ef4444' }}">
+                            {{ 'Rp ' . number_format($bill['difference'], 0, ',', '.') }}
+                        </td>
+                        <td class="currency">{{ $bill['plan'] > 0 ? number_format(($bill['actual'] / $bill['plan']) * 100, 1) : '0' }}%</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td class="currency"><strong>{{ 'Rp ' . number_format($reports['budgetBills']['total']['plan'], 0, ',', '.') }}</strong></td>
+                        <td class="currency"><strong>{{ 'Rp ' . number_format($reports['budgetBills']['total']['actual'], 0, ',', '.') }}</strong></td>
+                        <td class="currency"><strong>{{ 'Rp ' . number_format($reports['budgetBills']['total']['difference'], 0, ',', '.') }}</strong></td>
+                        <td class="currency"><strong>{{ $reports['budgetBills']['total']['plan'] > 0 ? number_format(($reports['budgetBills']['total']['actual'] / $reports['budgetBills']['total']['plan']) * 100, 1) : '0' }}%</strong></td>
+                    </tr>
+                </tfoot>
+            </table>
+        @else
+            <div class="no-data">Tidak ada data budget tagihan untuk bulan {{ $monthName }} {{ $year }}</div>
+        @endif
+    </div>
+
+    <!-- Detail Budget Belanja -->
+    <div class="section">
+        <div class="section-title"><span style="font-size:15px;">🛒</span> Detail Budget Belanja</div>
+        @if(count($reports['budgetShoppings']['data']) > 0)
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Budget</th>
+                        <th class="currency">Rencana</th>
+                        <th class="currency">Aktual</th>
+                        <th class="currency">Selisih</th>
+                        <th class="currency">Persentase</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($reports['budgetShoppings']['data'] as $shopping)
+                    <tr>
+                        <td>{{ $shopping['budget_name'] }}</td>
+                        <td class="currency">{{ 'Rp ' . number_format($shopping['plan'], 0, ',', '.') }}</td>
+                        <td class="currency">{{ 'Rp ' . number_format($shopping['actual'], 0, ',', '.') }}</td>
+                        <td class="currency" style="color: {{ $shopping['difference'] >= 0 ? '#10b981' : '#ef4444' }}">
+                            {{ 'Rp ' . number_format($shopping['difference'], 0, ',', '.') }}
+                        </td>
+                        <td class="currency">{{ $shopping['plan'] > 0 ? number_format(($shopping['actual'] / $shopping['plan']) * 100, 1) : '0' }}%</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td class="currency"><strong>{{ 'Rp ' . number_format($reports['budgetShoppings']['total']['plan'], 0, ',', '.') }}</strong></td>
+                        <td class="currency"><strong>{{ 'Rp ' . number_format($reports['budgetShoppings']['total']['actual'], 0, ',', '.') }}</strong></td>
+                        <td class="currency"><strong>{{ 'Rp ' . number_format($reports['budgetShoppings']['total']['difference'], 0, ',', '.') }}</strong></td>
+                        <td class="currency"><strong>{{ $reports['budgetShoppings']['total']['plan'] > 0 ? number_format(($reports['budgetShoppings']['total']['actual'] / $reports['budgetShoppings']['total']['plan']) * 100, 1) : '0' }}%</strong></td>
+                    </tr>
+                </tfoot>
+            </table>
+        @else
+            <div class="no-data">Tidak ada data budget belanja untuk bulan {{ $monthName }} {{ $year }}</div>
+        @endif
+    </div>
+
     <div class="page-break"></div>
 
     <!-- Income Trackers -->

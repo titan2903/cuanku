@@ -191,50 +191,140 @@
     <!-- Summary Cards -->
     <div class="section">
         <div class="section-title">📊 Ringkasan Tahunan</div>
-        <div class="grid">
-            <div class="grid-item">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th colspan="3" style="text-align: center; background-color: #10b981; color: white;">💰 Penghasilan</th>
-                        </tr>
-                        <tr>
-                            <th>Aspek</th>
-                            <th class="currency">Rencana</th>
-                            <th class="currency">Aktual</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Total Penghasilan</td>
-                            <td class="currency">{{ 'Rp ' . number_format($annuals['annualIncomes']['total']['plan'], 0, ',', '.') }}</td>
-                            <td class="currency">{{ 'Rp ' . number_format($annuals['annualIncomes']['total']['actual'], 0, ',', '.') }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="grid-item">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th colspan="3" style="text-align: center; background-color: #3b82f6; color: white;">💎 Tabungan & Investasi</th>
-                        </tr>
-                        <tr>
-                            <th>Aspek</th>
-                            <th class="currency">Rencana</th>
-                            <th class="currency">Aktual</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Total Tabungan</td>
-                            <td class="currency">{{ 'Rp ' . number_format($annuals['annualSavings']['total']['plan'], 0, ',', '.') }}</td>
-                            <td class="currency">{{ 'Rp ' . number_format($annuals['annualSavings']['total']['actual'], 0, ',', '.') }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <table style="width:100%; border-collapse:collapse; margin-bottom:20px;">
+            <tr>
+                <td style="vertical-align:top; padding:8px; width:50%;">
+                    <table class="table" style="border-top: 4px solid #10b981;">
+                        <thead>
+                            <tr>
+                                <th colspan="3" style="text-align: center; background-color: #10b981; color: white; font-size:15px;">💰 Penghasilan</th>
+                            </tr>
+                            <tr>
+                                <th>Aspek</th>
+                                <th class="currency">Rencana</th>
+                                <th class="currency">Aktual</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Total Penghasilan</td>
+                                <td class="currency">{{ 'Rp ' . number_format($annuals['annualIncomes']['total']['plan'], 0, ',', '.') }}</td>
+                                <td class="currency">{{ 'Rp ' . number_format($annuals['annualIncomes']['total']['actual'], 0, ',', '.') }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td style="vertical-align:top; padding:8px; width:50%;">
+                    <table class="table" style="border-top: 4px solid #3b82f6;">
+                        <thead>
+                            <tr>
+                                <th colspan="3" style="text-align: center; background-color: #3b82f6; color: white; font-size:15px;">💎 Tabungan & Investasi</th>
+                            </tr>
+                            <tr>
+                                <th>Aspek</th>
+                                <th class="currency">Rencana</th>
+                                <th class="currency">Aktual</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Total Tabungan</td>
+                                <td class="currency">{{ 'Rp ' . number_format($annuals['annualSavings']['total']['plan'], 0, ',', '.') }}</td>
+                                <td class="currency">{{ 'Rp ' . number_format($annuals['annualSavings']['total']['actual'], 0, ',', '.') }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="vertical-align:top; padding:8px; width:50%;">
+                    <table class="table" style="border-top: 4px solid #ef4444;">
+                        <thead>
+                            <tr>
+                                <th colspan="3" style="text-align: center; background-color: #ef4444; color: white; font-size:15px;">💸 Pengeluaran</th>
+                            </tr>
+                            <tr>
+                                <th>Aspek</th>
+                                <th class="currency">Rencana</th>
+                                <th class="currency">Aktual</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Total Pengeluaran</td>
+                                <td class="currency">{{ 'Rp ' . number_format($annuals['annualExpenses']['total']['plan'], 0, ',', '.') }}</td>
+                                <td class="currency">{{ 'Rp ' . number_format($annuals['annualExpenses']['total']['actual'], 0, ',', '.') }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td style="vertical-align:top; padding:8px; width:50%;">
+                    <table class="table" style="border-top: 4px solid #f59e0b;">
+                        <thead>
+                            <tr>
+                                <th colspan="3" style="text-align: center; background-color: #f59e0b; color: white; font-size:15px;">📄 Tagihan</th>
+                            </tr>
+                            <tr>
+                                <th>Aspek</th>
+                                <th class="currency">Rencana</th>
+                                <th class="currency">Aktual</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Total Tagihan</td>
+                                <td class="currency">{{ 'Rp ' . number_format($annuals['annualBills']['total']['plan'], 0, ',', '.') }}</td>
+                                <td class="currency">{{ 'Rp ' . number_format($annuals['annualBills']['total']['actual'], 0, ',', '.') }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="vertical-align:top; padding:8px; width:50%;">
+                    <table class="table" style="border-top: 4px solid #8b5cf6;">
+                        <thead>
+                            <tr>
+                                <th colspan="3" style="text-align: center; background-color: #8b5cf6; color: white; font-size:15px;">🛒 Belanja</th>
+                            </tr>
+                            <tr>
+                                <th>Aspek</th>
+                                <th class="currency">Rencana</th>
+                                <th class="currency">Aktual</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Total Belanja</td>
+                                <td class="currency">{{ 'Rp ' . number_format($annuals['annualShoppings']['total']['plan'], 0, ',', '.') }}</td>
+                                <td class="currency">{{ 'Rp ' . number_format($annuals['annualShoppings']['total']['actual'], 0, ',', '.') }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td style="vertical-align:top; padding:8px; width:50%;">
+                    <table class="table" style="border-top: 4px solid #374151;">
+                        <thead>
+                            <tr>
+                                <th colspan="3" style="text-align: center; background-color: #374151; color: white; font-size:15px;">💳 Cicilan Hutang</th>
+                            </tr>
+                            <tr>
+                                <th>Aspek</th>
+                                <th class="currency">Rencana</th>
+                                <th class="currency">Aktual</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Total Cicilan Hutang</td>
+                                <td class="currency">{{ 'Rp ' . number_format($annuals['annualDebts']['total']['plan'], 0, ',', '.') }}</td>
+                                <td class="currency">{{ 'Rp ' . number_format($annuals['annualDebts']['total']['actual'], 0, ',', '.') }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </table>
     </div>
 
     <!-- Detailed Monthly Data -->
@@ -282,7 +372,7 @@
 
     <!-- Savings Data -->
     <div class="section">
-        <div class="section-title">💎 Data Tabungan & Investasi Bulanan</div>
+        <div class="section-title"><span style="font-size:15px;">💎</span> Data Tabungan & Investasi Bulanan</div>
         @if(count($annuals['annualSavings']['data']) > 0)
             <table class="table">
                 <thead>
@@ -318,6 +408,47 @@
             </table>
         @else
             <div class="no-data">Tidak ada data tabungan & investasi untuk tahun {{ $year }}</div>
+        @endif
+    </div>
+
+    <!-- Expense Data -->
+    <div class="section">
+        <div class="section-title"><span style="font-size:15px;">💸</span> Data Pengeluaran Bulanan</div>
+        @if(count($annuals['annualExpenses']['data']) > 0)
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Bulan</th>
+                        <th class="currency">Rencana</th>
+                        <th class="currency">Aktual</th>
+                        <th class="currency">Selisih</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($annuals['annualExpenses']['data'] as $index => $expense)
+                    <tr>
+                        <td>{{ $index + 1 }}</td>
+                        <td><span class="month-badge">{{ $expense['month'] }}</span></td>
+                        <td class="currency">{{ 'Rp ' . number_format($expense['plan'], 0, ',', '.') }}</td>
+                        <td class="currency">{{ 'Rp ' . number_format($expense['actual'], 0, ',', '.') }}</td>
+                        <td class="currency" style="color: {{ ($expense['actual'] - $expense['plan']) >= 0 ? '#10b981' : '#ef4444' }}">
+                            {{ 'Rp ' . number_format($expense['actual'] - $expense['plan'], 0, ',', '.') }}
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2"><strong>Total</strong></td>
+                        <td class="currency"><strong>{{ 'Rp ' . number_format($annuals['annualExpenses']['total']['plan'], 0, ',', '.') }}</strong></td>
+                        <td class="currency"><strong>{{ 'Rp ' . number_format($annuals['annualExpenses']['total']['actual'], 0, ',', '.') }}</strong></td>
+                        <td class="currency"><strong>{{ 'Rp ' . number_format($annuals['annualExpenses']['total']['actual'] - $annuals['annualExpenses']['total']['plan'], 0, ',', '.') }}</strong></td>
+                    </tr>
+                </tfoot>
+            </table>
+        @else
+            <div class="no-data">Tidak ada data pengeluaran untuk tahun {{ $year }}</div>
         @endif
     </div>
 

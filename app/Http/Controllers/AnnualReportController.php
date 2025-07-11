@@ -43,9 +43,9 @@ class AnnualReportController extends Controller implements HasMiddleware
         });
     }
 
-    private function getAnnualDataGroupByMonth(Collection $annualIncomes, Collection $annualSaving, Collection $annualDebts, Collection $annualBills, Collection $annualShoppings)
+    private function getAnnualDataGroupByMonth(Collection $annualIncomes, Collection $annualSaving, Collection $annualDebts, Collection $annualBills, Collection $annualShoppings, Collection $annualExpenses): array
     {
-        return collect(MonthEnum::cases())->mapWithKeys(function ($monthEnum) use ($annualIncomes, $annualSaving, $annualDebts, $annualBills, $annualShoppings) {
+        return collect(MonthEnum::cases())->mapWithKeys(function ($monthEnum) use ($annualIncomes, $annualSaving, $annualDebts, $annualBills, $annualShoppings, $annualExpenses) {
             $monthName = $monthEnum->value;
 
             $categories = [
@@ -68,6 +68,10 @@ class AnnualReportController extends Controller implements HasMiddleware
                 'Belanja' => [
                     'plan' => $annualShoppings->filter(fn ($item) => $item->month->value === $monthName)->sum('plan'),
                     'actual' => $annualShoppings->filter(fn ($item) => $item->month->value === $monthName)->sum('actual'),
+                ],
+                'Pengeluaran' => [
+                    'plan' => $annualExpenses->filter(fn ($item) => $item->month->value === $monthName)->sum('plan'),
+                    'actual' => $annualExpenses->filter(fn ($item) => $item->month->value === $monthName)->sum('actual'),
                 ],
             ];
 
@@ -96,13 +100,15 @@ class AnnualReportController extends Controller implements HasMiddleware
         $annualDebts = $this->prepareBudgetData($request, BudgetType::DEBT->value, Expense::class, 'budget_id', BudgetType::DEBT->value);
         $annualBills = $this->prepareBudgetData($request, BudgetType::BILL->value, Expense::class, 'budget_id', BudgetType::BILL->value);
         $annualShoppings = $this->prepareBudgetData($request, BudgetType::SHOPPING->value, Expense::class, 'budget_id', BudgetType::SHOPPING->value);
+        $annualExpenses = $this->prepareBudgetData($request, BudgetType::EXPENSE->value, Expense::class, 'budget_id', BudgetType::EXPENSE->value);
 
         $annualMonths = $this->getAnnualDataGroupByMonth(
             $annualIncomes,
             $annualSavings,
             $annualDebts,
             $annualBills,
-            $annualShoppings
+            $annualShoppings,
+            $annualExpenses,
         );
 
         return inertia('AnnualReports/Index', [
@@ -154,6 +160,13 @@ class AnnualReportController extends Controller implements HasMiddleware
                         'actual' => $annualShoppings->sum('actual'),
                     ],
                 ],
+                'annualExpenses' => [
+                    'data' => $this->calculateByMonth($annualExpenses),
+                    'total' => [
+                        'plan' => $annualExpenses->sum('plan'),
+                        'actual' => $annualExpenses->sum('actual'),
+                    ],
+                ],
                 'annualMonths' => $annualMonths,
             ],
         ]);
@@ -166,13 +179,15 @@ class AnnualReportController extends Controller implements HasMiddleware
         $annualDebts = $this->prepareBudgetData($request, BudgetType::DEBT->value, Expense::class, 'budget_id', BudgetType::DEBT->value);
         $annualBills = $this->prepareBudgetData($request, BudgetType::BILL->value, Expense::class, 'budget_id', BudgetType::BILL->value);
         $annualShoppings = $this->prepareBudgetData($request, BudgetType::SHOPPING->value, Expense::class, 'budget_id', BudgetType::SHOPPING->value);
+        $annualExpenses = $this->prepareBudgetData($request, BudgetType::EXPENSE->value, Expense::class, 'budget_id', BudgetType::EXPENSE->value);
 
         $annualMonths = $this->getAnnualDataGroupByMonth(
             $annualIncomes,
             $annualSavings,
             $annualDebts,
             $annualBills,
-            $annualShoppings
+            $annualShoppings,
+            $annualExpenses,
         );
 
         $year = $request->year ?? now()->year;
@@ -213,6 +228,13 @@ class AnnualReportController extends Controller implements HasMiddleware
                     'total' => [
                         'plan' => $annualShoppings->sum('plan'),
                         'actual' => $annualShoppings->sum('actual'),
+                    ],
+                ],
+                'annualExpenses' => [
+                    'data' => $this->calculateByMonth($annualExpenses),
+                    'total' => [
+                        'plan' => $annualExpenses->sum('plan'),
+                        'actual' => $annualExpenses->sum('actual'),
                     ],
                 ],
             ],
