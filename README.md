@@ -51,6 +51,60 @@
 
 ## About The Project
 
+### Project Folder Structure
+
+```text
+cuanku/
+├── app/
+│   ├── Constants/
+│   ├── Enums/
+│   ├── Filament/
+│   ├── Helpers/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   ├── Middleware/
+│   │   ├── Requests/
+│   │   ├── Resources/
+│   ├── Models/
+│   ├── Observers/
+│   ├── Policies/
+│   ├── Providers/
+│   ├── Traits/
+├── bootstrap/
+├── config/
+├── database/
+│   ├── factories/
+│   ├── migrations/
+│   ├── seeders/
+├── public/
+│   ├── build/
+│   ├── css/
+│   ├── images/
+│   ├── js/
+├── resources/
+│   ├── css/
+│   ├── js/
+│   ├── views/
+├── routes/
+│   ├── auth.php
+│   ├── console.php
+│   ├── web.php
+├── storage/
+│   ├── app/
+│   ├── framework/
+│   ├── logs/
+├── tests/
+│   ├── Feature/
+│   ├── Unit/
+├── vendor/
+├── artisan
+├── composer.json
+├── package.json
+├── README.md
+├── ...
+```
+
+
 [![CuanKu Screen Shot][product-screenshot]](https://github.com/titanioy/cuanku)
 
 CuanKu is a comprehensive personal finance management platform designed to help individuals take control of their financial lives. With intelligent features and an intuitive interface, CuanKu empowers users to track expenses, manage budgets, set financial goals, and make informed financial decisions.
