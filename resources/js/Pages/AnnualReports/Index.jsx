@@ -17,6 +17,7 @@ import {
     IconInvoice,
     IconLogs,
     IconMoneybagMove,
+    IconPrinter,
     IconShoppingBag,
 } from '@tabler/icons-react';
 import { useState } from 'react';
@@ -44,6 +45,11 @@ export default function Index(props) {
         window.open(downloadUrl, '_blank');
     };
 
+    const handlePrintView = () => {
+        const printUrl = route('annual-reports.print', { year: params.year });
+        window.open(printUrl, '_blank');
+    };
+
     return (
         <div className="flex w-full flex-col gap-y-6 pb-32">
             <BreadcrumbHeader items={props.items} />
@@ -57,6 +63,15 @@ export default function Index(props) {
                         />
 
                         <div className="flex flex-row gap-x-4">
+                            <Button
+                                onClick={handlePrintView}
+                                variant="outline"
+                                size="sm"
+                                className="flex items-center gap-x-2 hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700"
+                            >
+                                <IconPrinter className="h-4 w-4" />
+                                Print View
+                            </Button>
                             <Button
                                 onClick={handleDownloadPdf}
                                 variant="outline"

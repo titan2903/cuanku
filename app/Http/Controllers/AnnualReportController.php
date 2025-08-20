@@ -253,4 +253,76 @@ class AnnualReportController extends Controller implements HasMiddleware
 
         return $pdf->download($filename);
     }
+
+    public function printView(Request $request)
+    {
+        $year = $request->year ?? now()->year;
+
+        $annualIncomes = $this->prepareBudgetData($request, BudgetType::INCOME->value, Income::class, 'budget_id');
+        $annualSavings = $this->prepareBudgetData($request, BudgetType::SAVING->value, Income::class, 'budget_id');
+        $annualDebts = $this->prepareBudgetData($request, BudgetType::DEBT->value, Expense::class, 'budget_id', BudgetType::DEBT->value);
+        $annualBills = $this->prepareBudgetData($request, BudgetType::BILL->value, Expense::class, 'budget_id', BudgetType::BILL->value);
+        $annualShoppings = $this->prepareBudgetData($request, BudgetType::SHOPPING->value, Expense::class, 'budget_id', BudgetType::SHOPPING->value);
+        $annualExpenses = $this->prepareBudgetData($request, BudgetType::EXPENSE->value, Expense::class, 'budget_id', BudgetType::EXPENSE->value);
+
+        $annualMonths = $this->getAnnualDataGroupByMonth(
+            $annualIncomes,
+            $annualSavings,
+            $annualDebts,
+            $annualBills,
+            $annualShoppings,
+            $annualExpenses,
+        );
+
+        $data = [
+            'year' => $year,
+            'annuals' => [
+                'annualIncomes' => [
+                    'data' => $this->calculateByMonth($annualIncomes),
+                    'total' => [
+                        'plan' => $annualIncomes->sum('plan'),
+                        'actual' => $annualIncomes->sum('actual'),
+                    ],
+                ],
+                'annualSavings' => [
+                    'data' => $this->calculateByMonth($annualSavings),
+                    'total' => [
+                        'plan' => $annualSavings->sum('plan'),
+                        'actual' => $annualSavings->sum('actual'),
+                    ],
+                ],
+                'annualDebts' => [
+                    'data' => $this->calculateByMonth($annualDebts),
+                    'total' => [
+                        'plan' => $annualDebts->sum('plan'),
+                        'actual' => $annualDebts->sum('actual'),
+                    ],
+                ],
+                'annualBills' => [
+                    'data' => $this->calculateByMonth($annualBills),
+                    'total' => [
+                        'plan' => $annualBills->sum('plan'),
+                        'actual' => $annualBills->sum('actual'),
+                    ],
+                ],
+                'annualShoppings' => [
+                    'data' => $this->calculateByMonth($annualShoppings),
+                    'total' => [
+                        'plan' => $annualShoppings->sum('plan'),
+                        'actual' => $annualShoppings->sum('actual'),
+                    ],
+                ],
+                'annualExpenses' => [
+                    'data' => $this->calculateByMonth($annualExpenses),
+                    'total' => [
+                        'plan' => $annualExpenses->sum('plan'),
+                        'actual' => $annualExpenses->sum('actual'),
+                    ],
+                ],
+                'annualMonths' => $annualMonths,
+            ],
+        ];
+
+        return view('print.annual-report', $data);
+    }
 }

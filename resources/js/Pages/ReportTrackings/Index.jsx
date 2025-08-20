@@ -19,6 +19,7 @@ import {
     IconMoneybagMove,
     IconMoneybagMoveBack,
     IconPigMoney,
+    IconPrinter,
     IconShoppingBag,
 } from '@tabler/icons-react';
 import { useState } from 'react';
@@ -54,6 +55,15 @@ export default function Index(props) {
         window.open(url, '_blank');
     };
 
+    const handlePrintView = () => {
+        // Buka halaman print view
+        const url = route('report-trackings.print', {
+            month: params.month,
+            year: params.year,
+        });
+        window.open(url, '_blank');
+    };
+
     return (
         <div className="flex w-full flex-col gap-y-6 pb-32">
             <BreadcrumbHeader items={props.items} />
@@ -67,6 +77,15 @@ export default function Index(props) {
                         />
 
                         <div className="flex flex-row gap-x-4">
+                            <Button
+                                onClick={handlePrintView}
+                                variant="outline"
+                                size="sm"
+                                className="flex w-full items-center gap-x-2 hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 sm:w-auto sm:min-w-[140px]"
+                            >
+                                <IconPrinter className="h-4 w-4" />
+                                Print View
+                            </Button>
                             <Button
                                 onClick={handleDownloadPdf}
                                 variant="outline"

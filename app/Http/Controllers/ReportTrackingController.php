@@ -296,4 +296,50 @@ class ReportTrackingController extends Controller implements HasMiddleware
 
         return $pdf->download($fileName);
     }
+
+    public function printView(Request $request)
+    {
+        // Menggunakan data yang sama dengan method downloadPdf
+        $budgetIncomes = $this->prepareBudgetData($request, BudgetType::INCOME->value, Income::class, 'budget_id');
+        $budgetExpenses = $this->prepareBudgetData($request, BudgetType::EXPENSE->value, Expense::class, 'budget_id', BudgetType::EXPENSE->value);
+        $budgetSavings = $this->prepareBudgetData($request, BudgetType::SAVING->value, Income::class, 'budget_id');
+        $budgetDebts = $this->prepareBudgetData($request, BudgetType::DEBT->value, Expense::class, 'budget_id', BudgetType::DEBT->value);
+        $budgetBills = $this->prepareBudgetData($request, BudgetType::BILL->value, Expense::class, 'budget_id', BudgetType::BILL->value);
+        $budgetShoppings = $this->prepareBudgetData($request, BudgetType::SHOPPING->value, Expense::class, 'budget_id', BudgetType::SHOPPING->value);
+
+        $incomeTrackers = $this->getIncomeTrackers($request);
+        $expenseTrackers = $this->getExpenseTrackers($request);
+
+        $overviews = $this->getOverviews(
+            $budgetIncomes,
+            $budgetExpenses,
+            $budgetSavings,
+            $budgetDebts,
+            $budgetBills,
+            $budgetShoppings,
+        );
+
+        $cashFlows = $this->getCashFlow($incomeTrackers, $expenseTrackers);
+
+        $data = [
+            'month' => $request->month ?? MonthEnum::month(now()->month)->value,
+            'monthName' => MonthEnum::month($request->month ?? now()->month)->label(),
+            'year' => $request->year ?? now()->year,
+            'reports' => [
+                'budgetIncomes' => $this->formatReport($budgetIncomes),
+                'budgetExpenses' => $this->formatReport($budgetExpenses),
+                'budgetSavings' => $this->formatReport($budgetSavings),
+                'budgetDebts' => $this->formatReport($budgetDebts),
+                'budgetBills' => $this->formatReport($budgetBills),
+                'budgetShoppings' => $this->formatReport($budgetShoppings),
+            ],
+            'incomeTrackers' => IncomeResource::collection($incomeTrackers),
+            'expenseTrackers' => ExpenseResource::collection($expenseTrackers),
+            'overviews' => $overviews,
+            'cashFlows' => $cashFlows,
+            'generatedAt' => Carbon::now('Asia/Jakarta'),
+        ];
+
+        return view('print.report-tracking', $data);
+    }
 }
