@@ -19,6 +19,12 @@ use Throwable;
 
 use function App\Helpers\flashMessage;
 
+/**
+ * @OA\Tag(
+ *     name="Expenses",
+ *     description="API Endpoints for Expenses"
+ * )
+ */
 class ExpenseController extends Controller implements HasMiddleware
 {
     public static function middleware(): array
@@ -30,6 +36,19 @@ class ExpenseController extends Controller implements HasMiddleware
         ];
     }
 
+    /**
+     * @OA\Get(
+     *     path="/expenses",
+     *     summary="List all expenses",
+     *     tags={"Expenses"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="search", in="query", @OA\Schema(type="string")),
+     *     @OA\Parameter(name="month", in="query", @OA\Schema(type="string")),
+     *     @OA\Parameter(name="year", in="query", @OA\Schema(type="string")),
+     *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(response=401, description="Unauthenticated")
+     * )
+     */
     public function index(): Response
     {
         $expenses = Expense::query()
@@ -123,6 +142,31 @@ class ExpenseController extends Controller implements HasMiddleware
         ]);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/expenses",
+     *     summary="Create a new expense",
+     *     tags={"Expenses"},
+     *     security={{"sanctum":{}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"budget_id", "payment_id", "date", "description", "nominal", "type", "month", "year"},
+     *             @OA\Property(property="budget_id", type="integer"),
+     *             @OA\Property(property="payment_id", type="integer"),
+     *             @OA\Property(property="date", type="string", format="date"),
+     *             @OA\Property(property="description", type="string"),
+     *             @OA\Property(property="nominal", type="number"),
+     *             @OA\Property(property="type", type="string"),
+     *             @OA\Property(property="notes", type="string"),
+     *             @OA\Property(property="month", type="string"),
+     *             @OA\Property(property="year", type="integer")
+     *         )
+     *     ),
+     *     @OA\Response(response=201, description="Expense created successfully"),
+     *     @OA\Response(response=422, description="Validation error")
+     * )
+     */
     public function store(ExpenseRequest $request): RedirectResponse
     {
         try {

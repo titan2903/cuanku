@@ -309,6 +309,13 @@ Access your financial overview with real-time data visualization including:
 - Clean and intuitive interface for user management
 - Built with Filament for Laravel administration
 
+### API Documentation (Swagger)
+
+- Access API documentation at `/api/documentation` route
+- Explore and test all available API endpoints
+- Built with L5-Swagger for OpenAPI specification
+- Real-time interaction with the Cuanku backend API
+
 ### Annual Reports & PDF Export
 
 - Generate comprehensive annual financial reports
@@ -334,6 +341,7 @@ _For more examples, please refer to the [Documentation](https://github.com/titan
 - [x] Monthly/Yearly Financial Reports
 - [x] PDF Export for Annual Reports
 - [x] Admin Panel (Filament)
+- [x] API Documentation (Swagger)
 - [x] Responsive Design
 - [x] AI-Powered Financial Insights
 - [x] Business Analytics Dashboard (Metabase)

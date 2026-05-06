@@ -17,6 +17,12 @@ use Throwable;
 
 use function App\Helpers\flashMessage;
 
+/**
+ * @OA\Tag(
+ *     name="Assets",
+ *     description="API Endpoints for Assets"
+ * )
+ */
 class AssetController extends Controller implements HasMiddleware
 {
     public static function middleware(): array
@@ -30,6 +36,19 @@ class AssetController extends Controller implements HasMiddleware
         ];
     }
 
+    /**
+     * @OA\Get(
+     *     path="/net-worths/{netWorth}/assets",
+     *     summary="List all assets for a specific net worth",
+     *     tags={"Assets"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="netWorth", in="path", required=true, @OA\Schema(type="integer")),
+     *     @OA\Parameter(name="search", in="query", @OA\Schema(type="string")),
+     *     @OA\Parameter(name="type", in="query", @OA\Schema(type="string")),
+     *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(response=401, description="Unauthenticated")
+     * )
+     */
     public function index(NetWorth $netWorth): Response
     {
         $assets = Asset::query()
@@ -96,6 +115,26 @@ class AssetController extends Controller implements HasMiddleware
         ]);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/net-worths/{netWorth}/assets",
+     *     summary="Create a new asset",
+     *     tags={"Assets"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="netWorth", in="path", required=true, @OA\Schema(type="integer")),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"detail", "goal", "type"},
+     *             @OA\Property(property="detail", type="string"),
+     *             @OA\Property(property="goal", type="number"),
+     *             @OA\Property(property="type", type="string")
+     *         )
+     *     ),
+     *     @OA\Response(response=201, description="Asset created successfully"),
+     *     @OA\Response(response=422, description="Validation error")
+     * )
+     */
     public function store(NetWorth $netWorth, AssetRequest $request): RedirectResponse
     {
         try {
