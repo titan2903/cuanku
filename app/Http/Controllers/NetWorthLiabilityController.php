@@ -13,6 +13,12 @@ use Throwable;
 
 use function App\Helpers\flashMessage;
 
+/**
+ * @OA\Tag(
+ *     name="Net Worth Liabilities",
+ *     description="API Endpoints for Net Worth Liabilities"
+ * )
+ */
 class NetWorthLiabilityController extends Controller implements HasMiddleware
 {
     public static function middleware(): array
@@ -22,6 +28,38 @@ class NetWorthLiabilityController extends Controller implements HasMiddleware
         ];
     }
 
+    /**
+     * @OA\Post(
+     *     path="/net-worths/{netWorth}/liabilities/{liability}",
+     *     summary="Add transaction to liability",
+     *     tags={"Net Worth Liabilities"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="netWorth", in="path", required=true, @OA\Schema(type="string", format="uuid")),
+     *     @OA\Parameter(name="liability", in="path", required=true, @OA\Schema(type="string", format="uuid")),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="transaction_date", type="string", format="date"),
+     *             @OA\Property(property="nominal", type="integer")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Transaction added successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Not Found",
+     *         @OA\JsonContent(ref="#/components/schemas/NotFound")
+     *     )
+     * )
+     */
     public function __invoke(NetWorth $netWorth, Liability $liability, Request $request): RedirectResponse
     {
         try {

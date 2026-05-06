@@ -8,6 +8,24 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Enum;
 
+/**
+ * @OA\Schema(
+ *     schema="ExpenseRequest",
+ *     title="Expense Request",
+ *     description="Expense request body data",
+ *     type="object",
+ *     required={"budget_id", "payment_id", "date", "description", "nominal", "type", "month", "year"},
+ *     @OA\Property(property="budget_id", type="string", format="uuid", example="550e8400-e29b-41d4-a716-446655440000"),
+ *     @OA\Property(property="payment_id", type="string", format="uuid", example="550e8400-e29b-41d4-a716-446655440000"),
+ *     @OA\Property(property="date", type="string", format="date", example="2023-10-25"),
+ *     @OA\Property(property="description", type="string", example="Beli Nasi Goreng"),
+ *     @OA\Property(property="nominal", type="number", example=20000),
+ *     @OA\Property(property="type", type="string", example="Pengeluaran"),
+ *     @OA\Property(property="notes", type="string", example="Makan malam di luar"),
+ *     @OA\Property(property="month", type="string", example="Oktober"),
+ *     @OA\Property(property="year", type="integer", example=2023)
+ * )
+ */
 class ExpenseRequest extends FormRequest
 {
     /**

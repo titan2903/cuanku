@@ -34,6 +34,28 @@ class NetWorthController extends Controller implements HasMiddleware
         ];
     }
 
+    /**
+     * @OA\Get(
+     *     path="/net-worths",
+     *     summary="List all net worth records",
+     *     tags={"Net Worths"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="search", in="query", @OA\Schema(type="string")),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/NetWorthResource")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function index(): Response
     {
         $netWorths = NetWorth::query()
@@ -92,6 +114,33 @@ class NetWorthController extends Controller implements HasMiddleware
         ]);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/net-worths",
+     *     summary="Create a new net worth record",
+     *     tags={"Net Worths"},
+     *     security={{"sanctum":{}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/NetWorthRequest")
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Net Worth created successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation Error",
+     *         @OA\JsonContent(ref="#/components/schemas/ValidationError")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function store(NetWorthRequest $request): RedirectResponse
     {
         try {
@@ -114,6 +163,30 @@ class NetWorthController extends Controller implements HasMiddleware
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/net-worths/{netWorth}",
+     *     summary="Get net worth details",
+     *     tags={"Net Worths"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="netWorth", in="path", required=true, @OA\Schema(type="string", format="uuid")),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(ref="#/components/schemas/NetWorthResource")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Not Found",
+     *         @OA\JsonContent(ref="#/components/schemas/NotFound")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function show(NetWorth $netWorth): Response
     {
         $netWorthAssets = $this->getNetWorthAssets($netWorth);
@@ -161,6 +234,39 @@ class NetWorthController extends Controller implements HasMiddleware
         ]);
     }
 
+    /**
+     * @OA\Put(
+     *     path="/net-worths/{netWorth}",
+     *     summary="Update a net worth record",
+     *     tags={"Net Worths"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="netWorth", in="path", required=true, @OA\Schema(type="string", format="uuid")),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/NetWorthRequest")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Net Worth updated successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Not Found",
+     *         @OA\JsonContent(ref="#/components/schemas/NotFound")
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation Error",
+     *         @OA\JsonContent(ref="#/components/schemas/ValidationError")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function update(NetWorth $netWorth, NetWorthRequest $request): RedirectResponse
     {
         try {
@@ -180,6 +286,30 @@ class NetWorthController extends Controller implements HasMiddleware
         }
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/net-worths/{netWorth}",
+     *     summary="Delete a net worth record",
+     *     tags={"Net Worths"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="netWorth", in="path", required=true, @OA\Schema(type="string", format="uuid")),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Net Worth deleted successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Not Found",
+     *         @OA\JsonContent(ref="#/components/schemas/NotFound")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function destroy(NetWorth $netWorth): RedirectResponse
     {
         try {

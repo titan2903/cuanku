@@ -9,6 +9,26 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @OA\Schema(
+ *     schema="Expense",
+ *     title="Expense",
+ *     description="Expense Model",
+ *     @OA\Property(property="id", type="string", format="uuid"),
+ *     @OA\Property(property="user_id", type="integer"),
+ *     @OA\Property(property="budget_id", type="string", format="uuid"),
+ *     @OA\Property(property="payment_id", type="string", format="uuid"),
+ *     @OA\Property(property="date", type="string", format="date"),
+ *     @OA\Property(property="description", type="string"),
+ *     @OA\Property(property="nominal", type="number"),
+ *     @OA\Property(property="type", type="string"),
+ *     @OA\Property(property="notes", type="string"),
+ *     @OA\Property(property="month", type="string"),
+ *     @OA\Property(property="year", type="integer"),
+ *     @OA\Property(property="created_at", type="string", format="date-time"),
+ *     @OA\Property(property="updated_at", type="string", format="date-time")
+ * )
+ */
 class Expense extends Model
 {
     use HasUuids;

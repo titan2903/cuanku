@@ -45,8 +45,19 @@ class ExpenseController extends Controller implements HasMiddleware
      *     @OA\Parameter(name="search", in="query", @OA\Schema(type="string")),
      *     @OA\Parameter(name="month", in="query", @OA\Schema(type="string")),
      *     @OA\Parameter(name="year", in="query", @OA\Schema(type="string")),
-     *     @OA\Response(response=200, description="Successful operation"),
-     *     @OA\Response(response=401, description="Unauthenticated")
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/ExpenseResource")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
      * )
      */
     public function index(): Response
@@ -150,21 +161,23 @@ class ExpenseController extends Controller implements HasMiddleware
      *     security={{"sanctum":{}}},
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(
-     *             required={"budget_id", "payment_id", "date", "description", "nominal", "type", "month", "year"},
-     *             @OA\Property(property="budget_id", type="integer"),
-     *             @OA\Property(property="payment_id", type="integer"),
-     *             @OA\Property(property="date", type="string", format="date"),
-     *             @OA\Property(property="description", type="string"),
-     *             @OA\Property(property="nominal", type="number"),
-     *             @OA\Property(property="type", type="string"),
-     *             @OA\Property(property="notes", type="string"),
-     *             @OA\Property(property="month", type="string"),
-     *             @OA\Property(property="year", type="integer")
-     *         )
+     *         @OA\JsonContent(ref="#/components/schemas/ExpenseRequest")
      *     ),
-     *     @OA\Response(response=201, description="Expense created successfully"),
-     *     @OA\Response(response=422, description="Validation error")
+     *     @OA\Response(
+     *         response=201,
+     *         description="Expense created successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation Error",
+     *         @OA\JsonContent(ref="#/components/schemas/ValidationError")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
      * )
      */
     public function store(ExpenseRequest $request): RedirectResponse
@@ -238,6 +251,39 @@ class ExpenseController extends Controller implements HasMiddleware
         ]);
     }
 
+    /**
+     * @OA\Put(
+     *     path="/expenses/{expense}",
+     *     summary="Update an existing expense",
+     *     tags={"Expenses"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="expense", in="path", required=true, @OA\Schema(type="string", format="uuid")),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/ExpenseRequest")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Expense updated successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Not Found",
+     *         @OA\JsonContent(ref="#/components/schemas/NotFound")
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation Error",
+     *         @OA\JsonContent(ref="#/components/schemas/ValidationError")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function update(Expense $expense, ExpenseRequest $request): RedirectResponse
     {
         try {
@@ -263,6 +309,30 @@ class ExpenseController extends Controller implements HasMiddleware
         }
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/expenses/{expense}",
+     *     summary="Delete an expense",
+     *     tags={"Expenses"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="expense", in="path", required=true, @OA\Schema(type="string", format="uuid")),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Expense deleted successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Not Found",
+     *         @OA\JsonContent(ref="#/components/schemas/NotFound")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function destroy(Expense $expense): RedirectResponse
     {
         try {

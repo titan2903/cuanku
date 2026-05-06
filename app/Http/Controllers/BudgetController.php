@@ -28,6 +28,31 @@ class BudgetController extends Controller implements HasMiddleware
         ];
     }
 
+    /**
+     * @OA\Get(
+     *     path="/budgets",
+     *     summary="List all budgets",
+     *     tags={"Budgets"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="search", in="query", @OA\Schema(type="string")),
+     *     @OA\Parameter(name="month", in="query", @OA\Schema(type="string")),
+     *     @OA\Parameter(name="year", in="query", @OA\Schema(type="string")),
+     *     @OA\Parameter(name="type", in="query", @OA\Schema(type="string")),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/BudgetResource")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function index(): Response
     {
         $budgets = Budget::query()
@@ -132,6 +157,33 @@ class BudgetController extends Controller implements HasMiddleware
         ]);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/budgets",
+     *     summary="Create a new budget",
+     *     tags={"Budgets"},
+     *     security={{"sanctum":{}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/BudgetRequest")
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Budget created successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation Error",
+     *         @OA\JsonContent(ref="#/components/schemas/ValidationError")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function store(BudgetRequest $request): RedirectResponse
     {
         try {
@@ -175,6 +227,39 @@ class BudgetController extends Controller implements HasMiddleware
         ]);
     }
 
+    /**
+     * @OA\Put(
+     *     path="/budgets/{budget}",
+     *     summary="Update an existing budget",
+     *     tags={"Budgets"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="budget", in="path", required=true, @OA\Schema(type="string", format="uuid")),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/BudgetRequest")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Budget updated successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Not Found",
+     *         @OA\JsonContent(ref="#/components/schemas/NotFound")
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation Error",
+     *         @OA\JsonContent(ref="#/components/schemas/ValidationError")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function update(Budget $budget, BudgetRequest $request): RedirectResponse
     {
         try {
@@ -196,6 +281,30 @@ class BudgetController extends Controller implements HasMiddleware
         }
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/budgets/{budget}",
+     *     summary="Delete a budget",
+     *     tags={"Budgets"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="budget", in="path", required=true, @OA\Schema(type="string", format="uuid")),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Budget deleted successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Not Found",
+     *         @OA\JsonContent(ref="#/components/schemas/NotFound")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function destroy(Budget $budget): RedirectResponse
     {
         try {

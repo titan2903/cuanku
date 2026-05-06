@@ -5,6 +5,16 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * @OA\Schema(
+ *     schema="BalanceRequest",
+ *     title="Balance Request",
+ *     description="Balance request body data",
+ *     type="object",
+ *     required={"amount"},
+ *     @OA\Property(property="amount", type="number")
+ * )
+ */
 class BalanceRequest extends FormRequest
 {
     /**

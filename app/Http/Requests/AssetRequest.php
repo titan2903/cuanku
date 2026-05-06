@@ -7,6 +7,18 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Enum;
 
+/**
+ * @OA\Schema(
+ *     schema="AssetRequest",
+ *     title="Asset Request",
+ *     description="Asset request body data",
+ *     type="object",
+ *     required={"detail", "goal", "type"},
+ *     @OA\Property(property="detail", type="string", description="Detail Aset", example="Rekening BCA"),
+ *     @OA\Property(property="goal", type="number", description="Tujuan Aset", example=10000000),
+ *     @OA\Property(property="type", type="string", description="Tipe Aset", example="Kas")
+ * )
+ */
 class AssetRequest extends FormRequest
 {
     /**

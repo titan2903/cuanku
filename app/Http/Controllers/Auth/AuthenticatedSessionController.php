@@ -14,6 +14,12 @@ use Inertia\Response;
 
 use function App\Helpers\flashMessage;
 
+/**
+ * @OA\Tag(
+ *     name="Authentication",
+ *     description="API Endpoints for Authentication"
+ * )
+ */
 class AuthenticatedSessionController extends Controller
 {
     /**
@@ -28,7 +34,30 @@ class AuthenticatedSessionController extends Controller
     }
 
     /**
-     * Handle an incoming authentication request.
+     * @OA\Post(
+     *     path="/login",
+     *     summary="User login",
+     *     tags={"Authentication"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/LoginRequest")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Login successful",
+     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation Error",
+     *         @OA\JsonContent(ref="#/components/schemas/ValidationError")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
      */
     public function store(LoginRequest $request): RedirectResponse
     {
@@ -50,7 +79,22 @@ class AuthenticatedSessionController extends Controller
     }
 
     /**
-     * Destroy an authenticated session.
+     * @OA\Post(
+     *     path="/logout",
+     *     summary="User logout",
+     *     tags={"Authentication"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Logout successful",
+     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
      */
     public function destroy(Request $request): RedirectResponse
     {

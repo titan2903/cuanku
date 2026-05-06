@@ -7,6 +7,18 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Enum;
 
+/**
+ * @OA\Schema(
+ *     schema="LiabilityRequest",
+ *     title="Liability Request",
+ *     description="Liability request body data",
+ *     type="object",
+ *     required={"detail", "goal", "type"},
+ *     @OA\Property(property="detail", type="string"),
+ *     @OA\Property(property="goal", type="string"),
+ *     @OA\Property(property="type", type="string")
+ * )
+ */
 class LiabilityRequest extends FormRequest
 {
     /**

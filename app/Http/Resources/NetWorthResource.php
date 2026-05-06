@@ -5,6 +5,20 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @OA\Schema(
+ *     schema="NetWorthResource",
+ *     title="NetWorth Resource",
+ *     description="NetWorth resource representation",
+ *     @OA\Property(property="id", type="string", format="uuid"),
+ *     @OA\Property(property="net_worth_goal", type="number"),
+ *     @OA\Property(property="current_net_worth", type="number"),
+ *     @OA\Property(property="amount_left", type="number"),
+ *     @OA\Property(property="transaction_per_month", type="number"),
+ *     @OA\Property(property="year", type="integer"),
+ *     @OA\Property(property="created_at", type="string", format="date-time")
+ * )
+ */
 class NetWorthResource extends JsonResource
 {
     /**

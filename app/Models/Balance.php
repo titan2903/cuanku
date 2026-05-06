@@ -8,6 +8,19 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @OA\Schema(
+ *     schema="Balance",
+ *     title="Balance",
+ *     description="Balance Model",
+ *     @OA\Property(property="id", type="string", format="uuid", description="Primary key"),
+ *     @OA\Property(property="user_id", type="integer", description="User ID"),
+ *     @OA\Property(property="goal_id", type="string", format="uuid", description="Goal ID"),
+ *     @OA\Property(property="amount", type="number", description="Balance amount"),
+ *     @OA\Property(property="created_at", type="string", format="date-time"),
+ *     @OA\Property(property="updated_at", type="string", format="date-time")
+ * )
+ */
 class Balance extends Model
 {
     use HasUuids;

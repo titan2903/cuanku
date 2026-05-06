@@ -5,6 +5,17 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * @OA\Schema(
+ *     schema="NetWorthRequest",
+ *     title="NetWorth Request",
+ *     description="NetWorth request body data",
+ *     type="object",
+ *     required={"net_worth_goal", "transaction_per_month"},
+ *     @OA\Property(property="net_worth_goal", type="number"),
+ *     @OA\Property(property="transaction_per_month", type="number")
+ * )
+ */
 class NetWorthRequest extends FormRequest
 {
     /**

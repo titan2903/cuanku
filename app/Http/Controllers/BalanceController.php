@@ -28,6 +28,29 @@ class BalanceController extends Controller implements HasMiddleware
         ];
     }
 
+    /**
+     * @OA\Get(
+     *     path="/goals/{goal}/balances",
+     *     summary="List all balances for a specific goal",
+     *     tags={"Balances"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="goal", in="path", required=true, @OA\Schema(type="string", format="uuid")),
+     *     @OA\Parameter(name="search", in="query", @OA\Schema(type="string")),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/BalanceResource")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function index(Goal $goal): Response
     {
         $balance = Balance::query()
@@ -96,6 +119,34 @@ class BalanceController extends Controller implements HasMiddleware
         ]);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/goals/{goal}/balances",
+     *     summary="Create a new balance for a goal",
+     *     tags={"Balances"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="goal", in="path", required=true, @OA\Schema(type="string", format="uuid")),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/BalanceRequest")
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Balance created successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation Error",
+     *         @OA\JsonContent(ref="#/components/schemas/ValidationError")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function store(Goal $goal, BalanceRequest $request): RedirectResponse
     {
         try {
@@ -137,6 +188,31 @@ class BalanceController extends Controller implements HasMiddleware
         }
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/goals/{goal}/balances/{balance}",
+     *     summary="Delete a balance",
+     *     tags={"Balances"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="goal", in="path", required=true, @OA\Schema(type="string", format="uuid")),
+     *     @OA\Parameter(name="balance", in="path", required=true, @OA\Schema(type="string", format="uuid")),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Balance deleted successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Not Found",
+     *         @OA\JsonContent(ref="#/components/schemas/NotFound")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function destroy(Goal $goal, Balance $balance): RedirectResponse
     {
         try {

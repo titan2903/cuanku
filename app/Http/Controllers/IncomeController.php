@@ -44,8 +44,19 @@ class IncomeController extends Controller implements HasMiddleware
      *     @OA\Parameter(name="search", in="query", @OA\Schema(type="string")),
      *     @OA\Parameter(name="month", in="query", @OA\Schema(type="string")),
      *     @OA\Parameter(name="year", in="query", @OA\Schema(type="string")),
-     *     @OA\Response(response=200, description="Successful operation"),
-     *     @OA\Response(response=401, description="Unauthenticated")
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/IncomeResource")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
      * )
      */
     public function index(): Response
@@ -139,18 +150,23 @@ class IncomeController extends Controller implements HasMiddleware
      *     security={{"sanctum":{}}},
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(
-     *             required={"budget_id", "date", "nominal", "month", "year"},
-     *             @OA\Property(property="budget_id", type="integer"),
-     *             @OA\Property(property="date", type="string", format="date"),
-     *             @OA\Property(property="nominal", type="number"),
-     *             @OA\Property(property="notes", type="string"),
-     *             @OA\Property(property="month", type="string"),
-     *             @OA\Property(property="year", type="integer")
-     *         )
+     *         @OA\JsonContent(ref="#/components/schemas/IncomeRequest")
      *     ),
-     *     @OA\Response(response=201, description="Income created successfully"),
-     *     @OA\Response(response=422, description="Validation error")
+     *     @OA\Response(
+     *         response=201,
+     *         description="Income created successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation Error",
+     *         @OA\JsonContent(ref="#/components/schemas/ValidationError")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
      * )
      */
     public function store(IncomeRequest $request): RedirectResponse
@@ -214,6 +230,39 @@ class IncomeController extends Controller implements HasMiddleware
         ]);
     }
 
+    /**
+     * @OA\Put(
+     *     path="/incomes/{income}",
+     *     summary="Update an existing income",
+     *     tags={"Incomes"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="income", in="path", required=true, @OA\Schema(type="string", format="uuid")),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/IncomeRequest")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Income updated successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Not Found",
+     *         @OA\JsonContent(ref="#/components/schemas/NotFound")
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation Error",
+     *         @OA\JsonContent(ref="#/components/schemas/ValidationError")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function update(Income $income, IncomeRequest $request): RedirectResponse
     {
         try {
@@ -236,6 +285,30 @@ class IncomeController extends Controller implements HasMiddleware
         }
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/incomes/{income}",
+     *     summary="Delete an income",
+     *     tags={"Incomes"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="income", in="path", required=true, @OA\Schema(type="string", format="uuid")),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Income deleted successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Not Found",
+     *         @OA\JsonContent(ref="#/components/schemas/NotFound")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function destroy(Income $income): RedirectResponse
     {
         try {

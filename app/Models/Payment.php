@@ -9,6 +9,21 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Crypt;
 
+/**
+ * @OA\Schema(
+ *     schema="Payment",
+ *     title="Payment",
+ *     description="Payment Model",
+ *     @OA\Property(property="id", type="string", format="uuid"),
+ *     @OA\Property(property="user_id", type="integer"),
+ *     @OA\Property(property="name", type="string"),
+ *     @OA\Property(property="type", type="string"),
+ *     @OA\Property(property="account_number", type="string"),
+ *     @OA\Property(property="account_owner", type="string"),
+ *     @OA\Property(property="created_at", type="string", format="date-time"),
+ *     @OA\Property(property="updated_at", type="string", format="date-time")
+ * )
+ */
 class Payment extends Model
 {
     use HasUuids;

@@ -28,6 +28,28 @@ class GoalController extends Controller implements HasMiddleware
         ];
     }
 
+    /**
+     * @OA\Get(
+     *     path="/goals",
+     *     summary="List all goals",
+     *     tags={"Goals"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="search", in="query", @OA\Schema(type="string")),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/GoalResource")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function index(): Response
     {
         $goals = Goal::query()
@@ -99,7 +121,7 @@ class GoalController extends Controller implements HasMiddleware
                 'action' => route('goals.store'),
                 'banner' => [
                     'title' => 'Buat Tujuan',
-                    'subtitle' => 'Mulailah perjalanan menabungmu hari ini.',
+                    'subtitle' => ' Mulailah perjalanan menabungmu hari ini.',
                 ],
             ],
             'items' => fn () => [
@@ -110,6 +132,33 @@ class GoalController extends Controller implements HasMiddleware
         ]);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/goals",
+     *     summary="Create a new goal",
+     *     tags={"Goals"},
+     *     security={{"sanctum":{}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/GoalRequest")
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Goal created successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation Error",
+     *         @OA\JsonContent(ref="#/components/schemas/ValidationError")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function store(GoalRequest $request): RedirectResponse
     {
         try {
@@ -154,6 +203,39 @@ class GoalController extends Controller implements HasMiddleware
         ]);
     }
 
+    /**
+     * @OA\Put(
+     *     path="/goals/{goal}",
+     *     summary="Update an existing goal",
+     *     tags={"Goals"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="goal", in="path", required=true, @OA\Schema(type="string", format="uuid")),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/GoalRequest")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Goal updated successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Not Found",
+     *         @OA\JsonContent(ref="#/components/schemas/NotFound")
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation Error",
+     *         @OA\JsonContent(ref="#/components/schemas/ValidationError")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function update(Goal $goal, GoalRequest $request): RedirectResponse
     {
         try {
@@ -180,6 +262,30 @@ class GoalController extends Controller implements HasMiddleware
         }
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/goals/{goal}",
+     *     summary="Delete a goal",
+     *     tags={"Goals"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="goal", in="path", required=true, @OA\Schema(type="string", format="uuid")),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Goal deleted successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Not Found",
+     *         @OA\JsonContent(ref="#/components/schemas/NotFound")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function destroy(Goal $goal): RedirectResponse
     {
         try {

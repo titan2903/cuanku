@@ -19,6 +19,12 @@ use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Response as InertiaResponse;
 
+/**
+ * @OA\Tag(
+ *     name="Report Trackings",
+ *     description="API Endpoints for Report Trackings"
+ * )
+ */
 class ReportTrackingController extends Controller implements HasMiddleware
 {
     use BudgetTrait, FormatReportTrait;
@@ -31,6 +37,30 @@ class ReportTrackingController extends Controller implements HasMiddleware
         ];
     }
 
+    /**
+     * @OA\Get(
+     *     path="/report-trackings",
+     *     summary="Get tracking reports",
+     *     tags={"Report Trackings"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="month", in="query", @OA\Schema(type="string")),
+     *     @OA\Parameter(name="year", in="query", @OA\Schema(type="integer")),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="reports", type="object"),
+     *             @OA\Property(property="incomeTrackers", type="array", @OA\Items(ref="#/components/schemas/IncomeResource")),
+     *             @OA\Property(property="expenseTrackers", type="array", @OA\Items(ref="#/components/schemas/ExpenseResource"))
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function __invoke(Request $request): InertiaResponse
     {
         $budgetIncomes = $this->prepareBudgetData($request, BudgetType::INCOME->value, Income::class, 'budget_id');
@@ -165,6 +195,26 @@ class ReportTrackingController extends Controller implements HasMiddleware
         ]);
     }
 
+    /**
+     * @OA\Get(
+     *     path="/report-trackings/download",
+     *     summary="Download tracking report PDF",
+     *     tags={"Report Trackings"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="month", in="query", @OA\Schema(type="string")),
+     *     @OA\Parameter(name="year", in="query", @OA\Schema(type="integer")),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\MediaType(mediaType="application/pdf")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function downloadPdf(Request $request): Response
     {
         // Menggunakan data yang sama dengan method __invoke

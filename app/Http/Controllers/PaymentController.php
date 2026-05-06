@@ -27,6 +27,28 @@ class PaymentController extends Controller implements HasMiddleware
         ];
     }
 
+    /**
+     * @OA\Get(
+     *     path="/payments",
+     *     summary="List all payments methods",
+     *     tags={"Payments"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="search", in="query", @OA\Schema(type="string")),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/PaymentResource")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function index(): Response
     {
         $payments = Payment::query()
@@ -84,6 +106,33 @@ class PaymentController extends Controller implements HasMiddleware
         ]);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/payments",
+     *     summary="Create a new payment method",
+     *     tags={"Payments"},
+     *     security={{"sanctum":{}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/PaymentRequest")
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Payment method created successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation Error",
+     *         @OA\JsonContent(ref="#/components/schemas/ValidationError")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function store(PaymentRequest $request): RedirectResponse
     {
         try {
@@ -124,6 +173,39 @@ class PaymentController extends Controller implements HasMiddleware
         ]);
     }
 
+    /**
+     * @OA\Put(
+     *     path="/payments/{payment}",
+     *     summary="Update an existing payment method",
+     *     tags={"Payments"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="payment", in="path", required=true, @OA\Schema(type="string", format="uuid")),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/PaymentRequest")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Payment method updated successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Not Found",
+     *         @OA\JsonContent(ref="#/components/schemas/NotFound")
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation Error",
+     *         @OA\JsonContent(ref="#/components/schemas/ValidationError")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function update(Payment $payment, PaymentRequest $request): RedirectResponse
     {
         try {
@@ -151,6 +233,30 @@ class PaymentController extends Controller implements HasMiddleware
         }
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/payments/{payment}",
+     *     summary="Delete a payment method",
+     *     tags={"Payments"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="payment", in="path", required=true, @OA\Schema(type="string", format="uuid")),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Payment method deleted successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Not Found",
+     *         @OA\JsonContent(ref="#/components/schemas/NotFound")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function destroy(Payment $payment): RedirectResponse
     {
         try {

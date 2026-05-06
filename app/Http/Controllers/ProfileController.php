@@ -11,10 +11,30 @@ use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
 
+/**
+ * @OA\Tag(
+ *     name="Profile",
+ *     description="API Endpoints for User Profile"
+ * )
+ */
 class ProfileController extends Controller
 {
     /**
-     * Display the user's profile form.
+     * @OA\Get(
+     *     path="/profile",
+     *     summary="Get user profile",
+     *     tags={"Profile"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation"
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
      */
     public function edit(Request $request): Response
     {
@@ -25,7 +45,34 @@ class ProfileController extends Controller
     }
 
     /**
-     * Update the user's profile information.
+     * @OA\Patch(
+     *     path="/profile",
+     *     summary="Update user profile",
+     *     tags={"Profile"},
+     *     security={{"sanctum":{}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="name", type="string"),
+     *             @OA\Property(property="email", type="string", format="email")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Profile updated successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation Error",
+     *         @OA\JsonContent(ref="#/components/schemas/ValidationError")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
@@ -41,7 +88,33 @@ class ProfileController extends Controller
     }
 
     /**
-     * Delete the user's account.
+     * @OA\Delete(
+     *     path="/profile",
+     *     summary="Delete user account",
+     *     tags={"Profile"},
+     *     security={{"sanctum":{}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="password", type="string", format="password")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Account deleted successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation Error",
+     *         @OA\JsonContent(ref="#/components/schemas/ValidationError")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
      */
     public function destroy(Request $request): RedirectResponse
     {

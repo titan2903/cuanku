@@ -6,6 +6,17 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * @OA\Schema(
+ *     title="UserSingleResource",
+ *     description="User single resource",
+ *     @OA\Property(property="id", type="string", format="uuid"),
+ *     @OA\Property(property="name", type="string"),
+ *     @OA\Property(property="email", type="string", format="email"),
+ *     @OA\Property(property="avatar", type="string", format="url", nullable=true),
+ *     @OA\Property(property="phone_number", type="string")
+ * )
+ */
 class UserSingleResource extends JsonResource
 {
     /**

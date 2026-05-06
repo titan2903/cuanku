@@ -30,6 +30,26 @@ class LiabilityController extends Controller implements HasMiddleware
         ];
     }
 
+    /**
+     * @OA\Get(
+     *     path="/net-worths/{netWorth}/liabilities",
+     *     summary="List all liabilities for a specific net worth",
+     *     tags={"Liabilities"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="netWorth", in="path", required=true, @OA\Schema(type="string", format="uuid")),
+     *     @OA\Parameter(name="search", in="query", @OA\Schema(type="string")),
+     *     @OA\Parameter(name="type", in="query", @OA\Schema(type="string")),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/LiabilityResource")
+     *         )
+     *     ),
+     *     @OA\Response(response=401, ref="#/components/schemas/Unauthorized")
+     * )
+     */
     public function index(NetWorth $netWorth): Response
     {
         $liabilities = Liability::query()
@@ -96,6 +116,34 @@ class LiabilityController extends Controller implements HasMiddleware
         ]);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/net-worths/{netWorth}/liabilities",
+     *     summary="Create a new liability",
+     *     tags={"Liabilities"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="netWorth", in="path", required=true, @OA\Schema(type="string", format="uuid")),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/LiabilityRequest")
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Liability created successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation Error",
+     *         @OA\JsonContent(ref="#/components/schemas/ValidationError")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function store(NetWorth $netWorth, LiabilityRequest $request): RedirectResponse
     {
         try {
@@ -138,6 +186,40 @@ class LiabilityController extends Controller implements HasMiddleware
         ]);
     }
 
+    /**
+     * @OA\Put(
+     *     path="/net-worths/{netWorth}/liabilities/{liability}",
+     *     summary="Update an existing liability",
+     *     tags={"Liabilities"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="netWorth", in="path", required=true, @OA\Schema(type="string", format="uuid")),
+     *     @OA\Parameter(name="liability", in="path", required=true, @OA\Schema(type="string", format="uuid")),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/LiabilityRequest")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Liability updated successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *     ),
+     *     *     @OA\Response(
+     *         response=404,
+     *         description="Not Found",
+     *         @OA\JsonContent(ref="#/components/schemas/NotFound")
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation Error",
+     *         @OA\JsonContent(ref="#/components/schemas/ValidationError")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function update(NetWorth $netWorth, Liability $liability, LiabilityRequest $request): RedirectResponse
     {
         try {
@@ -157,6 +239,31 @@ class LiabilityController extends Controller implements HasMiddleware
         }
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/net-worths/{netWorth}/liabilities/{liability}",
+     *     summary="Delete a liability",
+     *     tags={"Liabilities"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="netWorth", in="path", required=true, @OA\Schema(type="string", format="uuid")),
+     *     @OA\Parameter(name="liability", in="path", required=true, @OA\Schema(type="string", format="uuid")),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Liability deleted successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *     ),
+     *     *     @OA\Response(
+     *         response=404,
+     *         description="Not Found",
+     *         @OA\JsonContent(ref="#/components/schemas/NotFound")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function destroy(NetWorth $netWorth, Liability $liability): RedirectResponse
     {
         try {

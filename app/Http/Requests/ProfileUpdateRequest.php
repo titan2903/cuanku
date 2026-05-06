@@ -6,6 +6,14 @@ use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
+/**
+ * @OA\Schema(
+ *     schema="ProfileUpdateRequest",
+ *     required={"name", "email"},
+ *     @OA\Property(property="name", type="string", example="John Doe"),
+ *     @OA\Property(property="email", type="string", format="email", example="john@example.com")
+ * )
+ */
 class ProfileUpdateRequest extends FormRequest
 {
     /**

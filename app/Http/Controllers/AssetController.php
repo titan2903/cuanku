@@ -42,11 +42,22 @@ class AssetController extends Controller implements HasMiddleware
      *     summary="List all assets for a specific net worth",
      *     tags={"Assets"},
      *     security={{"sanctum":{}}},
-     *     @OA\Parameter(name="netWorth", in="path", required=true, @OA\Schema(type="integer")),
+     *     @OA\Parameter(name="netWorth", in="path", required=true, @OA\Schema(type="string", format="uuid")),
      *     @OA\Parameter(name="search", in="query", @OA\Schema(type="string")),
      *     @OA\Parameter(name="type", in="query", @OA\Schema(type="string")),
-     *     @OA\Response(response=200, description="Successful operation"),
-     *     @OA\Response(response=401, description="Unauthenticated")
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/AssetResource")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
      * )
      */
     public function index(NetWorth $netWorth): Response
@@ -121,18 +132,26 @@ class AssetController extends Controller implements HasMiddleware
      *     summary="Create a new asset",
      *     tags={"Assets"},
      *     security={{"sanctum":{}}},
-     *     @OA\Parameter(name="netWorth", in="path", required=true, @OA\Schema(type="integer")),
+     *     @OA\Parameter(name="netWorth", in="path", required=true, @OA\Schema(type="string", format="uuid")),
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(
-     *             required={"detail", "goal", "type"},
-     *             @OA\Property(property="detail", type="string"),
-     *             @OA\Property(property="goal", type="number"),
-     *             @OA\Property(property="type", type="string")
-     *         )
+     *         @OA\JsonContent(ref="#/components/schemas/AssetRequest")
      *     ),
-     *     @OA\Response(response=201, description="Asset created successfully"),
-     *     @OA\Response(response=422, description="Validation error")
+     *     @OA\Response(
+     *         response=201,
+     *         description="Asset created successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation Error",
+     *         @OA\JsonContent(ref="#/components/schemas/ValidationError")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
      * )
      */
     public function store(NetWorth $netWorth, AssetRequest $request): RedirectResponse
@@ -177,6 +196,40 @@ class AssetController extends Controller implements HasMiddleware
         ]);
     }
 
+    /**
+     * @OA\Put(
+     *     path="/net-worths/{netWorth}/assets/{asset}",
+     *     summary="Update an existing asset",
+     *     tags={"Assets"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="netWorth", in="path", required=true, @OA\Schema(type="string", format="uuid")),
+     *     @OA\Parameter(name="asset", in="path", required=true, @OA\Schema(type="string", format="uuid")),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/AssetRequest")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Asset updated successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Not Found",
+     *         @OA\JsonContent(ref="#/components/schemas/NotFound")
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation Error",
+     *         @OA\JsonContent(ref="#/components/schemas/ValidationError")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function update(NetWorth $netWorth, Asset $asset, AssetRequest $request): RedirectResponse
     {
         try {
@@ -196,6 +249,31 @@ class AssetController extends Controller implements HasMiddleware
         }
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/net-worths/{netWorth}/assets/{asset}",
+     *     summary="Delete an asset",
+     *     tags={"Assets"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="netWorth", in="path", required=true, @OA\Schema(type="string", format="uuid")),
+     *     @OA\Parameter(name="asset", in="path", required=true, @OA\Schema(type="string", format="uuid")),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Asset deleted successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Not Found",
+     *         @OA\JsonContent(ref="#/components/schemas/NotFound")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function destroy(NetWorth $netWorth, Asset $asset): RedirectResponse
     {
         try {

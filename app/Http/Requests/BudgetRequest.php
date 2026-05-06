@@ -8,6 +8,20 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Enum;
 
+/**
+ * @OA\Schema(
+ *     schema="BudgetRequest",
+ *     title="Budget Request",
+ *     description="Budget request body data",
+ *     type="object",
+ *     required={"detail", "nominal", "month", "year", "type"},
+ *     @OA\Property(property="detail", type="string"),
+ *     @OA\Property(property="nominal", type="number"),
+ *     @OA\Property(property="month", type="string"),
+ *     @OA\Property(property="year", type="integer"),
+ *     @OA\Property(property="type", type="string")
+ * )
+ */
 class BudgetRequest extends FormRequest
 {
     /**

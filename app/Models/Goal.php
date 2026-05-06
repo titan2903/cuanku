@@ -12,6 +12,23 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[ObservedBy(GoalObserver::class)]
 
+/**
+ * @OA\Schema(
+ *     schema="Goal",
+ *     title="Goal",
+ *     description="Goal Model",
+ *     @OA\Property(property="id", type="string", format="uuid"),
+ *     @OA\Property(property="user_id", type="integer"),
+ *     @OA\Property(property="name", type="string"),
+ *     @OA\Property(property="nominal", type="number"),
+ *     @OA\Property(property="monthly_saving", type="number"),
+ *     @OA\Property(property="deadline", type="string", format="date"),
+ *     @OA\Property(property="beginning_balance", type="number"),
+ *     @OA\Property(property="percentage", type="number", format="float"),
+ *     @OA\Property(property="created_at", type="string", format="date-time"),
+ *     @OA\Property(property="updated_at", type="string", format="date-time")
+ * )
+ */
 class Goal extends Model
 {
     use HasUuids;

@@ -6,6 +6,19 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Crypt;
 
+/**
+ * @OA\Schema(
+ *     schema="PaymentResource",
+ *     title="Payment Resource",
+ *     description="Payment resource representation",
+ *     @OA\Property(property="id", type="string", format="uuid"),
+ *     @OA\Property(property="name", type="string"),
+ *     @OA\Property(property="type", type="string"),
+ *     @OA\Property(property="account_number", type="string"),
+ *     @OA\Property(property="account_owner", type="string"),
+ *     @OA\Property(property="created_at", type="string", format="date-time")
+ * )
+ */
 class PaymentResource extends JsonResource
 {
     /**

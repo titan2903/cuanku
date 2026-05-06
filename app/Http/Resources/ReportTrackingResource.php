@@ -5,6 +5,12 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @OA\Schema(
+ *     title="ReportTrackingResource",
+ *     description="Report tracking resource"
+ * )
+ */
 class ReportTrackingResource extends JsonResource
 {
     /**

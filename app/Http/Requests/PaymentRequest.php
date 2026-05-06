@@ -7,6 +7,19 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Enum;
 
+/**
+ * @OA\Schema(
+ *     schema="PaymentRequest",
+ *     title="Payment Request",
+ *     description="Payment request body data",
+ *     type="object",
+ *     required={"name", "type"},
+ *     @OA\Property(property="name", type="string"),
+ *     @OA\Property(property="type", type="string"),
+ *     @OA\Property(property="account_number", type="string"),
+ *     @OA\Property(property="account_owner", type="string")
+ * )
+ */
 class PaymentRequest extends FormRequest
 {
     /**

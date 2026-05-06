@@ -16,6 +16,12 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Inertia\Response as InertiaResponse;
 
+/**
+ * @OA\Tag(
+ *     name="Annual Reports",
+ *     description="API Endpoints for Annual Reports"
+ * )
+ */
 class AnnualReportController extends Controller implements HasMiddleware
 {
     use BudgetTrait, FormatReportTrait;
@@ -93,6 +99,27 @@ class AnnualReportController extends Controller implements HasMiddleware
         })->toArray();
     }
 
+    /**
+     * @OA\Get(
+     *     path="/annual-reports",
+     *     summary="Get annual reports",
+     *     tags={"Annual Reports"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="year", in="query", @OA\Schema(type="integer")),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="annuals", type="object")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function index(Request $request): InertiaResponse
     {
         $annualIncomes = $this->prepareBudgetData($request, BudgetType::INCOME->value, Income::class, 'budget_id');
@@ -172,6 +199,25 @@ class AnnualReportController extends Controller implements HasMiddleware
         ]);
     }
 
+    /**
+     * @OA\Get(
+     *     path="/annual-reports/download",
+     *     summary="Download annual report PDF",
+     *     tags={"Annual Reports"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="year", in="query", @OA\Schema(type="integer")),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\MediaType(mediaType="application/pdf")
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function downloadPdf(Request $request): Response
     {
         $annualIncomes = $this->prepareBudgetData($request, BudgetType::INCOME->value, Income::class, 'budget_id');

@@ -5,6 +5,20 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * @OA\Schema(
+ *     schema="GoalRequest",
+ *     title="Goal Request",
+ *     description="Goal request body data",
+ *     type="object",
+ *     required={"name", "nominal", "monthly_saving", "deadline"},
+ *     @OA\Property(property="name", type="string"),
+ *     @OA\Property(property="nominal", type="number"),
+ *     @OA\Property(property="monthly_saving", type="number"),
+ *     @OA\Property(property="deadline", type="string", format="date"),
+ *     @OA\Property(property="beginning_balance", type="number")
+ * )
+ */
 class GoalRequest extends FormRequest
 {
     /**

@@ -15,6 +15,12 @@ use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
 
+/**
+ * @OA\Tag(
+ *     name="Dashboard",
+ *     description="API Endpoints for Dashboard"
+ * )
+ */
 class DashboardController extends Controller implements HasMiddleware
 {
     public static function middleware(): array
@@ -24,6 +30,29 @@ class DashboardController extends Controller implements HasMiddleware
         ];
     }
 
+    /**
+     * @OA\Get(
+     *     path="/dashboard",
+     *     summary="Get dashboard data",
+     *     tags={"Dashboard"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="sum", type="object"),
+     *             @OA\Property(property="goals", type="array", @OA\Items(ref="#/components/schemas/GoalResource")),
+     *             @OA\Property(property="incomes", type="array", @OA\Items(ref="#/components/schemas/IncomeResource")),
+     *             @OA\Property(property="expenses", type="array", @OA\Items(ref="#/components/schemas/ExpenseResource"))
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(ref="#/components/schemas/Unauthorized")
+     *     )
+     * )
+     */
     public function index(): Response
     {
         $incomeSum = Income::query()

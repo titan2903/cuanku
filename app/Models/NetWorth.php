@@ -8,6 +8,22 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @OA\Schema(
+ *     schema="NetWorth",
+ *     title="Net Worth",
+ *     description="Net Worth Model",
+ *     @OA\Property(property="id", type="string", format="uuid"),
+ *     @OA\Property(property="user_id", type="integer"),
+ *     @OA\Property(property="net_worth_goal", type="number"),
+ *     @OA\Property(property="current_net_worth", type="number"),
+ *     @OA\Property(property="amount_left", type="number"),
+ *     @OA\Property(property="transaction_per_month", type="number"),
+ *     @OA\Property(property="year", type="integer"),
+ *     @OA\Property(property="created_at", type="string", format="date-time"),
+ *     @OA\Property(property="updated_at", type="string", format="date-time")
+ * )
+ */
 class NetWorth extends Model
 {
     use HasUuids;

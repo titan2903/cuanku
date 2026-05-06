@@ -13,6 +13,21 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[ObservedBy(AssetObserver::class)]
 
+/**
+ * @OA\Schema(
+ *     schema="Asset",
+ *     title="Asset",
+ *     description="Asset Model",
+ *     @OA\Property(property="id", type="string", format="uuid", description="Primary key"),
+ *     @OA\Property(property="user_id", type="integer", description="User ID"),
+ *     @OA\Property(property="net_worth_id", type="string", format="uuid", description="Net Worth ID"),
+ *     @OA\Property(property="detail", type="string", description="Asset Detail"),
+ *     @OA\Property(property="goal", type="number", description="Asset Goal Amount"),
+ *     @OA\Property(property="type", type="string", description="Asset Type"),
+ *     @OA\Property(property="created_at", type="string", format="date-time", description="Creation timestamp"),
+ *     @OA\Property(property="updated_at", type="string", format="date-time", description="Update timestamp")
+ * )
+ */
 class Asset extends Model
 {
     use HasUuids;
