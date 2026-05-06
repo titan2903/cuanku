@@ -38,8 +38,9 @@ class PaymentController extends Controller implements HasMiddleware
      *         response=200,
      *         description="Successful operation",
      *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(ref="#/components/schemas/PaymentResource")
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Payment method retrieved successfully."),
+     *             @OA\Property(property="data", type="array", @OA\Items(ref="#/components/schemas/PaymentResource"))
      *         )
      *     ),
      *     @OA\Response(
@@ -119,7 +120,10 @@ class PaymentController extends Controller implements HasMiddleware
      *     @OA\Response(
      *         response=201,
      *         description="Payment method created successfully",
-     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Payment method created successfully.")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=422,
@@ -187,7 +191,10 @@ class PaymentController extends Controller implements HasMiddleware
      *     @OA\Response(
      *         response=200,
      *         description="Payment method updated successfully",
-     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Payment method updated successfully.")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=404,
@@ -243,7 +250,10 @@ class PaymentController extends Controller implements HasMiddleware
      *     @OA\Response(
      *         response=200,
      *         description="Payment method deleted successfully",
-     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Payment method deleted successfully.")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=404,

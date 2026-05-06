@@ -40,8 +40,9 @@ class BalanceController extends Controller implements HasMiddleware
      *         response=200,
      *         description="Successful operation",
      *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(ref="#/components/schemas/BalanceResource")
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Balance retrieved successfully."),
+     *             @OA\Property(property="data", type="array", @OA\Items(ref="#/components/schemas/BalanceResource"))
      *         )
      *     ),
      *     @OA\Response(
@@ -133,7 +134,10 @@ class BalanceController extends Controller implements HasMiddleware
      *     @OA\Response(
      *         response=201,
      *         description="Balance created successfully",
-     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Balance created successfully.")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=422,
@@ -199,7 +203,10 @@ class BalanceController extends Controller implements HasMiddleware
      *     @OA\Response(
      *         response=200,
      *         description="Balance deleted successfully",
-     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Balance deleted successfully.")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=404,

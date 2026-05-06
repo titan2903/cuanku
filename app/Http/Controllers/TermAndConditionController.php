@@ -20,8 +20,12 @@ class TermAndConditionController extends Controller
      *     tags={"Legal"},
      *     @OA\Response(
      *         response=200,
-     *         description="Successful operation"
-     *     )
+     *         description="Terms and conditions retrieved successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Terms and conditions retrieved successfully.")
+     *         )
+     *     ),
      * )
      */
     public function index(): Response

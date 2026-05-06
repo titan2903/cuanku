@@ -46,7 +46,10 @@ class NetWorthAssetController extends Controller implements HasMiddleware
      *     @OA\Response(
      *         response=201,
      *         description="Transaction added successfully",
-     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Transaction added successfully.")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=401,

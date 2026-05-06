@@ -27,7 +27,12 @@ class ProfileController extends Controller
      *     security={{"sanctum":{}}},
      *     @OA\Response(
      *         response=200,
-     *         description="Successful operation"
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Profile retrieved successfully."),
+     *             @OA\Property(property="data", ref="#/components/schemas/UserSingleResource")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=401,
@@ -60,7 +65,10 @@ class ProfileController extends Controller
      *     @OA\Response(
      *         response=200,
      *         description="Profile updated successfully",
-     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Profile updated successfully.")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=422,
@@ -102,7 +110,10 @@ class ProfileController extends Controller
      *     @OA\Response(
      *         response=200,
      *         description="Account deleted successfully",
-     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Account deleted successfully.")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=422,

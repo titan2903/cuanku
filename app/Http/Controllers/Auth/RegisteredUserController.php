@@ -37,7 +37,10 @@ class RegisteredUserController extends Controller
      *     @OA\Response(
      *         response=201,
      *         description="Registration successful",
-     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Registration successful.")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=422,

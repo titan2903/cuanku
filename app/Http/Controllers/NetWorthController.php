@@ -45,8 +45,9 @@ class NetWorthController extends Controller implements HasMiddleware
      *         response=200,
      *         description="Successful operation",
      *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(ref="#/components/schemas/NetWorthResource")
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Net Worth retrieved successfully."),
+     *             @OA\Property(property="data", type="array", @OA\Items(ref="#/components/schemas/NetWorthResource"))
      *         )
      *     ),
      *     @OA\Response(
@@ -127,7 +128,10 @@ class NetWorthController extends Controller implements HasMiddleware
      *     @OA\Response(
      *         response=201,
      *         description="Net Worth created successfully",
-     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Net Worth created successfully.")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=422,
@@ -173,7 +177,11 @@ class NetWorthController extends Controller implements HasMiddleware
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/NetWorthResource")
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Net Worth retrieved successfully."),
+     *             @OA\Property(property="data", ref="#/components/schemas/NetWorthResource")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=404,
@@ -248,7 +256,10 @@ class NetWorthController extends Controller implements HasMiddleware
      *     @OA\Response(
      *         response=200,
      *         description="Net Worth updated successfully",
-     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Net Worth updated successfully.")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=404,
@@ -296,7 +307,10 @@ class NetWorthController extends Controller implements HasMiddleware
      *     @OA\Response(
      *         response=200,
      *         description="Net Worth deleted successfully",
-     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Net Worth deleted successfully.")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=404,

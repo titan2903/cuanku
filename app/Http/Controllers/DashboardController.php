@@ -40,10 +40,14 @@ class DashboardController extends Controller implements HasMiddleware
      *         response=200,
      *         description="Successful operation",
      *         @OA\JsonContent(
-     *             @OA\Property(property="sum", type="object"),
-     *             @OA\Property(property="goals", type="array", @OA\Items(ref="#/components/schemas/GoalResource")),
-     *             @OA\Property(property="incomes", type="array", @OA\Items(ref="#/components/schemas/IncomeResource")),
-     *             @OA\Property(property="expenses", type="array", @OA\Items(ref="#/components/schemas/ExpenseResource"))
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Dashboard data retrieved successfully."),
+     *             @OA\Property(property="data", type="object",
+     *                 @OA\Property(property="sum", type="object"),
+     *                 @OA\Property(property="goals", type="array", @OA\Items(ref="#/components/schemas/GoalResource")),
+     *                 @OA\Property(property="incomes", type="array", @OA\Items(ref="#/components/schemas/IncomeResource")),
+     *                 @OA\Property(property="expenses", type="array", @OA\Items(ref="#/components/schemas/ExpenseResource"))
+     *             )
      *         )
      *     ),
      *     @OA\Response(

@@ -49,8 +49,9 @@ class ExpenseController extends Controller implements HasMiddleware
      *         response=200,
      *         description="Successful operation",
      *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(ref="#/components/schemas/ExpenseResource")
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Expense retrieved successfully."),
+     *             @OA\Property(property="data", type="array", @OA\Items(ref="#/components/schemas/ExpenseResource"))
      *         )
      *     ),
      *     @OA\Response(
@@ -166,7 +167,10 @@ class ExpenseController extends Controller implements HasMiddleware
      *     @OA\Response(
      *         response=201,
      *         description="Expense created successfully",
-     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Expense created successfully.")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=422,
@@ -265,7 +269,10 @@ class ExpenseController extends Controller implements HasMiddleware
      *     @OA\Response(
      *         response=200,
      *         description="Expense updated successfully",
-     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Expense updated successfully.")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=404,
@@ -319,7 +326,10 @@ class ExpenseController extends Controller implements HasMiddleware
      *     @OA\Response(
      *         response=200,
      *         description="Expense deleted successfully",
-     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Expense deleted successfully.")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=404,

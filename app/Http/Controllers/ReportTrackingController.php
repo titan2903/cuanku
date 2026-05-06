@@ -49,9 +49,13 @@ class ReportTrackingController extends Controller implements HasMiddleware
      *         response=200,
      *         description="Successful operation",
      *         @OA\JsonContent(
-     *             @OA\Property(property="reports", type="object"),
-     *             @OA\Property(property="incomeTrackers", type="array", @OA\Items(ref="#/components/schemas/IncomeResource")),
-     *             @OA\Property(property="expenseTrackers", type="array", @OA\Items(ref="#/components/schemas/ExpenseResource"))
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Tracking report retrieved successfully."),
+     *             @OA\Property(property="data", type="object",
+     *                 @OA\Property(property="reports", type="object"),
+     *                 @OA\Property(property="incomeTrackers", type="array", @OA\Items(ref="#/components/schemas/IncomeResource")),
+     *                 @OA\Property(property="expenseTrackers", type="array", @OA\Items(ref="#/components/schemas/ExpenseResource"))
+     *             )
      *         )
      *     ),
      *     @OA\Response(

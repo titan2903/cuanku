@@ -45,7 +45,10 @@ class AuthenticatedSessionController extends Controller
      *     @OA\Response(
      *         response=200,
      *         description="Login successful",
-     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Login successful.")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=422,
@@ -87,7 +90,10 @@ class AuthenticatedSessionController extends Controller
      *     @OA\Response(
      *         response=200,
      *         description="Logout successful",
-     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Logout successful.")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=401,

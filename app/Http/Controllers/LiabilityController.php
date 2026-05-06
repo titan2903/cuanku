@@ -43,8 +43,9 @@ class LiabilityController extends Controller implements HasMiddleware
      *         response=200,
      *         description="Successful operation",
      *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(ref="#/components/schemas/LiabilityResource")
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Liability retrieved successfully."),
+     *             @OA\Property(property="data", type="array", @OA\Items(ref="#/components/schemas/LiabilityResource"))
      *         )
      *     ),
      *     @OA\Response(response=401, ref="#/components/schemas/Unauthorized")
@@ -130,7 +131,10 @@ class LiabilityController extends Controller implements HasMiddleware
      *     @OA\Response(
      *         response=201,
      *         description="Liability created successfully",
-     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Liability created successfully.")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=422,
@@ -201,7 +205,10 @@ class LiabilityController extends Controller implements HasMiddleware
      *     @OA\Response(
      *         response=200,
      *         description="Liability updated successfully",
-     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Liability updated successfully.")
+     *         )
      *     ),
      *     *     @OA\Response(
      *         response=404,
@@ -250,7 +257,10 @@ class LiabilityController extends Controller implements HasMiddleware
      *     @OA\Response(
      *         response=200,
      *         description="Liability deleted successfully",
-     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Liability deleted successfully.")
+     *         )
      *     ),
      *     *     @OA\Response(
      *         response=404,

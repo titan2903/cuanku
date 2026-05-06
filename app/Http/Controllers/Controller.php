@@ -20,6 +20,7 @@ namespace App\Http\Controllers;
  *     schema="ValidationError",
  *     title="Validation Error",
  *     description="Validation error response",
+ *     @OA\Property(property="status", type="string", example="error"),
  *     @OA\Property(property="message", type="string", example="The given data was invalid."),
  *     @OA\Property(
  *         property="errors",
@@ -38,6 +39,7 @@ namespace App\Http\Controllers;
  *     schema="Unauthorized",
  *     title="Unauthorized",
  *     description="Unauthorized error response",
+ *     @OA\Property(property="status", type="string", example="error"),
  *     @OA\Property(property="message", type="string", example="Unauthenticated.")
  * )
  *
@@ -45,6 +47,7 @@ namespace App\Http\Controllers;
  *     schema="NotFound",
  *     title="Not Found",
  *     description="Resource not found response",
+ *     @OA\Property(property="status", type="string", example="error"),
  *     @OA\Property(property="message", type="string", example="No query results for model.")
  * )
  *
@@ -52,6 +55,7 @@ namespace App\Http\Controllers;
  *     schema="Forbidden",
  *     title="Forbidden",
  *     description="Forbidden error response",
+ *     @OA\Property(property="status", type="string", example="error"),
  *     @OA\Property(property="message", type="string", example="This action is unauthorized.")
  * )
  *
@@ -61,6 +65,7 @@ namespace App\Http\Controllers;
  *     @OA\Property(property="status", type="string", example="success"),
  *     @OA\Property(property="message", type="string", example="Operation completed successfully.")
  * )
+ *
  *
  * @OA\Schema(
  *     schema="RegisterRequest",

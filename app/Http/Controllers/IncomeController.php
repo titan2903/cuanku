@@ -48,8 +48,9 @@ class IncomeController extends Controller implements HasMiddleware
      *         response=200,
      *         description="Successful operation",
      *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(ref="#/components/schemas/IncomeResource")
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Income retrieved successfully."),
+     *             @OA\Property(property="data", type="array", @OA\Items(ref="#/components/schemas/IncomeResource"))
      *         )
      *     ),
      *     @OA\Response(
@@ -155,7 +156,10 @@ class IncomeController extends Controller implements HasMiddleware
      *     @OA\Response(
      *         response=201,
      *         description="Income created successfully",
-     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Income created successfully.")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=422,
@@ -244,7 +248,10 @@ class IncomeController extends Controller implements HasMiddleware
      *     @OA\Response(
      *         response=200,
      *         description="Income updated successfully",
-     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Income updated successfully.")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=404,
@@ -295,7 +302,10 @@ class IncomeController extends Controller implements HasMiddleware
      *     @OA\Response(
      *         response=200,
      *         description="Income deleted successfully",
-     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Income deleted successfully.")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=404,

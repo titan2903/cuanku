@@ -20,8 +20,12 @@ class PrivacyController extends Controller
      *     tags={"Legal"},
      *     @OA\Response(
      *         response=200,
-     *         description="Successful operation"
-     *     )
+     *         description="Privacy policy retrieved successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Privacy policy retrieved successfully.")
+     *         )
+     *     ),
      * )
      */
     public function index(): Response

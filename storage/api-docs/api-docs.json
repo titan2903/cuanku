@@ -38,7 +38,20 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "annuals": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Annual report retrieved successfully."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "annuals": {
+                                                    "type": "object"
+                                                }
+                                            },
                                             "type": "object"
                                         }
                                     },
@@ -144,10 +157,23 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/AssetResource"
-                                    }
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Asset retrieved successfully."
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/AssetResource"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -202,7 +228,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Asset created successfully."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -278,7 +314,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Asset updated successfully."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -371,7 +417,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Transaction added successfully."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -435,7 +491,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Asset deleted successfully."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -491,7 +557,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Login successful."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -532,7 +608,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Logout successful."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -578,7 +664,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Registration successful."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -627,10 +723,23 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/BalanceResource"
-                                    }
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Balance retrieved successfully."
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/BalanceResource"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -685,7 +794,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Balance created successfully."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -751,7 +870,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Balance deleted successfully."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -827,10 +956,23 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/BudgetResource"
-                                    }
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Budget retrieved successfully."
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/BudgetResource"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -874,7 +1016,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Budget created successfully."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -941,7 +1093,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Budget updated successfully."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -1006,7 +1168,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Budget deleted successfully."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -1053,26 +1225,39 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "sum": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Dashboard data retrieved successfully."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "sum": {
+                                                    "type": "object"
+                                                },
+                                                "goals": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/GoalResource"
+                                                    }
+                                                },
+                                                "incomes": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/IncomeResource"
+                                                    }
+                                                },
+                                                "expenses": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/ExpenseResource"
+                                                    }
+                                                }
+                                            },
                                             "type": "object"
-                                        },
-                                        "goals": {
-                                            "type": "array",
-                                            "items": {
-                                                "$ref": "#/components/schemas/GoalResource"
-                                            }
-                                        },
-                                        "incomes": {
-                                            "type": "array",
-                                            "items": {
-                                                "$ref": "#/components/schemas/IncomeResource"
-                                            }
-                                        },
-                                        "expenses": {
-                                            "type": "array",
-                                            "items": {
-                                                "$ref": "#/components/schemas/ExpenseResource"
-                                            }
                                         }
                                     },
                                     "type": "object"
@@ -1134,10 +1319,23 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/ExpenseResource"
-                                    }
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Expense retrieved successfully."
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/ExpenseResource"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -1181,7 +1379,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Expense created successfully."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -1248,7 +1456,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Expense updated successfully."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -1313,7 +1531,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Expense deleted successfully."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -1368,10 +1596,23 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/GoalResource"
-                                    }
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Goal retrieved successfully."
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/GoalResource"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -1415,7 +1656,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Goal created successfully."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -1482,7 +1733,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Goal updated successfully."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -1547,7 +1808,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Goal deleted successfully."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -1616,10 +1887,23 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/IncomeResource"
-                                    }
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Income retrieved successfully."
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/IncomeResource"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -1663,7 +1947,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Income created successfully."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -1730,7 +2024,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Income updated successfully."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -1795,7 +2099,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Income deleted successfully."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -1866,10 +2180,23 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/LiabilityResource"
-                                    }
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Liability retrieved successfully."
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/LiabilityResource"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -1917,7 +2244,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Liability created successfully."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -1993,7 +2330,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Liability updated successfully."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -2086,7 +2433,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Transaction added successfully."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -2150,7 +2507,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Liability deleted successfully."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -2205,10 +2572,23 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/NetWorthResource"
-                                    }
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Net Worth retrieved successfully."
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/NetWorthResource"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -2252,7 +2632,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Net Worth created successfully."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -2309,7 +2699,20 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/NetWorthResource"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Net Worth retrieved successfully."
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/NetWorthResource"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -2374,7 +2777,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Net Worth updated successfully."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -2439,7 +2852,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Net Worth deleted successfully."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -2494,10 +2917,23 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/PaymentResource"
-                                    }
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Payment method retrieved successfully."
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/PaymentResource"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -2541,7 +2977,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Payment method created successfully."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -2608,7 +3054,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Payment method updated successfully."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -2673,7 +3129,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Payment method deleted successfully."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -2715,7 +3181,24 @@
                 "operationId": "23916aefdcc87638da3f9d15b16c4659",
                 "responses": {
                     "200": {
-                        "description": "Successful operation"
+                        "description": "Privacy policy retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Privacy policy retrieved successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -2729,7 +3212,27 @@
                 "operationId": "8cfcc99d8d1aa366314cd8abf9cd9c9a",
                 "responses": {
                     "200": {
-                        "description": "Successful operation"
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Profile retrieved successfully."
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/UserSingleResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "401": {
                         "description": "Unauthorized",
@@ -2776,7 +3279,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Account deleted successfully."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -2839,7 +3352,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Profile updated successfully."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -2902,20 +3425,33 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "reports": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Tracking report retrieved successfully."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "reports": {
+                                                    "type": "object"
+                                                },
+                                                "incomeTrackers": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/IncomeResource"
+                                                    }
+                                                },
+                                                "expenseTrackers": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/ExpenseResource"
+                                                    }
+                                                }
+                                            },
                                             "type": "object"
-                                        },
-                                        "incomeTrackers": {
-                                            "type": "array",
-                                            "items": {
-                                                "$ref": "#/components/schemas/IncomeResource"
-                                            }
-                                        },
-                                        "expenseTrackers": {
-                                            "type": "array",
-                                            "items": {
-                                                "$ref": "#/components/schemas/ExpenseResource"
-                                            }
                                         }
                                     },
                                     "type": "object"
@@ -2998,7 +3534,24 @@
                 "operationId": "17cea4204fe6467ad6efddffafa6a7c9",
                 "responses": {
                     "200": {
-                        "description": "Successful operation"
+                        "description": "Terms and conditions retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Terms and conditions retrieved successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -3010,6 +3563,10 @@
                 "title": "Validation Error",
                 "description": "Validation error response",
                 "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "error"
+                    },
                     "message": {
                         "type": "string",
                         "example": "The given data was invalid."
@@ -3035,6 +3592,10 @@
                 "title": "Unauthorized",
                 "description": "Unauthorized error response",
                 "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "error"
+                    },
                     "message": {
                         "type": "string",
                         "example": "Unauthenticated."
@@ -3046,6 +3607,10 @@
                 "title": "Not Found",
                 "description": "Resource not found response",
                 "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "error"
+                    },
                     "message": {
                         "type": "string",
                         "example": "No query results for model."
@@ -3057,6 +3622,10 @@
                 "title": "Forbidden",
                 "description": "Forbidden error response",
                 "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "error"
+                    },
                     "message": {
                         "type": "string",
                         "example": "This action is unauthorized."

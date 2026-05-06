@@ -110,7 +110,11 @@ class AnnualReportController extends Controller implements HasMiddleware
      *         response=200,
      *         description="Successful operation",
      *         @OA\JsonContent(
-     *             @OA\Property(property="annuals", type="object")
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Annual report retrieved successfully."),
+     *             @OA\Property(property="data", type="object",
+     *                 @OA\Property(property="annuals", type="object")
+     *             )
      *         )
      *     ),
      *     @OA\Response(

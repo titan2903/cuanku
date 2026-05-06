@@ -49,8 +49,9 @@ class AssetController extends Controller implements HasMiddleware
      *         response=200,
      *         description="Successful operation",
      *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(ref="#/components/schemas/AssetResource")
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Asset retrieved successfully."),
+     *             @OA\Property(property="data", type="array", @OA\Items(ref="#/components/schemas/AssetResource"))
      *         )
      *     ),
      *     @OA\Response(
@@ -140,7 +141,10 @@ class AssetController extends Controller implements HasMiddleware
      *     @OA\Response(
      *         response=201,
      *         description="Asset created successfully",
-     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Asset created successfully.")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=422,
@@ -211,7 +215,10 @@ class AssetController extends Controller implements HasMiddleware
      *     @OA\Response(
      *         response=200,
      *         description="Asset updated successfully",
-     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Asset updated successfully.")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=404,
@@ -260,7 +267,10 @@ class AssetController extends Controller implements HasMiddleware
      *     @OA\Response(
      *         response=200,
      *         description="Asset deleted successfully",
-     *         @OA\JsonContent(ref="#/components/schemas/Success")
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Asset deleted successfully.")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=404,
