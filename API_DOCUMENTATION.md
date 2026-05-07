@@ -1,4 +1,4 @@
-# Referensi API Cuanku v1.0.0
+# Dokumentasi API Cuanku
 
 ## Daftar Isi
 1. [Autentikasi](#autentikasi)
@@ -376,6 +376,22 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 }
 ```
 
+**Contoh Respon (401 Unauthorized):**
+```json
+{
+  "status": "error",
+  "message": "Unauthenticated."
+}
+```
+
+**Contoh Respon (404 Not Found):**
+```json
+{
+  "status": "error",
+  "message": "No query results for model NetWorth."
+}
+```
+
 ---
 
 ### PUT /net-worths/{netWorth}
@@ -403,6 +419,42 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 | 404 | Not Found |
 | 422 | Validation Error |
 
+**Contoh Respon (200 OK):**
+```json
+{
+  "status": "success",
+  "message": "Net Worth updated successfully."
+}
+```
+
+**Contoh Respon (401 Unauthorized):**
+```json
+{
+  "status": "error",
+  "message": "Unauthenticated."
+}
+```
+
+**Contoh Respon (404 Not Found):**
+```json
+{
+  "status": "error",
+  "message": "No query results for model NetWorth."
+}
+```
+
+**Contoh Respon (422 Validation Error):**
+```json
+{
+  "status": "error",
+  "message": "The given data was invalid.",
+  "errors": {
+    "net_worth_goal": ["The net worth goal field is required."]
+  }
+}
+```
+
+
 ---
 
 ### DELETE /net-worths/{netWorth}
@@ -420,6 +472,31 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 | 200 | Net Worth deleted successfully |
 | 401 | Unauthorized |
 | 404 | Not Found |
+
+**Contoh Respon (200 OK):**
+```json
+{
+  "status": "success",
+  "message": "Net Worth deleted successfully."
+}
+```
+
+**Contoh Respon (401 Unauthorized):**
+```json
+{
+  "status": "error",
+  "message": "Unauthenticated."
+}
+```
+
+**Contoh Respon (404 Not Found):**
+```json
+{
+  "status": "error",
+  "message": "No query results for model NetWorth."
+}
+```
+
 
 ---
 
@@ -469,7 +546,7 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 ```json
 {
   "status": "error",
-  "message": "No query results for model [App\\Models\\NetWorth]."
+  "message": "No query results for model NetWorth."
 }
 ```
 
@@ -522,7 +599,7 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 ```json
 {
   "status": "error",
-  "message": "No query results for model [App\\Models\\NetWorth]."
+  "message": "No query results for model NetWorth."
 }
 ```
 
@@ -585,7 +662,7 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 ```json
 {
   "status": "error",
-  "message": "No query results for model [App\\Models\\NetWorth]."
+  "message": "No query results for model NetWorth."
 }
 ```
 
@@ -638,7 +715,7 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 ```json
 {
   "status": "error",
-  "message": "No query results for model [App\\Models\\NetWorth]."
+  "message": "No query results for model NetWorth."
 }
 ```
 
@@ -771,6 +848,42 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 | 404 | Not Found |
 | 422 | Validation Error |
 
+**Contoh Respon (200 OK):**
+```json
+{
+  "status": "success",
+  "message": "Budget updated successfully."
+}
+```
+
+**Contoh Respon (401 Unauthorized):**
+```json
+{
+  "status": "error",
+  "message": "Unauthenticated."
+}
+```
+
+**Contoh Respon (404 Not Found):**
+```json
+{
+  "status": "error",
+  "message": "No query results for model Budget."
+}
+```
+
+**Contoh Respon (422 Validation Error):**
+```json
+{
+  "status": "error",
+  "message": "The given data was invalid.",
+  "errors": {
+    "detail": ["The detail field is required."]
+  }
+}
+```
+
+
 ---
 
 ### DELETE /budgets/{budget}
@@ -788,6 +901,31 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 | 200 | Budget deleted successfully |
 | 401 | Unauthorized |
 | 404 | Not Found |
+
+**Contoh Respon (200 OK):**
+```json
+{
+  "status": "success",
+  "message": "Budget deleted successfully."
+}
+```
+
+**Contoh Respon (401 Unauthorized):**
+```json
+{
+  "status": "error",
+  "message": "Unauthenticated."
+}
+```
+
+**Contoh Respon (404 Not Found):**
+```json
+{
+  "status": "error",
+  "message": "No query results for model Budget."
+}
+```
+
 
 ---
 
@@ -913,6 +1051,42 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 | 404 | Not Found |
 | 422 | Validation Error |
 
+**Contoh Respon (200 OK):**
+```json
+{
+  "status": "success",
+  "message": "Income updated successfully."
+}
+```
+
+**Contoh Respon (401 Unauthorized):**
+```json
+{
+  "status": "error",
+  "message": "Unauthenticated."
+}
+```
+
+**Contoh Respon (404 Not Found):**
+```json
+{
+  "status": "error",
+  "message": "No query results for model Income."
+}
+```
+
+**Contoh Respon (422 Validation Error):**
+```json
+{
+  "status": "error",
+  "message": "The given data was invalid.",
+  "errors": {
+    "nominal": ["The nominal field is required."]
+  }
+}
+```
+
+
 ---
 
 ### DELETE /incomes/{income}
@@ -930,6 +1104,31 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 | 200 | Income deleted successfully |
 | 401 | Unauthorized |
 | 404 | Not Found |
+
+**Contoh Respon (200 OK):**
+```json
+{
+  "status": "success",
+  "message": "Income deleted successfully."
+}
+```
+
+**Contoh Respon (401 Unauthorized):**
+```json
+{
+  "status": "error",
+  "message": "Unauthenticated."
+}
+```
+
+**Contoh Respon (404 Not Found):**
+```json
+{
+  "status": "error",
+  "message": "No query results for model Income."
+}
+```
+
 
 ---
 
@@ -1058,6 +1257,42 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 | 404 | Not Found |
 | 422 | Validation Error |
 
+**Contoh Respon (200 OK):**
+```json
+{
+  "status": "success",
+  "message": "Expense updated successfully."
+}
+```
+
+**Contoh Respon (401 Unauthorized):**
+```json
+{
+  "status": "error",
+  "message": "Unauthenticated."
+}
+```
+
+**Contoh Respon (404 Not Found):**
+```json
+{
+  "status": "error",
+  "message": "No query results for model Expense."
+}
+```
+
+**Contoh Respon (422 Validation Error):**
+```json
+{
+  "status": "error",
+  "message": "The given data was invalid.",
+  "errors": {
+    "description": ["The description field is required."]
+  }
+}
+```
+
+
 ---
 
 ### DELETE /expenses/{expense}
@@ -1075,6 +1310,31 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 | 200 | Expense deleted successfully |
 | 401 | Unauthorized |
 | 404 | Not Found |
+
+**Contoh Respon (200 OK):**
+```json
+{
+  "status": "success",
+  "message": "Expense deleted successfully."
+}
+```
+
+**Contoh Respon (401 Unauthorized):**
+```json
+{
+  "status": "error",
+  "message": "Unauthenticated."
+}
+```
+
+**Contoh Respon (404 Not Found):**
+```json
+{
+  "status": "error",
+  "message": "No query results for model Expense."
+}
+```
+
 
 ---
 
@@ -1192,6 +1452,42 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 | 404 | Not Found |
 | 422 | Validation Error |
 
+**Contoh Respon (200 OK):**
+```json
+{
+  "status": "success",
+  "message": "Goal updated successfully."
+}
+```
+
+**Contoh Respon (401 Unauthorized):**
+```json
+{
+  "status": "error",
+  "message": "Unauthenticated."
+}
+```
+
+**Contoh Respon (404 Not Found):**
+```json
+{
+  "status": "error",
+  "message": "No query results for model Goal."
+}
+```
+
+**Contoh Respon (422 Validation Error):**
+```json
+{
+  "status": "error",
+  "message": "The given data was invalid.",
+  "errors": {
+    "name": ["The name field is required."]
+  }
+}
+```
+
+
 ---
 
 ### DELETE /goals/{goal}
@@ -1209,6 +1505,31 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 | 200 | Goal deleted successfully |
 | 401 | Unauthorized |
 | 404 | Not Found |
+
+**Contoh Respon (200 OK):**
+```json
+{
+  "status": "success",
+  "message": "Goal deleted successfully."
+}
+```
+
+**Contoh Respon (401 Unauthorized):**
+```json
+{
+  "status": "error",
+  "message": "Unauthenticated."
+}
+```
+
+**Contoh Respon (404 Not Found):**
+```json
+{
+  "status": "error",
+  "message": "No query results for model Goal."
+}
+```
+
 
 ---
 
@@ -1279,6 +1600,26 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 | 200 | File PDF berhasil diunduh |
 | 401 | Unauthorized |
 
+**Contoh Respon (200 OK):**
+```json
+{
+  "status": "success",
+  "message": "Report tracking downloaded successfully.",
+  "data": {
+    "url": "/path/to/file.pdf"
+  }
+}
+```
+
+**Contoh Respon (401 Unauthorized):**
+```json
+{
+  "status": "error",
+  "message": "Unauthenticated."
+}
+```
+
+
 ---
 
 ### GET /annual-reports
@@ -1335,6 +1676,26 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 |---|---|
 | 200 | File PDF berhasil diunduh |
 | 401 | Unauthorized |
+
+**Contoh Respon (200 OK):**
+```json
+{
+  "status": "success",
+  "message": "Report annual downloaded successfully.",
+  "data": {
+    "url": "/path/to/file.pdf"
+  }
+}
+```
+
+**Contoh Respon (401 Unauthorized):**
+```json
+{
+  "status": "error",
+  "message": "Unauthenticated."
+}
+```
+
 
 ---
 
@@ -1402,5 +1763,33 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 | 201 | Payment method created successfully |
 | 401 | Unauthorized |
 | 422 | Validation Error |
+
+**Contoh Respon (201 Created):**
+```json
+{
+  "status": "success",
+  "message": "Payment method created successfully."
+}
+```
+
+**Contoh Respon (401 Unauthorized):**
+```json
+{
+  "status": "error",
+  "message": "Unauthenticated."
+}
+```
+
+**Contoh Respon (422 Validation Error):**
+```json
+{
+  "status": "error",
+  "message": "The given data was invalid.",
+  "errors": {
+    "name": ["The name field is required."]
+  }
+}
+```
+
 
 ---

@@ -17,9 +17,7 @@
     "paths": {
         "/annual-reports": {
             "get": {
-                "tags": [
-                    "Annual Reports"
-                ],
+                "tags": ["Annual Reports"],
                 "summary": "Get annual reports",
                 "operationId": "d2457abe69fcd27916364446451344af",
                 "parameters": [
@@ -56,6 +54,20 @@
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "message": "Annual report retrieved successfully.",
+                                    "data": {
+                                        "annuals": {
+                                            "Januari": { "income": 10000000, "expense": 7500000, "balance": 2500000 },
+                                            "Februari": { "income": 10000000, "expense": 8000000, "balance": 2000000 },
+                                            "Maret": { "income": 10000000, "expense": 6500000, "balance": 3500000 },
+                                            "April": { "income": 10000000, "expense": 9000000, "balance": 1000000 },
+                                            "Mei": { "income": 10000000, "expense": 7000000, "balance": 3000000 },
+                                            "Juni": { "income": 10000000, "expense": 8500000, "balance": 1500000 }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -80,9 +92,7 @@
         },
         "/annual-reports/download": {
             "get": {
-                "tags": [
-                    "Annual Reports"
-                ],
+                "tags": ["Annual Reports"],
                 "summary": "Download annual report PDF",
                 "operationId": "a26eca9251c284f2a6e1d7a744a9f97b",
                 "parameters": [
@@ -121,9 +131,7 @@
         },
         "/net-worths/{netWorth}/assets": {
             "get": {
-                "tags": [
-                    "Assets"
-                ],
+                "tags": ["Assets"],
                 "summary": "List all assets for a specific net worth",
                 "operationId": "4ab4a22e3046091b3e4de96ba904eeca",
                 "parameters": [
@@ -196,9 +204,7 @@
                 ]
             },
             "post": {
-                "tags": [
-                    "Assets"
-                ],
+                "tags": ["Assets"],
                 "summary": "Create a new asset",
                 "operationId": "ad89543cb8100a449d86b6194b31ff3d",
                 "parameters": [
@@ -239,6 +245,10 @@
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "message": "Asset created successfully."
                                 }
                             }
                         }
@@ -273,9 +283,7 @@
         },
         "/net-worths/{netWorth}/assets/{asset}": {
             "put": {
-                "tags": [
-                    "Assets"
-                ],
+                "tags": ["Assets"],
                 "summary": "Update an existing asset",
                 "operationId": "bd3d1b026e96f6e7c06b121a5e26e1b0",
                 "parameters": [
@@ -325,6 +333,10 @@
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "message": "Asset updated successfully."
                                 }
                             }
                         }
@@ -367,9 +379,7 @@
                 ]
             },
             "post": {
-                "tags": [
-                    "Net Worth Assets"
-                ],
+                "tags": ["Net Worth Assets"],
                 "summary": "Add transaction to asset",
                 "operationId": "cf55602c21729b6a703cb56af7ef06ea",
                 "parameters": [
@@ -460,9 +470,7 @@
                 ]
             },
             "delete": {
-                "tags": [
-                    "Assets"
-                ],
+                "tags": ["Assets"],
                 "summary": "Delete an asset",
                 "operationId": "fba38ac2a68c9e7de002eba1a6bcb610",
                 "parameters": [
@@ -502,6 +510,10 @@
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "message": "Asset deleted successfully."
                                 }
                             }
                         }
@@ -536,9 +548,7 @@
         },
         "/login": {
             "post": {
-                "tags": [
-                    "Authentication"
-                ],
+                "tags": ["Authentication"],
                 "summary": "User login",
                 "operationId": "42f77e072dec84b0e1094cca1228298e",
                 "requestBody": {
@@ -565,9 +575,34 @@
                                         "message": {
                                             "type": "string",
                                             "example": "Login successful."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "token": {
+                                                    "type": "string"
+                                                },
+                                                "user": {
+                                                    "$ref": "#/components/schemas/UserSingleResource"
+                                                }
+                                            },
+                                            "type": "object"
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "message": "Login successful.",
+                                    "data": {
+                                        "token": "1|AbCdEfGhIjKlMnOpQrStUvWxYz1234567890abcdefghijklmno",
+                                        "user": {
+                                            "id": "9c4e4b64-1234-4f12-b123-9c4e4b640000",
+                                            "name": "Budi Santoso",
+                                            "email": "budi@example.com",
+                                            "avatar": null,
+                                            "phone_number": "+6281234567890"
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -597,9 +632,7 @@
         },
         "/logout": {
             "post": {
-                "tags": [
-                    "Authentication"
-                ],
+                "tags": ["Authentication"],
                 "summary": "User logout",
                 "operationId": "03afb12b342c2ea43bdc1de4f39e91a8",
                 "responses": {
@@ -619,6 +652,10 @@
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "message": "Logout successful."
                                 }
                             }
                         }
@@ -643,9 +680,7 @@
         },
         "/register": {
             "post": {
-                "tags": [
-                    "Authentication"
-                ],
+                "tags": ["Authentication"],
                 "summary": "User registration",
                 "operationId": "573de1fed352c1205a32c4d1b9877375",
                 "requestBody": {
@@ -672,9 +707,34 @@
                                         "message": {
                                             "type": "string",
                                             "example": "Registration successful."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "token": {
+                                                    "type": "string"
+                                                },
+                                                "user": {
+                                                    "$ref": "#/components/schemas/UserSingleResource"
+                                                }
+                                            },
+                                            "type": "object"
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "message": "Registration successful.",
+                                    "data": {
+                                        "token": "1|XyZ9AbCdEf1234567890GhIjKlMnOpQrStUvWxYz9876543",
+                                        "user": {
+                                            "id": "9c4e4b64-5678-4f12-b456-9c4e4b640099",
+                                            "name": "Budi Santoso",
+                                            "email": "budi@example.com",
+                                            "avatar": null,
+                                            "phone_number": "+6281234567890"
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -694,9 +754,7 @@
         },
         "/goals/{goal}/balances": {
             "get": {
-                "tags": [
-                    "Balances"
-                ],
+                "tags": ["Balances"],
                 "summary": "List all balances for a specific goal",
                 "operationId": "2c29227fa54049572364d8599bed0a9a",
                 "parameters": [
@@ -740,6 +798,22 @@
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "message": "Balance retrieved successfully.",
+                                    "data": [
+                                        {
+                                            "id": "9c4e4b64-1111-4f12-b111-9c4e4b640001",
+                                            "amount": 5000000,
+                                            "created_at": "2025-06-14T07:43:21.000000Z"
+                                        },
+                                        {
+                                            "id": "9c4e4b64-2222-4f12-b222-9c4e4b640002",
+                                            "amount": 3000000,
+                                            "created_at": "2025-06-20T10:15:00.000000Z"
+                                        }
+                                    ]
                                 }
                             }
                         }
@@ -762,9 +836,7 @@
                 ]
             },
             "post": {
-                "tags": [
-                    "Balances"
-                ],
+                "tags": ["Balances"],
                 "summary": "Create a new balance for a goal",
                 "operationId": "6649c86fe0976673f7c815843b68f63e",
                 "parameters": [
@@ -805,6 +877,10 @@
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "message": "Balance created successfully."
                                 }
                             }
                         }
@@ -839,9 +915,7 @@
         },
         "/goals/{goal}/balances/{balance}": {
             "delete": {
-                "tags": [
-                    "Balances"
-                ],
+                "tags": ["Balances"],
                 "summary": "Delete a balance",
                 "operationId": "9edf21b77b5289d6cdb8c296e03d0e76",
                 "parameters": [
@@ -881,6 +955,10 @@
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "message": "Balance deleted successfully."
                                 }
                             }
                         }
@@ -915,9 +993,7 @@
         },
         "/budgets": {
             "get": {
-                "tags": [
-                    "Budgets"
-                ],
+                "tags": ["Budgets"],
                 "summary": "List all budgets",
                 "operationId": "a661446b37868c87cb5dc8d0022e158e",
                 "parameters": [
@@ -973,6 +1049,30 @@
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "message": "Budget retrieved successfully.",
+                                    "data": [
+                                        {
+                                            "id": "9c4e4b64-3333-4f12-b333-9c4e4b640003",
+                                            "detail": "Gaji Bulanan",
+                                            "nominal": 10000000,
+                                            "month": "Juni",
+                                            "year": 2025,
+                                            "type": "income",
+                                            "created_at": "2025-06-14T08:17:08.000000Z"
+                                        },
+                                        {
+                                            "id": "9c4e4b64-3334-4f12-b334-9c4e4b640003",
+                                            "detail": "Kebutuhan Harian",
+                                            "nominal": 3000000,
+                                            "month": "Juni",
+                                            "year": 2025,
+                                            "type": "expense",
+                                            "created_at": "2025-06-14T08:20:00.000000Z"
+                                        }
+                                    ]
                                 }
                             }
                         }
@@ -995,9 +1095,7 @@
                 ]
             },
             "post": {
-                "tags": [
-                    "Budgets"
-                ],
+                "tags": ["Budgets"],
                 "summary": "Create a new budget",
                 "operationId": "52ec07c758938927f1afad3070db7c54",
                 "requestBody": {
@@ -1027,6 +1125,10 @@
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "message": "Budget created successfully."
                                 }
                             }
                         }
@@ -1061,9 +1163,7 @@
         },
         "/budgets/{budget}": {
             "put": {
-                "tags": [
-                    "Budgets"
-                ],
+                "tags": ["Budgets"],
                 "summary": "Update an existing budget",
                 "operationId": "3263828800c1f0df054f144b707da6fb",
                 "parameters": [
@@ -1104,6 +1204,10 @@
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "message": "Budget updated successfully."
                                 }
                             }
                         }
@@ -1146,9 +1250,7 @@
                 ]
             },
             "delete": {
-                "tags": [
-                    "Budgets"
-                ],
+                "tags": ["Budgets"],
                 "summary": "Delete a budget",
                 "operationId": "5fbb4ad53a48ed0152e5cd1554da5f3d",
                 "parameters": [
@@ -1179,6 +1281,10 @@
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "message": "Budget deleted successfully."
                                 }
                             }
                         }
@@ -1213,9 +1319,7 @@
         },
         "/dashboard": {
             "get": {
-                "tags": [
-                    "Dashboard"
-                ],
+                "tags": ["Dashboard"],
                 "summary": "Get dashboard data",
                 "operationId": "a92dff3ea055c0a594f425e852840a68",
                 "responses": {
@@ -1261,6 +1365,66 @@
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "message": "Dashboard data retrieved successfully.",
+                                    "data": {
+                                        "sum": {
+                                            "total_income": 10000000,
+                                            "total_expense": 3575000,
+                                            "balance": 6425000
+                                        },
+                                        "goals": [
+                                            {
+                                                "id": "9c4e4b64-5555-4f12-b555-9c4e4b640005",
+                                                "name": "Beli Rumah",
+                                                "percentage": 25.5,
+                                                "nominal": 500000000,
+                                                "monthly_saving": 5000000,
+                                                "deadline": "2030-12-31",
+                                                "beginning_balance": 50000000,
+                                                "created_at": "2025-06-14T07:35:51.000000Z"
+                                            }
+                                        ],
+                                        "incomes": [
+                                            {
+                                                "id": "9c4e4b64-6666-4f12-b666-9c4e4b640006",
+                                                "date": "2025-06-01",
+                                                "nominal": 10000000,
+                                                "notes": "Gaji bulan Juni 2025",
+                                                "month": "Juni",
+                                                "year": 2025,
+                                                "created_at": "2025-06-14T08:23:38.000000Z",
+                                                "budget": {
+                                                    "id": "9c4e4b64-3333-4f12-b333-9c4e4b640003",
+                                                    "detail": "Gaji Bulanan",
+                                                    "type": "income"
+                                                }
+                                            }
+                                        ],
+                                        "expenses": [
+                                            {
+                                                "id": "9c4e4b64-4444-4f12-b444-9c4e4b640004",
+                                                "date": "2025-06-05",
+                                                "description": "Makan siang di restoran",
+                                                "nominal": 75000,
+                                                "type": "food",
+                                                "notes": "Makan bersama rekan kerja",
+                                                "month": "Juni",
+                                                "year": 2025,
+                                                "payment": {
+                                                    "id": "9c4e4b64-7777-4f12-b777-9c4e4b640007",
+                                                    "name": "BCA"
+                                                },
+                                                "typeDetail": {
+                                                    "id": "9c4e4b64-3333-4f12-b333-9c4e4b640003",
+                                                    "detail": "Kebutuhan Harian"
+                                                },
+                                                "created_at": "2025-06-14T08:38:12.000000Z"
+                                            }
+                                        ]
+                                    }
                                 }
                             }
                         }
@@ -1285,9 +1449,7 @@
         },
         "/expenses": {
             "get": {
-                "tags": [
-                    "Expenses"
-                ],
+                "tags": ["Expenses"],
                 "summary": "List all expenses",
                 "operationId": "36e62ecfbcfde37686ea63fe89d0c0c0",
                 "parameters": [
@@ -1336,6 +1498,50 @@
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "message": "Expense retrieved successfully.",
+                                    "data": [
+                                        {
+                                            "id": "9c4e4b64-4444-4f12-b444-9c4e4b640004",
+                                            "date": "2025-06-05",
+                                            "description": "Makan siang di restoran",
+                                            "nominal": 75000,
+                                            "type": "food",
+                                            "notes": "Makan bersama rekan kerja",
+                                            "month": "Juni",
+                                            "year": 2025,
+                                            "payment": {
+                                                "id": "9c4e4b64-7777-4f12-b777-9c4e4b640007",
+                                                "name": "BCA"
+                                            },
+                                            "typeDetail": {
+                                                "id": "9c4e4b64-3333-4f12-b333-9c4e4b640003",
+                                                "detail": "Kebutuhan Harian"
+                                            },
+                                            "created_at": "2025-06-14T08:38:12.000000Z"
+                                        },
+                                        {
+                                            "id": "9c4e4b64-4445-4f12-b445-9c4e4b640004",
+                                            "date": "2025-06-10",
+                                            "description": "Bensin motor",
+                                            "nominal": 50000,
+                                            "type": "transportation",
+                                            "notes": null,
+                                            "month": "Juni",
+                                            "year": 2025,
+                                            "payment": {
+                                                "id": "9c4e4b64-7778-4f12-b778-9c4e4b640007",
+                                                "name": "OVO"
+                                            },
+                                            "typeDetail": {
+                                                "id": "9c4e4b64-3334-4f12-b334-9c4e4b640003",
+                                                "detail": "Transportasi"
+                                            },
+                                            "created_at": "2025-06-14T09:00:00.000000Z"
+                                        }
+                                    ]
                                 }
                             }
                         }
@@ -1358,9 +1564,7 @@
                 ]
             },
             "post": {
-                "tags": [
-                    "Expenses"
-                ],
+                "tags": ["Expenses"],
                 "summary": "Create a new expense",
                 "operationId": "927e29ac31ae983af0a55ce5d487d554",
                 "requestBody": {
@@ -1390,6 +1594,10 @@
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "message": "Expense created successfully."
                                 }
                             }
                         }
@@ -1424,9 +1632,7 @@
         },
         "/expenses/{expense}": {
             "put": {
-                "tags": [
-                    "Expenses"
-                ],
+                "tags": ["Expenses"],
                 "summary": "Update an existing expense",
                 "operationId": "92d7cd3bc33ffe71e68d96ea1aa35469",
                 "parameters": [
@@ -1467,6 +1673,10 @@
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "message": "Expense updated successfully."
                                 }
                             }
                         }
@@ -1509,9 +1719,7 @@
                 ]
             },
             "delete": {
-                "tags": [
-                    "Expenses"
-                ],
+                "tags": ["Expenses"],
                 "summary": "Delete an expense",
                 "operationId": "bc3204c1aa49b472d389803ffc565829",
                 "parameters": [
@@ -1542,6 +1750,10 @@
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "message": "Expense deleted successfully."
                                 }
                             }
                         }
@@ -1576,9 +1788,7 @@
         },
         "/goals": {
             "get": {
-                "tags": [
-                    "Goals"
-                ],
+                "tags": ["Goals"],
                 "summary": "List all goals",
                 "operationId": "8c36a2f022861e1739675c0958a7ff1e",
                 "parameters": [
@@ -1613,6 +1823,32 @@
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "message": "Goal retrieved successfully.",
+                                    "data": [
+                                        {
+                                            "id": "9c4e4b64-5555-4f12-b555-9c4e4b640005",
+                                            "name": "Beli Rumah",
+                                            "percentage": 25.5,
+                                            "nominal": 500000000,
+                                            "monthly_saving": 5000000,
+                                            "deadline": "2030-12-31",
+                                            "beginning_balance": 50000000,
+                                            "created_at": "2025-06-14T07:35:51.000000Z"
+                                        },
+                                        {
+                                            "id": "9c4e4b64-5556-4f12-b556-9c4e4b640005",
+                                            "name": "Dana Pendidikan Anak",
+                                            "percentage": 40.0,
+                                            "nominal": 200000000,
+                                            "monthly_saving": 2000000,
+                                            "deadline": "2035-08-01",
+                                            "beginning_balance": 20000000,
+                                            "created_at": "2025-06-14T07:40:00.000000Z"
+                                        }
+                                    ]
                                 }
                             }
                         }
@@ -1635,9 +1871,7 @@
                 ]
             },
             "post": {
-                "tags": [
-                    "Goals"
-                ],
+                "tags": ["Goals"],
                 "summary": "Create a new goal",
                 "operationId": "55308dbbc6c8d13e3936b54b9cd21109",
                 "requestBody": {
@@ -1667,6 +1901,10 @@
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "message": "Goal created successfully."
                                 }
                             }
                         }
@@ -1701,9 +1939,7 @@
         },
         "/goals/{goal}": {
             "put": {
-                "tags": [
-                    "Goals"
-                ],
+                "tags": ["Goals"],
                 "summary": "Update an existing goal",
                 "operationId": "8b31273e5218c0544e8d5a918c29ebf6",
                 "parameters": [
@@ -1744,6 +1980,10 @@
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "message": "Goal updated successfully."
                                 }
                             }
                         }
@@ -1786,9 +2026,7 @@
                 ]
             },
             "delete": {
-                "tags": [
-                    "Goals"
-                ],
+                "tags": ["Goals"],
                 "summary": "Delete a goal",
                 "operationId": "3cf8fbb14324abab3913ea31a557bee9",
                 "parameters": [
@@ -1819,6 +2057,10 @@
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "message": "Goal deleted successfully."
                                 }
                             }
                         }
@@ -1853,9 +2095,7 @@
         },
         "/incomes": {
             "get": {
-                "tags": [
-                    "Incomes"
-                ],
+                "tags": ["Incomes"],
                 "summary": "List all incomes",
                 "operationId": "68c947f4f4b1407943df0f86a84582ce",
                 "parameters": [
@@ -1904,6 +2144,40 @@
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "message": "Income retrieved successfully.",
+                                    "data": [
+                                        {
+                                            "id": "9c4e4b64-6666-4f12-b666-9c4e4b640006",
+                                            "date": "2025-06-01",
+                                            "nominal": 10000000,
+                                            "notes": "Gaji bulan Juni 2025",
+                                            "month": "Juni",
+                                            "year": 2025,
+                                            "created_at": "2025-06-14T08:23:38.000000Z",
+                                            "budget": {
+                                                "id": "9c4e4b64-3333-4f12-b333-9c4e4b640003",
+                                                "detail": "Gaji Bulanan",
+                                                "type": "income"
+                                            }
+                                        },
+                                        {
+                                            "id": "9c4e4b64-6667-4f12-b667-9c4e4b640006",
+                                            "date": "2025-06-15",
+                                            "nominal": 2500000,
+                                            "notes": "Bonus proyek freelance",
+                                            "month": "Juni",
+                                            "year": 2025,
+                                            "created_at": "2025-06-15T10:00:00.000000Z",
+                                            "budget": {
+                                                "id": "9c4e4b64-3335-4f12-b335-9c4e4b640003",
+                                                "detail": "Pendapatan Lain-lain",
+                                                "type": "income"
+                                            }
+                                        }
+                                    ]
                                 }
                             }
                         }
@@ -1926,9 +2200,7 @@
                 ]
             },
             "post": {
-                "tags": [
-                    "Incomes"
-                ],
+                "tags": ["Incomes"],
                 "summary": "Create a new income",
                 "operationId": "c036d918866bb5db62083a4a050c80d6",
                 "requestBody": {
@@ -1958,6 +2230,10 @@
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "message": "Income created successfully."
                                 }
                             }
                         }
@@ -1992,9 +2268,7 @@
         },
         "/incomes/{income}": {
             "put": {
-                "tags": [
-                    "Incomes"
-                ],
+                "tags": ["Incomes"],
                 "summary": "Update an existing income",
                 "operationId": "345e6b21bc0f603d323ebf84ac6d4043",
                 "parameters": [
@@ -2035,6 +2309,10 @@
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "message": "Income updated successfully."
                                 }
                             }
                         }
@@ -2077,9 +2355,7 @@
                 ]
             },
             "delete": {
-                "tags": [
-                    "Incomes"
-                ],
+                "tags": ["Incomes"],
                 "summary": "Delete an income",
                 "operationId": "ac9470df825de065c81350b0c8a74303",
                 "parameters": [
@@ -2110,6 +2386,10 @@
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "message": "Income deleted successfully."
                                 }
                             }
                         }
@@ -2144,9 +2424,7 @@
         },
         "/net-worths/{netWorth}/liabilities": {
             "get": {
-                "tags": [
-                    "Liabilities"
-                ],
+                "tags": ["Liabilities"],
                 "summary": "List all liabilities for a specific net worth",
                 "operationId": "e3b788342927cae90a2f93dc524dcad6",
                 "parameters": [
@@ -2212,9 +2490,7 @@
                 ]
             },
             "post": {
-                "tags": [
-                    "Liabilities"
-                ],
+                "tags": ["Liabilities"],
                 "summary": "Create a new liability",
                 "operationId": "21f2cc152d7067a010c5413c76a7ad16",
                 "parameters": [
@@ -2255,6 +2531,10 @@
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "message": "Liability created successfully."
                                 }
                             }
                         }
@@ -2289,9 +2569,7 @@
         },
         "/net-worths/{netWorth}/liabilities/{liability}": {
             "put": {
-                "tags": [
-                    "Liabilities"
-                ],
+                "tags": ["Liabilities"],
                 "summary": "Update an existing liability",
                 "operationId": "7bd592472924b1fd7de52b8e9caf5914",
                 "parameters": [
@@ -2341,6 +2619,10 @@
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "message": "Liability updated successfully."
                                 }
                             }
                         }
@@ -2383,9 +2665,7 @@
                 ]
             },
             "post": {
-                "tags": [
-                    "Net Worth Liabilities"
-                ],
+                "tags": ["Net Worth Liabilities"],
                 "summary": "Add transaction to liability",
                 "operationId": "2916b9f68b861de8ffb487a1705aace4",
                 "parameters": [
@@ -2476,9 +2756,7 @@
                 ]
             },
             "delete": {
-                "tags": [
-                    "Liabilities"
-                ],
+                "tags": ["Liabilities"],
                 "summary": "Delete a liability",
                 "operationId": "e462909069a53e6f891bff93830e16b9",
                 "parameters": [
@@ -2518,6 +2796,10 @@
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "message": "Liability deleted successfully."
                                 }
                             }
                         }
@@ -2552,9 +2834,7 @@
         },
         "/net-worths": {
             "get": {
-                "tags": [
-                    "Net Worths"
-                ],
+                "tags": ["Net Worths"],
                 "summary": "List all net worth records",
                 "operationId": "90e207d4f9c27df04bad3ce4bb88cf76",
                 "parameters": [
@@ -2611,9 +2891,7 @@
                 ]
             },
             "post": {
-                "tags": [
-                    "Net Worths"
-                ],
+                "tags": ["Net Worths"],
                 "summary": "Create a new net worth record",
                 "operationId": "f501141305bd656a4c787d8d0cc954c0",
                 "requestBody": {
@@ -2677,9 +2955,7 @@
         },
         "/net-worths/{netWorth}": {
             "get": {
-                "tags": [
-                    "Net Worths"
-                ],
+                "tags": ["Net Worths"],
                 "summary": "Get net worth details",
                 "operationId": "9ba437ae863e8d0942e3def671a2d1f7",
                 "parameters": [
@@ -2745,9 +3021,7 @@
                 ]
             },
             "put": {
-                "tags": [
-                    "Net Worths"
-                ],
+                "tags": ["Net Worths"],
                 "summary": "Update a net worth record",
                 "operationId": "e6d764b961fa8a13018a84c8d6105eec",
                 "parameters": [
@@ -2830,9 +3104,7 @@
                 ]
             },
             "delete": {
-                "tags": [
-                    "Net Worths"
-                ],
+                "tags": ["Net Worths"],
                 "summary": "Delete a net worth record",
                 "operationId": "1a42d313443f06f7c62375ac9a019acc",
                 "parameters": [
@@ -2897,9 +3169,7 @@
         },
         "/payments": {
             "get": {
-                "tags": [
-                    "Payments"
-                ],
+                "tags": ["Payments"],
                 "summary": "List all payments methods",
                 "operationId": "65567ad73dd4b0cc01c4856a6bb7e600",
                 "parameters": [
@@ -2956,9 +3226,7 @@
                 ]
             },
             "post": {
-                "tags": [
-                    "Payments"
-                ],
+                "tags": ["Payments"],
                 "summary": "Create a new payment method",
                 "operationId": "3cb7bc2c2ad5498b4ad9521811750cc1",
                 "requestBody": {
@@ -3022,9 +3290,7 @@
         },
         "/payments/{payment}": {
             "put": {
-                "tags": [
-                    "Payments"
-                ],
+                "tags": ["Payments"],
                 "summary": "Update an existing payment method",
                 "operationId": "5e6ce68c765bfba967264070023c3122",
                 "parameters": [
@@ -3107,9 +3373,7 @@
                 ]
             },
             "delete": {
-                "tags": [
-                    "Payments"
-                ],
+                "tags": ["Payments"],
                 "summary": "Delete a payment method",
                 "operationId": "10dde42bcf9365c33158aa3c769af513",
                 "parameters": [
@@ -3174,9 +3438,7 @@
         },
         "/privacy": {
             "get": {
-                "tags": [
-                    "Legal"
-                ],
+                "tags": ["Legal"],
                 "summary": "Get privacy policy",
                 "operationId": "23916aefdcc87638da3f9d15b16c4659",
                 "responses": {
@@ -3205,9 +3467,7 @@
         },
         "/profile": {
             "get": {
-                "tags": [
-                    "Profile"
-                ],
+                "tags": ["Profile"],
                 "summary": "Get user profile",
                 "operationId": "8cfcc99d8d1aa366314cd8abf9cd9c9a",
                 "responses": {
@@ -3252,9 +3512,7 @@
                 ]
             },
             "delete": {
-                "tags": [
-                    "Profile"
-                ],
+                "tags": ["Profile"],
                 "summary": "Delete user account",
                 "operationId": "1d6a5c6489e35a763aa97ebef12863ce",
                 "requestBody": {
@@ -3322,9 +3580,7 @@
                 ]
             },
             "patch": {
-                "tags": [
-                    "Profile"
-                ],
+                "tags": ["Profile"],
                 "summary": "Update user profile",
                 "operationId": "354f5b23296bed4036564563e7423f43",
                 "requestBody": {
@@ -3397,9 +3653,7 @@
         },
         "/report-trackings": {
             "get": {
-                "tags": [
-                    "Report Trackings"
-                ],
+                "tags": ["Report Trackings"],
                 "summary": "Get tracking reports",
                 "operationId": "92d5572f3c2df8f810a727cbe9008ad1",
                 "parameters": [
@@ -3479,9 +3733,7 @@
         },
         "/report-trackings/download": {
             "get": {
-                "tags": [
-                    "Report Trackings"
-                ],
+                "tags": ["Report Trackings"],
                 "summary": "Download tracking report PDF",
                 "operationId": "b2bf52b6893d184a4bcc1edc1942e559",
                 "parameters": [
@@ -3527,9 +3779,7 @@
         },
         "/terms-and-conditions": {
             "get": {
-                "tags": [
-                    "Legal"
-                ],
+                "tags": ["Legal"],
                 "summary": "Get terms and conditions",
                 "operationId": "17cea4204fe6467ad6efddffafa6a7c9",
                 "responses": {
@@ -3574,9 +3824,7 @@
                     "errors": {
                         "type": "object",
                         "example": {
-                            "field_name": [
-                                "The field_name is required."
-                            ]
+                            "field_name": ["The field_name is required."]
                         },
                         "additionalProperties": {
                             "type": "array",
@@ -3648,13 +3896,7 @@
                 "type": "object"
             },
             "RegisterRequest": {
-                "required": [
-                    "name",
-                    "email",
-                    "password",
-                    "password_confirmation",
-                    "phone_number"
-                ],
+                "required": ["name", "email", "password", "password_confirmation", "phone_number"],
                 "properties": {
                     "name": {
                         "type": "string",
@@ -3685,11 +3927,7 @@
             "AssetRequest": {
                 "title": "Asset Request",
                 "description": "Asset request body data",
-                "required": [
-                    "detail",
-                    "goal",
-                    "type"
-                ],
+                "required": ["detail", "goal", "type"],
                 "properties": {
                     "detail": {
                         "description": "Detail Aset",
@@ -3710,10 +3948,7 @@
                 "type": "object"
             },
             "LoginRequest": {
-                "required": [
-                    "email",
-                    "password"
-                ],
+                "required": ["email", "password"],
                 "properties": {
                     "email": {
                         "type": "string",
@@ -3731,9 +3966,7 @@
             "BalanceRequest": {
                 "title": "Balance Request",
                 "description": "Balance request body data",
-                "required": [
-                    "amount"
-                ],
+                "required": ["amount"],
                 "properties": {
                     "amount": {
                         "type": "number"
@@ -3744,13 +3977,7 @@
             "BudgetRequest": {
                 "title": "Budget Request",
                 "description": "Budget request body data",
-                "required": [
-                    "detail",
-                    "nominal",
-                    "month",
-                    "year",
-                    "type"
-                ],
+                "required": ["detail", "nominal", "month", "year", "type"],
                 "properties": {
                     "detail": {
                         "type": "string"
@@ -3773,16 +4000,7 @@
             "ExpenseRequest": {
                 "title": "Expense Request",
                 "description": "Expense request body data",
-                "required": [
-                    "budget_id",
-                    "payment_id",
-                    "date",
-                    "description",
-                    "nominal",
-                    "type",
-                    "month",
-                    "year"
-                ],
+                "required": ["budget_id", "payment_id", "date", "description", "nominal", "type", "month", "year"],
                 "properties": {
                     "budget_id": {
                         "type": "string",
@@ -3829,12 +4047,7 @@
             "GoalRequest": {
                 "title": "Goal Request",
                 "description": "Goal request body data",
-                "required": [
-                    "name",
-                    "nominal",
-                    "monthly_saving",
-                    "deadline"
-                ],
+                "required": ["name", "nominal", "monthly_saving", "deadline"],
                 "properties": {
                     "name": {
                         "type": "string"
@@ -3858,13 +4071,7 @@
             "IncomeRequest": {
                 "title": "Income Request",
                 "description": "Income request body data",
-                "required": [
-                    "budget_id",
-                    "date",
-                    "nominal",
-                    "month",
-                    "year"
-                ],
+                "required": ["budget_id", "date", "nominal", "month", "year"],
                 "properties": {
                     "budget_id": {
                         "type": "string",
@@ -3892,11 +4099,7 @@
             "LiabilityRequest": {
                 "title": "Liability Request",
                 "description": "Liability request body data",
-                "required": [
-                    "detail",
-                    "goal",
-                    "type"
-                ],
+                "required": ["detail", "goal", "type"],
                 "properties": {
                     "detail": {
                         "type": "string"
@@ -3913,10 +4116,7 @@
             "NetWorthRequest": {
                 "title": "NetWorth Request",
                 "description": "NetWorth request body data",
-                "required": [
-                    "net_worth_goal",
-                    "transaction_per_month"
-                ],
+                "required": ["net_worth_goal", "transaction_per_month"],
                 "properties": {
                     "net_worth_goal": {
                         "type": "number"
@@ -3930,10 +4130,7 @@
             "PaymentRequest": {
                 "title": "Payment Request",
                 "description": "Payment request body data",
-                "required": [
-                    "name",
-                    "type"
-                ],
+                "required": ["name", "type"],
                 "properties": {
                     "name": {
                         "type": "string"
@@ -3951,10 +4148,7 @@
                 "type": "object"
             },
             "ProfileUpdateRequest": {
-                "required": [
-                    "name",
-                    "email"
-                ],
+                "required": ["name", "email"],
                 "properties": {
                     "name": {
                         "type": "string",
