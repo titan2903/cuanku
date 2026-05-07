@@ -263,7 +263,7 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 **Autentikasi:** Wajib
 
 #### Parameters (Query)
-| Nama | Tipe | Di | Wajib | Deskripsi |
+| Nama | Tipe | Lokasi | Wajib | Deskripsi |
 |---|---|---|---|---|
 | search | string | Query | Tidak | Pencarian berdasarkan detail |
 
@@ -352,7 +352,7 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 **Autentikasi:** Wajib
 
 #### Parameter (Path)
-| Nama | Tipe | Di | Wajib | Deskripsi |
+| Nama | Tipe | Lokasi | Wajib | Deskripsi |
 |---|---|---|---|---|
 | netWorth | string (uuid) | Path | Ya | ID dari Net Worth |
 
@@ -399,7 +399,7 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 **Autentikasi:** Wajib
 
 #### Parameter (Path)
-| Nama | Tipe | Di | Wajib | Deskripsi |
+| Nama | Tipe | Lokasi | Wajib | Deskripsi |
 |---|---|---|---|---|
 | netWorth | string (uuid) | Path | Ya | ID dari Net Worth |
 
@@ -462,7 +462,7 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 **Autentikasi:** Wajib
 
 #### Parameter (Path)
-| Nama | Tipe | Di | Wajib | Deskripsi |
+| Nama | Tipe | Lokasi | Wajib | Deskripsi |
 |---|---|---|---|---|
 | netWorth | string (uuid) | Path | Ya | ID dari Net Worth |
 
@@ -505,7 +505,7 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 **Autentikasi:** Wajib
 
 #### Parameter (Path / Query)
-| Nama | Tipe | Di | Wajib | Deskripsi |
+| Nama | Tipe | Lokasi | Wajib | Deskripsi |
 |---|---|---|---|---|
 | netWorth | string (uuid) | Path | Ya | ID dari Net Worth |
 | search | string | Query | Tidak | Pencarian aset |
@@ -557,7 +557,7 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 **Autentikasi:** Wajib
 
 #### Parameters (Path)
-| Nama | Tipe | Di | Wajib | Deskripsi |
+| Nama | Tipe | Lokasi | Wajib | Deskripsi |
 |---|---|---|---|---|
 | netWorth | string (uuid) | Path | Ya | ID dari Net Worth |
 
@@ -621,7 +621,7 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 **Autentikasi:** Wajib
 
 #### Parameter (Path / Query)
-| Nama | Tipe | Di | Wajib | Deskripsi |
+| Nama | Tipe | Lokasi | Wajib | Deskripsi |
 |---|---|---|---|---|
 | netWorth | string (uuid) | Path | Ya | ID dari Net Worth |
 | search | string | Query | Tidak | Pencarian kewajiban |
@@ -673,7 +673,7 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 **Autentikasi:** Wajib
 
 #### Parameters (Path)
-| Nama | Tipe | Di | Wajib | Deskripsi |
+| Nama | Tipe | Lokasi | Wajib | Deskripsi |
 |---|---|---|---|---|
 | netWorth | string (uuid) | Path | Ya | ID dari Net Worth |
 
@@ -739,7 +739,7 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 **Autentikasi:** Wajib
 
 #### Parameters (Query)
-| Nama | Tipe | Di | Wajib | Deskripsi |
+| Nama | Tipe | Lokasi | Wajib | Deskripsi |
 |---|---|---|---|---|
 | search | string | Query | Tidak | Pencarian anggaran |
 | month | string | Query | Tidak | Filter bulan |
@@ -836,7 +836,7 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 **Autentikasi:** Wajib
 
 #### Parameter (Path)
-| Nama | Tipe | Di | Wajib | Deskripsi |
+| Nama | Tipe | Lokasi | Wajib | Deskripsi |
 |---|---|---|---|---|
 | budget | string (uuid) | Path | Ya | ID dari Anggaran |
 
@@ -891,7 +891,7 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 **Autentikasi:** Wajib
 
 #### Parameter (Path)
-| Nama | Tipe | Di | Wajib | Deskripsi |
+| Nama | Tipe | Lokasi | Wajib | Deskripsi |
 |---|---|---|---|---|
 | budget | string (uuid) | Path | Ya | ID dari Anggaran |
 
@@ -936,7 +936,7 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 **Autentikasi:** Wajib
 
 #### Parameters (Query)
-| Nama | Tipe | Di | Wajib | Deskripsi |
+| Nama | Tipe | Lokasi | Wajib | Deskripsi |
 |---|---|---|---|---|
 | search | string | Query | Tidak | Pencarian pemasukan |
 | month | string | Query | Tidak | Filter bulan |
@@ -1039,7 +1039,7 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 **Autentikasi:** Wajib
 
 #### Parameter (Path)
-| Nama | Tipe | Di | Wajib | Deskripsi |
+| Nama | Tipe | Lokasi | Wajib | Deskripsi |
 |---|---|---|---|---|
 | income | string (uuid) | Path | Ya | ID dari Pemasukan |
 
@@ -1094,7 +1094,7 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 **Autentikasi:** Wajib
 
 #### Parameter (Path)
-| Nama | Tipe | Di | Wajib | Deskripsi |
+| Nama | Tipe | Lokasi | Wajib | Deskripsi |
 |---|---|---|---|---|
 | income | string (uuid) | Path | Ya | ID dari Pemasukan |
 
@@ -1139,7 +1139,7 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 **Autentikasi:** Wajib
 
 #### Parameters (Query)
-| Nama | Tipe | Di | Wajib | Deskripsi |
+| Nama | Tipe | Lokasi | Wajib | Deskripsi |
 |---|---|---|---|---|
 | search | string | Query | Tidak | Pencarian pengeluaran |
 | month | string | Query | Tidak | Filter bulan |
@@ -1245,7 +1245,7 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 **Autentikasi:** Wajib
 
 #### Parameter (Path)
-| Nama | Tipe | Di | Wajib | Deskripsi |
+| Nama | Tipe | Lokasi | Wajib | Deskripsi |
 |---|---|---|---|---|
 | expense | string (uuid) | Path | Ya | ID dari Pengeluaran |
 
@@ -1300,7 +1300,7 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 **Autentikasi:** Wajib
 
 #### Parameter (Path)
-| Nama | Tipe | Di | Wajib | Deskripsi |
+| Nama | Tipe | Lokasi | Wajib | Deskripsi |
 |---|---|---|---|---|
 | expense | string (uuid) | Path | Ya | ID dari Pengeluaran |
 
@@ -1345,7 +1345,7 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 **Autentikasi:** Wajib
 
 #### Parameters (Query)
-| Nama | Tipe | Di | Wajib | Deskripsi |
+| Nama | Tipe | Lokasi | Wajib | Deskripsi |
 |---|---|---|---|---|
 | search | string | Query | Tidak | Pencarian goal |
 
@@ -1440,7 +1440,7 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 **Autentikasi:** Wajib
 
 #### Parameter (Path)
-| Nama | Tipe | Di | Wajib | Deskripsi |
+| Nama | Tipe | Lokasi | Wajib | Deskripsi |
 |---|---|---|---|---|
 | goal | string (uuid) | Path | Ya | ID dari Goal |
 
@@ -1495,7 +1495,7 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 **Autentikasi:** Wajib
 
 #### Parameter (Path)
-| Nama | Tipe | Di | Wajib | Deskripsi |
+| Nama | Tipe | Lokasi | Wajib | Deskripsi |
 |---|---|---|---|---|
 | goal | string (uuid) | Path | Ya | ID dari Goal |
 
@@ -1540,7 +1540,7 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 **Autentikasi:** Wajib
 
 #### Parameters (Query)
-| Nama | Tipe | Di | Wajib | Deskripsi |
+| Nama | Tipe | Lokasi | Wajib | Deskripsi |
 |---|---|---|---|---|
 | month | string | Query | Tidak | Filter bulan |
 | year | integer | Query | Tidak | Filter tahun |
@@ -1589,7 +1589,7 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 **Autentikasi:** Wajib
 
 #### Parameters (Query)
-| Nama | Tipe | Di | Wajib | Deskripsi |
+| Nama | Tipe | Lokasi | Wajib | Deskripsi |
 |---|---|---|---|---|
 | month | string | Query | Tidak | Filter bulan |
 | year | integer | Query | Tidak | Filter tahun |
@@ -1627,7 +1627,7 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 **Autentikasi:** Wajib
 
 #### Parameters (Query)
-| Nama | Tipe | Di | Wajib | Deskripsi |
+| Nama | Tipe | Lokasi | Wajib | Deskripsi |
 |---|---|---|---|---|
 | year | integer | Query | Tidak | Filter tahun |
 
@@ -1667,7 +1667,7 @@ Mekanisme autentikasi menggunakan Laravel Sanctum (Bearer Token). Untuk endpoint
 **Autentikasi:** Wajib
 
 #### Parameters (Query)
-| Nama | Tipe | Di | Wajib | Deskripsi |
+| Nama | Tipe | Lokasi | Wajib | Deskripsi |
 |---|---|---|---|---|
 | year | integer | Query | Tidak | Filter tahun |
 
